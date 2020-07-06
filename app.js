@@ -23,9 +23,12 @@ app.use(session({
 
 app.set('view engine', 'ejs');
 app.use("/assets", express.static(__dirname + "/assets"));
+
+// one page side
 app.use("/", require("./controllers/Client"));
 app.use("/client", require("./models/Mod_client"));
 
+// admin side
 app.use("/login", require("./controllers/admin/Login"));
 app.use("/Mlogin", require("./models/Mod_login"));
 
