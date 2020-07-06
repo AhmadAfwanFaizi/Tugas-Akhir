@@ -45,6 +45,45 @@
 </div>
 <!-- /.content-wrapper -->
 
+<!-- Modal Add -->
+<div class="modal fade" id="modal_lulus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="lulus_form" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" name="v_id" id="v_id" readonly>
+                        <input type="hidden" class="form-control" name="v_idMhs" id="v_idMhs" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-sm-5 col-form-label">Calon Mahasiswa</label>
+                        <input type="text" class="form-control" name="v_nama" id="v_nama" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Status</label>
+                        <input type="text" class="form-control" name="" id="" value="Diluluskan" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Nilai</label>
+                        <input type="text" class="form-control" name="v_nilai" id="v_nilai">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="add_button" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- jQuery -->
 <script src="assets/admin/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -100,9 +139,11 @@
                                 if (sa == 0) {
                                     return "Menunggu"
                                 } else if (sa == 1) {
-                                    return "Gagal"
-                                } else {
                                     return "Lulus"
+                                } else if (sa == 2) {
+                                    return "Diluluskan"
+                                } else {
+                                    return "Gagal"
                                 }
                             },
                             width: '200px'
@@ -113,8 +154,7 @@
                                 var but = '';
                                 if (data.status == 0) {
                                     but =
-                                        '<button type="button" class="btn btn-success" onclick="lulus(\'' +
-                                        id + '\', \'' + data.idCmhs + '\')">Lulus</button> | <button type="button" class="btn btn-danger" onclick="gagal(' +
+                                        '<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_lulus" onclick="getData(\'' + id + '\')">Lulus</button> | <button type="button" class="btn btn-danger" onclick="gagal(' +
                                         id + ')">Gagal</button>';
                                 } else {
                                     but = '';
@@ -133,34 +173,67 @@
         dataTables.init();
     });
 
-    function lulus(id, idMhs){
+    function getData(id){
         $.ajax({
-            type: "POST",
+            url: "/Mkeputusan/getData",
+            type: "post",
             dataType: "json",
-            url: "Mkeputusan/lulus",
-            data: {id: id, idMhs: idMhs},
+            data: {id: id},
             success: function(res) {
-                if (res.code === 200) {
-                    swal({
-                        title: "Success!",
-                        text: res.message,
-                        icon: "success",
-                        button: "Close!",
-                    }).then(function() {
-                        $('#datatables').DataTable()
-                                .ajax.reload();
-                    })
-                } else {
-                    swal({
-                        title: "Error!",
-                        text: res.message,
-                        icon: "error",
-                        button: "Close!",
-                    })
+                if (res.code == 200) {
+                    for (var i = 0, j = res.data.length; i < j; i++) {
+                        $("#v_id").val(res.data[i].idUjianH)
+                        $("#v_idMhs").val(res.data[i].idCmhs)
+                        $("#v_nama").val(res.data[i].namaLengkap)
+                        $("#v_nilai").val(res.data[i].nilai)
+                    }
                 }
             }
         })
     }
+
+    $(document).ready(function() {
+        $("#add_button").click(function() {
+            swal({
+                title: "Are you sure?",
+                text: "",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then(function(e) {
+                if (e) {
+                    $.ajax({
+                        url: "/Mkeputusan/lulus",
+                        type: "post",
+                        dataType: "json",
+                        data: $("#lulus_form").serialize(),
+                        success: function(res) {
+                            if (res.code == 200) {
+                                swal({
+                                    title: "Success!!",
+                                    text: res.message,
+                                    icon: "success",
+                                    button: "Close"
+                                }).then(function() {
+                                    $('#lulus_form')[0].reset();
+                                    $("#modal_lulus").modal('hide');
+                                    $('#datatables').DataTable()
+                                    .ajax.reload();
+                                })
+                            } else {
+                                swal({
+                                    title: "Error!!",
+                                    text: res.message,
+                                    icon: "error",
+                                    button: "Close"
+                                })
+                            }
+                        }
+                    })
+                }
+            })
+        })
+    })
 
     function gagal(id){
         swal({
@@ -174,7 +247,7 @@
                 $.ajax({
                     type: "POST",
                     dataType: "json",
-                    url: "Mkeputusan/gagal",
+                    url: "/Mkeputusan/gagal",
                     data: {id: id},
                     success: function(res) {
                         if (res.code == 200) {

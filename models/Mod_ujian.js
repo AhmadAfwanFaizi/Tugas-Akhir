@@ -139,7 +139,10 @@ router.post('/add1', (req, res) => {
                 var sqll = "update ujiand set ? where idUjianH = '" + key + "' and soalBagian = 1"
                 conn.query(sqll, data, (err) => {
                     if (err) {
-                        throw err;
+                        res.json({
+                            code: 500,
+                            message: "Failed update data ujian!!"
+                        });
                     } else {
                         res.json({
                             code: 200,
@@ -159,7 +162,10 @@ router.post('/add1', (req, res) => {
                 var sqlll = "insert into ujianh set ?"
                 conn.query(sqlll, dataa, (err, resss) => {
                     if (err) {
-                        throw err;
+                        res.json({
+                            code: 500,
+                            message: "Failed insert data ujian!!"
+                        });
                     } else {
                         var headId = resss.insertId
                         var dataaa = {
@@ -173,7 +179,10 @@ router.post('/add1', (req, res) => {
                         var sqllll = "insert into ujiand set ?"
                         conn.query(sqllll, dataaa, (err) => {
                             if (err) {
-                                throw err;
+                                res.json({
+                                    code: 500,
+                                    message: "Failed insert data ujian detail!!"
+                                });
                             } else {
                                 res.json({
                                     code: 200,
@@ -251,7 +260,10 @@ router.post('/add2', (req, res) => {
                         var sqqql = "update ujiand set ? where idUjianH = '" + idHead + "' and soalBagian = 2"
                         conn.query(sqqql, data, (err) => {
                             if (err) {
-                                throw err;
+                                res.json({
+                                    code: 500,
+                                    message: "Failed update data ujian!!"
+                                });
                             } else {
                                 res.json({
                                     code: 200,
@@ -271,7 +283,10 @@ router.post('/add2', (req, res) => {
                         var sqqqql = "insert into ujiand set ?"
                         conn.query(sqqqql, daata, (err) => {
                             if (err) {
-                                throw err
+                                res.json({
+                                    code: 500,
+                                    message: "Failed insert data ujian!!"
+                                });
                             } else {
                                 res.json({
                                     code: 200,
@@ -349,7 +364,10 @@ router.post('/add3', (req, res) => {
                         var sqqql = "update ujiand set ? where idUjianH = '" + idHead + "' and soalBagian = 3"
                         conn.query(sqqql, data, (err) => {
                             if (err) {
-                                throw err;
+                                res.json({
+                                    code: 500,
+                                    message: "Failed update data ujian!!"
+                                });
                             } else {
                                 res.json({
                                     code: 200,
@@ -369,7 +387,10 @@ router.post('/add3', (req, res) => {
                         var sqqqql = "insert into ujiand set ?"
                         conn.query(sqqqql, daata, (err) => {
                             if (err) {
-                                throw err
+                                res.json({
+                                    code: 500,
+                                    message: "Failed insert data ujian!!"
+                                });
                             } else {
                                 res.json({
                                     code: 200,
@@ -385,23 +406,130 @@ router.post('/add3', (req, res) => {
 })
 
 router.post('/done', (req, res) => {
+    var id = req.body.id
     var key = {
         idMahasiswa: req.body.id
     }
     var data = {
         status: 6
     }
-    var sql = "update c_mhs set ? where ?"
-    conn.query(sql, [data, key], (err, result) => {
+    var sq = "select idUjianH from ujianh where idCmhs = ?"
+    conn.query(sq, id, (err, ress) => {
+        if (err) {
+            throw err;
+        } else {
+            if (ress.length) {
+                var idHead = ''
+                ress.forEach(er => {
+                    idHead = er.idUjianH
+                })
+                var sqql = "select sum(nilai) as total from ujiand where idUjianh = ?"
+                conn.query(sqql, idHead, (err, resss) => {
+                    if (err) {
+                        throw err;
+                    } else {
+                        var hasil =''
+                        resss.forEach(ra => {
+                            hasil = ra.total / 3
+                        })
+                        if (hasil >= 60){
+                            var ssql = "update ujianh set nilai = '"+ hasil +"', status = 1 where idCmhs = '"+ id +"'"
+                            conn.query(ssql, (err) => {
+                                if (err) {
+                                    res.json({
+                                        code: 500,
+                                        message: "Failed update data ujian!!"
+                                    });
+                                } else {
+                                    var sssql = "update c_mhs set ? where ?"
+                                    conn.query(sssql, [data, key], (err) => {
+                                        if (err) {
+                                            res.json({
+                                                code: 500,
+                                                message: "Failed update data mahasiswa!!"
+                                            });
+                                        } else {
+                                            res.json({
+                                                code: 200,
+                                                message: "Data saved!!"
+                                            });
+                                        }
+                                    })
+                                }
+                            })
+                        } else {
+                            var sqqql = "update ujianh set nilai = '"+ hasil +"' where idCmhs = '"+ id +"'"
+                            conn.query(sqqql, (err) => {
+                                if (err) {
+                                    res.json({
+                                        code: 500,
+                                        message: "Failed update data ujian!!"
+                                    });
+                                } else {
+                                    var sqll = "update c_mhs set ? where ?"
+                                    conn.query(sqll, [data, key], (err) => {
+                                        if (err) {
+                                            res.json({
+                                                code: 500,
+                                                message: "Failed update data mahasiswa!!"
+                                            });
+                                        } else {
+                                            res.json({
+                                                code: 200,
+                                                message: "Data saved!!"
+                                            });
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    }
+                })
+            } else {
+                res.json({
+                    code: 500,
+                    message: "Please finish your examps before click done!!"
+                });
+            }
+        }
+    })
+})
+
+router.post('/getStatusUjian', (req, res) => {
+    var key = {
+        idCmhs: req.body.id
+    }
+    var data = "SELECT * from ujianh where ?"
+    conn.query(data, key, (err, result) => {
         if (err) {
             res.json({
                 code: 500,
-                message: "Internal system error!!"
+                data: null
             });
         } else {
             res.json({
                 code: 200,
-                message: "Data saved!!"
+                data: result
+            });
+        }
+    })
+})
+
+router.post('/getDataUjian', (req, res) => {
+    var key = {
+        idCmhs: req.body.id
+    }
+    var data = "SELECT b.namaLengkap, a.tanggal, a.nilai, a.status from ujianh as a join c_mhs as b on a.idCmhs=b.idMahasiswa where ?"
+    conn.query(data, key, (err, result) => {
+        if (err) {
+            res.json({
+                code: 500,
+                data: null
+            });
+        } else {
+            res.json({
+                code: 200,
+                data: result
             });
         }
     })

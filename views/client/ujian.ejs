@@ -72,9 +72,8 @@
                                         <tr>
                                             <!-- <th>#</th> -->
                                             <th>Nama Mahasiswa</th>
-                                            <th>Nama Penguji</th>
-                                            <th>Tanggal</th>
-                                            <th>Jam</th>
+                                            <th>Tanggal Ujian</th>
+                                            <th>Nilai</th>
                                             <th>status</th>
                                         </tr>
                                     </thead>
@@ -106,6 +105,93 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 <script>
+    var dataTable = {
+        init: function () {
+            $.ajax({
+                url: "/Mujian/getStatusUjian",
+                type: "post",
+                dataType: "json",
+                data: {id: "<%= idMhs %>"},
+                success: function(res) {
+                    if (res.code == 200) {
+                        var sts = ''
+                        res.data.forEach(rslt => {
+                            sts = rslt.status
+                        });
+                        if (sts >= 1) {
+                            $(document).ready(function() {
+                                $("#datatables").DataTable({
+                                    processing: true,
+                                    ajax: {
+                                        url: "/Mujian/getDataUjian",
+                                        type: "post",
+                                        dataType: "json",
+                                        data: {id: "<%= idMhs %>"}
+                                    },
+                                    columns: [
+                                        {
+                                            data: "namaLengkap"
+                                        },
+                                        {
+                                            data: "tanggal"
+                                        },
+                                        {
+                                            data: "nilai"
+                                        },
+                                        {
+                                            data: "status",
+                                            render: function(sts) {
+                                                if (sts == 3) {
+                                                    return "Tidak Lulus"
+                                                } else {
+                                                    return "Lulus"
+                                                }
+                                            }
+                                        },
+
+                                    ]
+                                })
+                            })
+                        } else {
+                            $(document).ready(function() {
+                                $("#datatables").DataTable({
+                                    processing: true,
+                                    ajax: {
+                                        url: "/Mujian/getDataUjian",
+                                        type: "post",
+                                        dataType: "json",
+                                        data: {id: "<%= idMhs %>"}
+                                    },
+                                    columns: [
+                                        {
+                                            data: "namaLengkap"
+                                        },
+                                        {
+                                            data: "tanggal"
+                                        },
+                                        {
+                                            data: "nilai",
+                                            render: function(nl) {
+                                                return "--"
+                                            }
+                                        },
+                                        {
+                                            data: "status",
+                                            render: function(sts) {
+                                                return "Menunggu"
+                                            }
+                                        },
+
+                                    ]
+                                })
+                            })
+                        }
+                    }
+                }
+            })
+        }
+    }
+
     var content = {
         init: function () {
             $(document).ready(function () {
@@ -119,7 +205,7 @@
                     success: function (res) {
                         if (res.code === 200) {
                             for (var i = 0, j = res.data.length; i < j; i++) {
-                                if (res.data[i].status === 6) {
+                                if (res.data[i].status >= 6) {
                                     $(".invoice").show()
                                 } else if (res.data[i].status === 5) {
                                     $(".card").show()
@@ -136,6 +222,7 @@
 
     jQuery(document).ready(function () {
         content.init();
+        dataTable.init();
     });
 
     $(document).ready(function () {

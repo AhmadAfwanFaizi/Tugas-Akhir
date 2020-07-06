@@ -50,10 +50,10 @@ app.use("/jadwal", require("./controllers/admin/Jadwal"));
 app.use("/Mjadwal", require("./models/Mod_jadwal"));
 
 app.use("/hasilUjian", require("./controllers/admin/HasilUjian"));
-// app.use("/MhasilUjian", require("./models/Mod_hasil_ujian"));
+app.use("/MhasilUjian", require("./models/Mod_hasil_ujian"));
 
 app.use("/keputusan", require("./controllers/admin/Keputusan"));
-// app.use("/Mkeputusan", require("./models/Mod_keputusan"));
+app.use("/Mkeputusan", require("./models/Mod_keputusan"));
 
 // mhs side
 app.use("/cpembayaran", require("./controllers/Pembayaran"));

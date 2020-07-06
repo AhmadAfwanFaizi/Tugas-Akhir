@@ -99,7 +99,7 @@
                         {
                             data: "total",
                             render: function (sts) {
-                                if (sts > 50) {
+                                if (sts >= 60) {
                                     return "Lulus"
                                 } else {
                                     return "Tidak Lulus"
@@ -117,17 +117,4 @@
         dataTables.init();
     });
 
-    function lulus(id) {
-        console.log(id)
-        swal({
-            title: "Success!",
-            text: '',
-            icon: "success",
-            button: "Close!",
-        })
-    }
-
-    function gagal(id) {
-        console.log(id)
-    }
 </script>
