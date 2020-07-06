@@ -1,0 +1,378 @@
+<!-- DataTables -->
+<link rel="stylesheet" type="text/css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1><%= title %></h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active"><%= title %></li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="callout callout-info">
+            <h5><i class="fas fa-info"></i> Note:</h5>
+            Status pembayaran akan berubah apabila data pembayaran valid dan sudah dikonfirmasi oleh admin.
+          </div>
+
+
+          <!-- Main content -->
+          <div class="invoice p-3 mb-3">
+            <!-- title row -->
+            <div class="row">
+              <div class="col-12">
+                <h4>
+                  <i class="fas fa-globe"></i> LP3I Cimone.
+                  <small class="float-right" id="tgl"></small>
+                </h4>
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- info row -->
+            <div class="row invoice-info">
+              <div class="col-sm-6 invoice-col">
+                From
+                <address>
+                  <strong>Admin, Cimone.</strong><br>
+                  Jl. Gatot Subroto KM. 2.5 No. 1-2, Cimone,<br>
+                  Karawaci, RT.002/RW.002, Kota Tangerang, Banten 15114<br>
+                  Phone: (021) 552 4175<br>
+                  Email: cimone@lp3i.ac.id
+                </address>
+              </div>
+              <!-- /.col -->
+              <div class="col-sm-6 invoice-col">
+                To
+                <address>
+                  <strong id="nam"></strong><br>
+                  <div id="alm"></div>
+                  <div id="telp"></div>
+                  <div id="emil"></div>
+                </address>
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+            <!-- Table row -->
+            <div class="row">
+              <div class="col-12 table-responsive">
+                <table class="table table-striped" id="datatables">
+                  <thead>
+                    <tr>
+                      <th>Nama</th>
+                      <th>Asal Sekolah</th>
+                      <th>Nama Orang Tua</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+              <!-- accepted payments column -->
+              <div class="col-6">
+                <p class="lead">Payment Methods:</p>
+                <img src="./assets/admin/dist/img/credit/visa.png" alt="Visa">
+                <img src="./assets/admin/dist/img/credit/mastercard.png" alt="Mastercard">
+                <img src="./assets/admin/dist/img/credit/american-express.png" alt="American Express">
+                <img src="./assets/admin/dist/img/credit/paypal2.png" alt="Paypal">
+
+                <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                  <p class="lead">Transfer Methods:</p>
+                  <img src="./assets/admin/dist/img/credit/bni.png" style="width: 75px; height: 50px;" alt="Visa"> <br>
+                  00-196-94-555 (a/n LP3I/LEMBAGA PENDIDIKAN DAN PENGEMBANGAN PROFESI INDONESIA) <br>
+                  <p></p>
+                  <img src="./assets/admin/dist/img/credit/btn.png" style="width: 90px; height: 50px;" alt="Visa"> <br>
+                  00165-0130-0000-23 (a/n LP3I CIMONE)
+                </p>
+              </div>
+              <!-- /.col -->
+              <div class="col-6">
+                <p class="lead" id="tanggal"></p>
+
+                <div class="table-responsive">
+                  <table class="table">
+                    <tr>
+                      <th style="width:50%">Subtotal:</th>
+                      <td>Rp. 350.000</td>
+                    </tr>
+                    <tr>
+                      <th>Tax (0%)</th>
+                      <td>Rp.-</td>
+                    </tr>
+                    <tr>
+                      <th>Shipping:</th>
+                      <td>Rp.-</td>
+                    </tr>
+                    <tr>
+                      <th>Total:</th>
+                      <td>Rp. 350.000</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+            <!-- this row will not appear when printing -->
+            <div class="row no-print">
+              <div class="col-12">
+                <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fas fa-print"></i>
+                  Print</a>
+                <button type="button" data-toggle="modal" data-target="#add_modal" id="add_payment"
+                  class="btn btn-success float-right"><i class="far fa-credit-card"></i> Add
+                  Payment
+                </button>
+                <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                  <i class="fas fa-download"></i> Generate PDF
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- /.invoice -->
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Modal Add -->
+<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="add_form" enctype="multipart/form-data">
+        <div class="modal-body">
+          <input type="text" class="form-control" name="v_mahasiswa" id="v_mahasiswa" value="<%= idMhs %>" hidden>
+          <div class="form-group">
+            <label for="inputPassword" class="col-sm-3 col-form-label">Nama</label>
+            <input type="text" class="form-control" name="v_nama" id="v_nama" value="<%= nama %>" readonly>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Jumlah</label>
+            <input type="text" class="form-control" name="v_jumlah" id="v_jumlah" value="Rp. 350.000" readonly>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Bukti</label>
+            <div class="fileupload-new thumbnail" style="width: 200px; height: 200px;">
+              <img src="./assets/admin/dist/img/AdminLTELogo.png" alt="" id="image" width="100%" height="100%">
+            </div>
+            <br>
+            <button class="btn btn-primary" type="button" onclick="document.getElementById('v_fileGbr').click()">
+              <span class="fileupload-new"><i class="fa fa-paperclip"></i> Select image</span>
+            </button><br>
+            <p></p>
+            <span class="label label-info">NOTE!</span>
+            <span>
+              MAX Size 2MB With Format JPG!
+            </span>
+            <p></p>
+            <input type="text" class="form-control" name="v_namaGbr" id="v_namaGbr" style="width: 240px;" readonly>
+            <input type="file" name="v_fileGbr" id="v_fileGbr"
+              onchange="document.getElementById('v_namaGbr').value = this.files[0].name" hidden>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" id="add_button" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- jQuery -->
+<script src="assets/admin/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="assets/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="assets/admin/dist/js/adminlte.js"></script>
+<!-- Sweet Alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>\
+<!-- DataTables -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script>
+  var dataTables = {
+    init: function () {
+      $(document).ready(function () {
+        $('#datatables').DataTable({
+          processing: true,
+          // "serverSide": true,
+          ajax: {
+            url: "/Mpembayaran/getMhsCl",
+            dataType: "json",
+            type: "POST",
+            data: {
+              id: "<%= idMhs %>"
+            }
+          },
+          columns: [
+            // {data: "idMahasiswa"},
+            {
+              data: "namaLengkap"
+            },
+            {
+              data: "namaSekolah"
+            },
+            {
+              data: "namaOrangTua"
+            },
+            {
+              data: "status",
+              render: function (st) {
+                if (st === 1) {
+                  return "Belum Dibayarkan"
+                } else if (st === 2) {
+                  return "Menunggu Konfirmasi"
+                } else {
+                  return "Lunas"
+                }
+              }
+            },
+          ]
+        });
+      });
+    }
+  }
+
+  jQuery(document).ready(function () {
+    dataTables.init();
+  });
+
+  $(document).ready(function () {
+    $.ajax({
+      url: "/Mpembayaran/getMhsCl",
+      dataType: "json",
+      type: "POST",
+      data: {
+        id: "<%= idMhs %>"
+      },
+      success: function (res) {
+        if (res.code === 200) {
+          for (var i = 0; i < res.data.length; i++) {
+            $("#nam").text(res.data[i].namaLengkap)
+            $("#alm").text(res.data[i].alamat)
+            $("#telp").text("Phone: " + res.data[i].telepon)
+            $("#emil").text("Email: " + res.data[i].email)
+            $("#tgl").text(new Date())
+            var a = new Date().getDate()
+            var b = new Date().getMonth() + 1
+            var c = new Date().getFullYear()
+            $("#tanggal").text("Amount Due " + a + "/" + b + "/" + c)
+            if (res.data[i].status === 1) {
+              $("#add_payment").prop("disabled", false)
+            } else {
+              $("#add_payment").prop("disabled", true)
+            }
+          };
+        } else {
+          console.log(res.data)
+        }
+      }
+    })
+  })
+
+  function liveP(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#image').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $('#v_fileGbr').change(function () {
+    liveP(this);
+  });
+
+  $(document).ready(function () {
+    $("#add_button").click(function () {
+      var type = "POST";
+      var url = "/Mpembayaran/saveImg";
+      var file = document.getElementById("v_fileGbr").files[0];
+      var data = new FormData();
+      data.append("v_fileGbr", file);
+      $.ajax({
+        type: type,
+        url: url,
+        contentType: false,
+        processData: false,
+        // dataType: "json",
+        data: data,
+        success: function (res) {
+          if (res.code === 200) {
+            $.ajax({
+              type: "post",
+              url: "/Mpembayaran/save",
+              data: $("#add_form").serialize(),
+              dataType: "json",
+              success: function (rs) {
+                if (rs.code === 200) {
+                  swal({
+                    title: "Success!",
+                    text: rs.message,
+                    icon: "success",
+                    button: "Close!",
+                  }).then(function () {
+                    $('#add_form')[0].reset();
+                    $("#add_modal").modal('hide');
+                    $('#datatables').DataTable()
+                      .ajax.reload();
+                    location.reload();
+                  })
+                } else {
+                  swal({
+                    title: "Server Error!",
+                    text: rs.message,
+                    icon: "error",
+                    button: "Close!",
+                  });
+                }
+              }
+            })
+          } else {
+            swal({
+              title: "Server Error!",
+              text: "Gagal menambahkan gambar!!",
+              icon: "error",
+              button: "Close!",
+            });
+          }
+        }
+      });
+    });
+  });
+</script>

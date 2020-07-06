@@ -1,0 +1,379 @@
+<!-- DataTables -->
+<link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1><%= title %></h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active"><%= title %></li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="callout callout-info" style="display: none;">
+                        <h5><i class="fas fa-info"></i> Note:</h5>
+                        Maaf, menu ujian belum tersedia, silahkan selesaikan jadwal interview dan tunggu konfirmasi dari
+                        admin.
+                    </div>
+
+                    <div class="card" style="display: none;">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item"><a class="nav-link active" href="#bagian1" data-toggle="tab">Bagian
+                                        1</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#bagian2" data-toggle="tab">Bagian
+                                        2</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#bagian3" data-toggle="tab">Bagian
+                                        3</a></li>
+                                &nbsp; &nbsp; <button type="button" class="btn btn-success"
+                                    onclick="done()">Selesai</button>
+                            </ul>
+                        </div><!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="bagian1">
+                                </div>
+                                <!-- /.tab-pane -->
+                                <div class="tab-pane" id="bagian2">
+                                </div>
+                                <!-- /.tab-pane -->
+
+                                <div class="tab-pane" id="bagian3">
+                                </div>
+                                <!-- /.tab-pane -->
+                            </div>
+                            <!-- /.tab-content -->
+                        </div><!-- /.card-body -->
+                    </div>
+                    <!-- /.nav-tabs-custom -->
+
+
+                    <div class="invoice p-3 mb-3" style="display: none;">
+                        <div class="row">
+                            <div class="col-12 table-responsive">
+                                <table class="table table-striped table-bordered" style="width:100%" id="datatables">
+                                    <thead>
+                                        <tr>
+                                            <!-- <th>#</th> -->
+                                            <th>Nama Mahasiswa</th>
+                                            <th>Nama Penguji</th>
+                                            <th>Tanggal</th>
+                                            <th>Jam</th>
+                                            <th>status</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- /.invoice -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- jQuery -->
+<script src="assets/admin/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="assets/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="assets/admin/dist/js/adminlte.js"></script>
+<!-- Sweet Alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>\
+<!-- DataTables -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    var content = {
+        init: function () {
+            $(document).ready(function () {
+                $.ajax({
+                    url: "/Mujian",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        id: "<%= idMhs %>"
+                    },
+                    success: function (res) {
+                        if (res.code === 200) {
+                            for (var i = 0, j = res.data.length; i < j; i++) {
+                                if (res.data[i].status === 6) {
+                                    $(".invoice").show()
+                                } else if (res.data[i].status === 5) {
+                                    $(".card").show()
+                                } else {
+                                    $(".callout").show()
+                                }
+                            }
+                        }
+                    }
+                })
+            })
+        }
+    }
+
+    jQuery(document).ready(function () {
+        content.init();
+    });
+
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Mujian/getSoal",
+            type: "post",
+            dataType: "json",
+            success: function (res) {
+                if (res.code === 200) {
+                    var no = 1;
+                    var bag1 = '';
+                    bag1 += '<form id="post1">'
+                    bag1 += '<input type="hidden" name="v_sess" value="<%= idMhs %>">'
+                    bag1 += '<input type="hidden" name="v_row" value="' + res.data.length + '">'
+                    for (var i = 0, j = res.data.length; i < j; i++) {
+                        bag1 += '<strong>Soal No ' + no++ +
+                            '</strong><div class="post"><input type="hidden" name="v_id[]" value="' +
+                            res.data[i].idSoalUjian + '"><p style="color: black;">' + res.data[i]
+                            .pertanyaan +
+                            '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban[' +
+                            res.data[i].idSoalUjian +
+                            ']" value="A"><label class="form-check-label">' +
+                            res.data[i].pgA +
+                            '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban[' +
+                            res.data[i].idSoalUjian +
+                            ']" value="B"><label class="form-check-label">' +
+                            res.data[i].pgB +
+                            '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban[' +
+                            res.data[i].idSoalUjian +
+                            ']" value="C"><label class="form-check-label">' +
+                            res.data[i].pgC +
+                            '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban[' +
+                            res.data[i].idSoalUjian +
+                            ']" value="D"><label class="form-check-label">' +
+                            res.data[i].pgD +
+                            '</label></div></div></div></div>';
+                    }
+                    bag1 +=
+                        '<br><button class="btn btn-success" type="button" onclick="add1()" style="float: right;">Simpan</button>'
+                    bag1 += '</form>'
+                    $("#bagian1").html(bag1);
+                    $.ajax({
+                        url: "/Mujian/getSoal2",
+                        type: 'post',
+                        dataType: "json",
+                        success: function (ress) {
+                            if (ress.code == 200) {
+                                var noo = 1;
+                                var bag2 = ''
+                                bag2 += '<form id="post2">'
+                                bag2 +=
+                                    '<input type="hidden" name="v_sess2" value="<%= idMhs %>">'
+                                bag2 += '<input type="hidden" name="v_row2" value="' +
+                                    ress.data.length + '">'
+                                for (var r = 0, e = ress.data.length; r < e; r++) {
+                                    bag2 += '<strong>Soal No ' + noo++ +
+                                        '</strong><div class="post"><input type="hidden" name="v_id2[]" value="' +
+                                        ress.data[r].idSoalUjian +
+                                        '"><p style="color: black;">' + ress.data[r]
+                                        .pertanyaan +
+                                        '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
+                                        ress.data[r].idSoalUjian +
+                                        ']" value="A"><label class="form-check-label">' +
+                                        ress.data[r].pgA +
+                                        '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
+                                        ress.data[r].idSoalUjian +
+                                        ']" value="B"><label class="form-check-label">' +
+                                        ress.data[r].pgB +
+                                        '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
+                                        ress.data[r].idSoalUjian +
+                                        ']" value="C"><label class="form-check-label">' +
+                                        ress.data[r].pgC +
+                                        '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
+                                        ress.data[r].idSoalUjian +
+                                        ']" value="D"><label class="form-check-label">' +
+                                        ress.data[r].pgD +
+                                        '</label></div></div></div></div>';
+                                }
+                                bag2 +=
+                                    '<br><button class="btn btn-success" type="button" onclick="add2()" style="float: right;">Simpan</button>'
+                                bag2 += '</form>'
+                                $("#bagian2").html(bag2);
+                                $.ajax({
+                                    url: "/Mujian/getSoal3",
+                                    type: "post",
+                                    dataType: "json",
+                                    success: function (resss) {
+                                        if (resss.code == 200) {
+                                            var nooo = 1;
+                                            var bag3 = '';
+                                            bag3 += '<form id="post3">'
+                                            bag3 +=
+                                                '<input type="hidden" name="v_sess3" value="<%= idMhs %>">'
+                                            bag3 +=
+                                                '<input type="hidden" name="v_row3" value="' +
+                                                resss.data.length + '">'
+                                            for (var f = 0, g = resss
+                                                    .data.length; f <
+                                                g; f++) {
+                                                bag3 += '<strong>Soal No ' +
+                                                    nooo++ +
+                                                    '</strong><div class="post"><input type="hidden" name="v_id3[]" value="' +
+                                                    resss.data[f]
+                                                    .idSoalUjian +
+                                                    '"><p style="color: black;">' +
+                                                    resss.data[f]
+                                                    .pertanyaan +
+                                                    '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
+                                                    resss.data[f]
+                                                    .idSoalUjian +
+                                                    ']" value="A"><label class="form-check-label">' +
+                                                    resss.data[f].pgA +
+                                                    '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
+                                                    resss.data[f]
+                                                    .idSoalUjian +
+                                                    ']" value="B"><label class="form-check-label">' +
+                                                    resss.data[f].pgB +
+                                                    '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
+                                                    resss.data[f]
+                                                    .idSoalUjian +
+                                                    ']" value="C"><label class="form-check-label">' +
+                                                    resss.data[f].pgC +
+                                                    '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
+                                                    resss.data[f]
+                                                    .idSoalUjian +
+                                                    ']" value="D"><label class="form-check-label">' +
+                                                    resss.data[f].pgD +
+                                                    '</label></div></div></div></div>';
+                                            }
+                                            bag3 +=
+                                                '<br><button class="btn btn-success" type="button" onclick="add3()" style="float: right;">Simpan</button>'
+                                            bag2 += '</form>'
+                                            $("#bagian3").html(bag3);
+                                        }
+                                    }
+                                })
+                            }
+                        }
+                    })
+                }
+            }
+        })
+    })
+
+    function add1() {
+        $.ajax({
+            url: "/Mujian/add1",
+            type: "post",
+            dataType: "json",
+            data: $("#post1").serialize(),
+            success: function (res) {
+                if (res.code === 200) {
+                    swal({
+                        title: "Success!",
+                        text: res.message,
+                        icon: "success",
+                        button: "Close!",
+                    })
+                }
+            }
+        })
+    }
+
+    function add2() {
+        $.ajax({
+            url: "/Mujian/add2",
+            type: "post",
+            dataType: "json",
+            data: $("#post2").serialize(),
+            success: function (res) {
+                if (res.code === 200) {
+                    swal({
+                        title: "Success!",
+                        text: res.message,
+                        icon: "success",
+                        button: "Close!",
+                    })
+                }
+            }
+        })
+    }
+
+    function add3() {
+        $.ajax({
+            url: "/Mujian/add3",
+            type: "post",
+            dataType: "json",
+            data: $("#post3").serialize(),
+            success: function (res) {
+                if (res.code === 200) {
+                    swal({
+                        title: "Success!",
+                        text: res.message,
+                        icon: "success",
+                        button: "Close!",
+                    })
+                }
+            }
+        })
+    }
+
+    function done() {
+        swal({
+            title: "Are you sure?",
+            text: "",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then(function (e) {
+            if (e) {
+                $.ajax({
+                    url: "/Mujian/done",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        id: "<%= idMhs %>"
+                    },
+                    success: function (res) {
+                        if (res.code == 200) {
+                            swal({
+                                title: "Success!",
+                                text: res.message,
+                                icon: "success",
+                                button: "Close!",
+                            }).then(function () {
+                                location.reload()
+                            })
+                        } else {
+                            swal({
+                                title: "Error!",
+                                text: res.message,
+                                icon: "error",
+                                button: "Close!",
+                            })
+                        }
+                    }
+                })
+            }
+        })
+    }
+</script>

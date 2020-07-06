@@ -1,0 +1,349 @@
+<!-- DataTables -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark"><%= title %></h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active"><%= title %></li>
+                    </ol>
+                </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="card" style="width: 98%; margin-left: 1%; margin-right: 1%;">
+        <div class="card-body">
+            <button style="margin-bottom: 20px; width: 150px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_modal"><span class="fa f-plus"> Tambah</span></button>
+            <br>
+            <table class="table table-striped table-bordered" style="width:100%" id="datatables">
+                <thead>
+                    <tr>
+                        <!-- <th>#</th> -->
+                        <th>Pertanyaan</th>
+                        <th>Bagian</th>
+                        <th>Jawaban</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Modal Add -->
+<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="add_form">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Bagian</label>
+                    <select type="text" class="form-control" name="v_bagian" id="v_bagian" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
+                        <option value="" hidden>--Pillih Bagian--</option>
+                        <option value="1">BAGIAN I. KEMAMPUAN ANALISA</option>
+                        <option value="2">BAGIAN II. KEMAMPUAN KUANTITATIF</option>
+                        <option value="3">BAGIAN III. BAHASA INGGRIS</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Pertanyaan</label>
+                    <textarea type="text" class="form-control" name="v_pertanyaan" id="v_pertanyaan" placeholder="Masukan pertanyaan..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan A</label>
+                    <input type="text" class="form-control" name="v_pga" id="v_pga" placeholder="Masukan Pilihan A..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan B</label>
+                    <input type="text" class="form-control" name="v_pgb" id="v_pgb" placeholder="Masukan Pilihan B..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan C</label>
+                    <input type="text" class="form-control" name="v_pgc" id="v_pgc" placeholder="Masukan Pilihan C..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan D</label>
+                    <input type="text" class="form-control" name="v_pgd" id="v_pgd" placeholder="Masukan Pilihan D..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Jawaban</label>
+                    <input type="text" class="form-control" name="v_jawaban" id="v_jawaban" placeholder="Masukan Jawaban..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')" onkeyup="this.value = this.value.toUpperCase();">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="add_button" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+
+  <!-- Modal Edit -->
+<div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="edit_form">
+            <div class="modal-body">
+                <input type="hidden" class="form-control" name="ve_id" id="ve_id">
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Bagian</label>
+                    <select type="text" class="form-control" name="ve_bagian" id="ve_bagian" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
+                        <option value="" hidden>--Pillih Bagian--</option>
+                        <option value="1">BAGIAN I. KEMAMPUAN ANALISA</option>
+                        <option value="2">BAGIAN II. KEMAMPUAN KUANTITATIF</option>
+                        <option value="3">BAGIAN III. BAHASA INGGRIS</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Pertanyaan</label>
+                    <textarea type="text" class="form-control" name="ve_pertanyaan" id="ve_pertanyaan" placeholder="Masukan pertanyaan..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan A</label>
+                    <input type="text" class="form-control" name="ve_pga" id="ve_pga" placeholder="Masukan Pilihan A..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan B</label>
+                    <input type="text" class="form-control" name="ve_pgb" id="ve_pgb" placeholder="Masukan Pilihan B..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan C</label>
+                    <input type="text" class="form-control" name="ve_pgc" id="ve_pgc" placeholder="Masukan Pilihan C..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan D</label>
+                    <input type="text" class="form-control" name="ve_pgd" id="ve_pgd" placeholder="Masukan Pilihan D..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Jawaban</label>
+                    <input type="text" class="form-control" name="ve_jawaban" id="ve_jawaban" placeholder="Masukan Jawaban..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')" onkeyup="this.value = this.value.toUpperCase();">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="edit_button" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="assets/admin/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="assets/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="assets/admin/dist/js/adminlte.js"></script>
+<!-- Sweet Alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>\
+<!-- DataTables -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+var dataTables = {
+    init: function() {
+        $(document).ready(function() {
+            $('#datatables').DataTable({
+                processing: true,
+                // "serverSide": true,
+                ajax: {
+                    url: "/MsoalUjian",
+                    dataType: "json",
+                    type: "POST"
+                },
+                columns: [
+                    // {data: "idMahasiswa"},
+                    {data: "pertanyaan", width: '200px'},
+                    {data: "bagian", width: '100px'},
+                    {data: "jawaban", width: '100px'},
+                    {data: "idSoalUjian", render: function (id) {
+                        var but = '<button type="button" class="btn btn-success" data-toggle="modal" data-target="#edit_modal" onclick="edit('+ id +')">Edit</button> <button type="button" class="btn btn-danger" onclick="delte('+ id +')">Delete</button>';
+                        return but; 
+                    },
+                    width: '115px'},
+                ]
+            });
+        });
+    }
+}
+
+jQuery(document).ready(function() {
+    dataTables.init();
+});
+
+$(document).ready(function() {
+    $("#add_button").click(function() {
+        var type = "POST";
+        var url  = "/MsoalUjian/save";
+        var data = $("#add_form").serialize();
+        $.ajax({
+            type: type,
+            url: url,
+            dataType: "json",
+            data: data,
+            success: function(res) {
+                if(res.code === 200 ) {
+                    swal({
+                        title: "Success!",
+                        text: res.message,
+                        icon: "success",
+                        button: "Close!",
+                    }).then(function() {
+                        $('#add_form')[0].reset();
+                        $("#add_modal").modal('hide');
+                        $('#datatables').DataTable().ajax.reload();
+                    })
+                } else {
+                    swal({
+                        title: "Server Error!",
+                        text: res.message,
+                        icon: "error",
+                        button: "Close!",
+                    });
+                }
+            }
+        });
+    });
+});
+
+$(document).ready(function() {
+    $("#edit_button").click(function() {
+        var type = "POST";
+        var url  = "/MsoalUjian/update";
+        var data = $("#edit_form").serialize();
+        $.ajax({
+            type: type,
+            url: url,
+            dataType: "json",
+            data: data,
+            success: function(res) {
+                if(res.code === 200 ) {
+                    swal({
+                        title: "Success!",
+                        text: res.message,
+                        icon: "success",
+                        button: "Close!",
+                    }).then(function() {
+                        $('#edit_form')[0].reset();
+                        $("#edit_modal").modal('hide');
+                        $('#datatables').DataTable().ajax.reload();
+                    })
+                } else {
+                    swal({
+                        title: "Server Error!",
+                        text: res.message,
+                        icon: "error",
+                        button: "Close!",
+                    });
+                }
+            }
+        });
+    });
+});
+
+function edit(id) {
+    var type = "POST";
+    var url  = "/MsoalUjian/edit";
+    var data = {id: id};
+    $.ajax({
+        type: type,
+        url: url,
+        dataType: "json",
+        data: data,
+        success: function(res) {
+            if (res.code === 200 ) {
+                for (var i = 0; i < res.data.length; i++) {
+                    $('#ve_id').val(res.data[i].idSoalUjian);
+                    $('#ve_bagian').val(res.data[i].bagian);
+                    $('#ve_pertanyaan').val(res.data[i].pertanyaan);
+                    $('#ve_pga').val(res.data[i].pgA);
+                    $('#ve_pgb').val(res.data[i].pgB);
+                    $('#ve_pgc').val(res.data[i].pgC);
+                    $('#ve_pgd').val(res.data[i].pgD);
+                    $('#ve_jawaban').val(res.data[i].jawaban);
+                }
+            } else {
+                console.log(res.data)
+            }
+        }
+    })
+}
+
+function delte(id) {
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then(function(e) {
+        if(e) {
+            var type = "POST";
+            var url  = "/MsoalUjian/delete";
+            var data = {id: id};
+            $.ajax({
+                type: type,
+                url: url,
+                data: data,
+                success: function(res) {
+                    if (res.code == 200 ) {
+                        swal({
+                            title: "Success!",
+                            text: res.message,
+                            icon: "success",
+                            button: "Close!",
+                        }).then(function() {
+                            $('#datatables').DataTable().ajax.reload();
+                        });
+                    } else {
+                        swal({
+                            title: "Server Error!",
+                            text: res.message,
+                            icon: "error",
+                            button: "Close!",
+                        });
+                    }
+                }
+            })
+        } else {
+            swal({
+                title: "Success!",
+                text: "Data Gagal Dihapus!",
+                icon: "success",
+                button: "Close!",
+            });
+        }
+    })
+}
+
+</script>

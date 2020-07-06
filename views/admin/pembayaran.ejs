@@ -1,0 +1,391 @@
+<!-- DataTables -->
+<link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark"><%= title %></h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active"><%= title %></li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="card" style="width: 98%; margin-left: 1%; margin-right: 1%;">
+        <div class="card-body">
+            <button style="margin-bottom: 20px; width: 150px;" type="button" class="btn btn-primary" data-toggle="modal"
+                data-target="#add_modal" onclick="getMhs()"><span class="fa f-plus"> Tambah</span></button>
+            <br>
+            <table class="table table-striped table-bordered" style="width:100%" id="datatables">
+                <thead>
+                    <tr>
+                        <!-- <th>#</th> -->
+                        <th>Bukti</th>
+                        <th>Nama</th>
+                        <th>Jumlah</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Modal Add -->
+<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="add_form" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Calon Mahasiswa</label>
+                        <select class="form-control" name="v_mahasiswa" id="v_mahasiswa">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Jumlah</label>
+                        <input type="text" class="form-control" name="v_jumlah" id="v_jumlah" value="Rp. 350.000"
+                            readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Bukti</label>
+                        <div class="fileupload-new thumbnail" style="width: 200px; height: 200px;">
+                            <img src="./assets/admin/dist/img/AdminLTELogo.png" alt="" id="image" width="100%"
+                                height="100%">
+                        </div>
+                        <br>
+                        <button class="btn btn-primary" type="button"
+                            onclick="document.getElementById('v_fileGbr').click()">
+                            <span class="fileupload-new"><i class="fa fa-paperclip"></i> Select image</span>
+                        </button><br>
+                        <p></p>
+                        <span class="label label-info">NOTE!</span>
+                        <span>
+                            MAX Size 2MB With Format JPG!
+                        </span>
+                        <p></p>
+                        <input type="text" class="form-control" name="v_namaGbr" id="v_namaGbr" style="width: 240px;"
+                            readonly>
+                        <input type="file" name="v_fileGbr" id="v_fileGbr"
+                            onchange="document.getElementById('v_namaGbr').value = this.files[0].name" hidden>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="add_button" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Zoom -->
+<div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="edit_form">
+                <div class="modal-body">
+                    <center>
+                        <img height="100%" width="100%" data-toggle="modal" data-target="#edit_modal" id="bukti" />
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="assets/admin/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="assets/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="assets/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="assets/admin/dist/js/adminlte.js"></script>
+<!-- Sweet Alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>\
+<!-- DataTables -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    var dataTables = {
+        init: function () {
+            $(document).ready(function () {
+                $('#datatables').DataTable({
+                    processing: true,
+                    // "serverSide": true,
+                    ajax: {
+                        url: "/Mpembayaran",
+                        dataType: "json",
+                        type: "POST"
+                    },
+                    columns: [
+                        // {data: "idMahasiswa"},
+                        {
+                            data: "bukti",
+                            render: function (e) {
+                                var img =
+                                    '<img height="75%" width="75%" data-toggle="modal" data-target="#edit_modal" onclick="zoom(\'' +
+                                    e +
+                                    '\')" src="./assets/admin/dist/img/uploads/buktipembayaran/' +
+                                    e + '"/>';
+                                return img
+                            },
+                            width: '200px'
+                        },
+                        {
+                            data: "namaLengkap"
+                        },
+                        {
+                            data: "jumlah",
+                            width: '100px'
+                        },
+                        {
+                            data: "status",
+                            render: function (sts) {
+                                if (sts == 2) {
+                                    return 'Menunggu Konfirmasi!'
+                                } else {
+                                    return "Telah Di Konfirmasi"
+                                }
+                            },
+                            width: '200px'
+                        },
+                        {
+                            data: "idPembayaran",
+                            render: function (id, display, data) {
+                                var but = '';
+                                if (data.status == 2) {
+                                    but =
+                                        '<button type="button" class="btn btn-success" onclick="confirm(\'' +
+                                        data.idMahasiswa +
+                                        '\')">Confirm</button> <button type="button" class="btn btn-danger" onclick="decline(\'' +
+                                        id + '\',\'' + data.idMahasiswa +
+                                        '\')">Decline</button>';
+                                } else {
+                                    but = '';
+                                }
+                                return but;
+                            },
+                            width: '150px'
+                        },
+                    ]
+                });
+            });
+        }
+    }
+
+    jQuery(document).ready(function () {
+        dataTables.init();
+    });
+
+    function getMhs() {
+        var type = "POST";
+        var url = "/Mpembayaran/getMhs";
+        $.ajax({
+            type: type,
+            url: url,
+            dataType: "json",
+            success: function (res) {
+                if (res.code === 200) {
+                    var opt = '';
+                    opt += '<option value="" hidden>--Pilih Mahasiswa--</option>';
+                    for (var i = 0; i < res.data.length; i++) {
+                        opt += '<option value="' + res.data[i].idMahasiswa + '">' + res.data[i]
+                            .namaLengkap + '</option>';
+                    }
+                    $("#v_mahasiswa").html(opt);
+                }
+            }
+        })
+    }
+
+    function liveP(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#image').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $('#v_fileGbr').change(function () {
+        liveP(this);
+    });
+
+    function zoom(e) {
+        var data = "./assets/admin/dist/img/uploads/buktipembayaran/" + e
+        $("#bukti").attr("src", data)
+    }
+
+    function confirm(id) {
+        swal({
+            title: "Are you sure?",
+            text: "",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then(function (e) {
+            if (e) {
+                $.ajax({
+                    type: "post",
+                    url: "/Mpembayaran/confirm",
+                    data: {
+                        id: id
+                    },
+                    dataType: "json",
+                    success: function (res) {
+                        if (res.code === 200) {
+                            swal({
+                                title: "Success!",
+                                text: res.message,
+                                icon: "success",
+                                button: "Close!",
+                            }).then(function () {
+                                $('#datatables').DataTable().ajax.reload();
+                            })
+                        } else {
+                            swal({
+                                title: "Server Error!",
+                                text: res.message,
+                                icon: "error",
+                                button: "Close!",
+                            });
+                        }
+                    }
+                })
+            }
+        })
+    }
+
+    function decline(id, idMahasiswa) {
+        swal({
+            title: "Are you sure?",
+            text: "",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then(function (e) {
+            if (e) {
+                $.ajax({
+                    type: "post",
+                    url: "/Mpembayaran/decline",
+                    data: {
+                        id: id,
+                        idMahasiswa: idMahasiswa
+                    },
+                    dataType: "json",
+                    success: function (res) {
+                        if (res.code === 200) {
+                            swal({
+                                title: "Success!",
+                                text: res.message,
+                                icon: "success",
+                                button: "Close!",
+                            }).then(function () {
+                                $('#datatables').DataTable().ajax.reload();
+                            })
+                        } else {
+                            swal({
+                                title: "Server Error!!",
+                                text: res.message,
+                                icon: "error",
+                                button: "Close!",
+                            })
+                        }
+                    }
+                })
+            }
+        })
+    }
+
+    $(document).ready(function () {
+        $("#add_button").click(function () {
+            var type = "POST";
+            var url = "/Mpembayaran/saveImg";
+            var file = document.getElementById("v_fileGbr").files[0];
+            var data = new FormData();
+            data.append("v_fileGbr", file);
+            $.ajax({
+                type: type,
+                url: url,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                data: data,
+                success: function (res) {
+                    if (res.code === 200) {
+                        $.ajax({
+                            type: "post",
+                            url: "/Mpembayaran/save",
+                            data: $("#add_form").serialize(),
+                            dataType: "json",
+                            success: function (rs) {
+                                if (rs.code === 200) {
+                                    swal({
+                                        title: "Success!",
+                                        text: rs.message,
+                                        icon: "success",
+                                        button: "Close!",
+                                    }).then(function () {
+                                        $('#add_form')[0].reset();
+                                        $("#add_modal").modal('hide');
+                                        $('#datatables').DataTable()
+                                            .ajax.reload();
+                                    })
+                                } else {
+                                    swal({
+                                        title: "Server Error!",
+                                        text: rs.message,
+                                        icon: "error",
+                                        button: "Close!",
+                                    });
+                                }
+                            }
+                        })
+                    } else {
+                        swal({
+                            title: "Server Error!",
+                            text: "Gagal menambahkan gambar!!",
+                            icon: "error",
+                            button: "Close!",
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>
