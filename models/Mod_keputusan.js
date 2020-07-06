@@ -1,7 +1,6 @@
 const express = require('express')
 const session = require('express-session')
 const bodyParser = require('body-parser');
-const e = require('express');
 const router = express.Router()
 const conn = require("../config").pool;
 // const uuid = require('uuid')
