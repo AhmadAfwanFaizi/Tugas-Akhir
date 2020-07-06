@@ -62,4 +62,7 @@ app.use("/cjadwal", require("./controllers/Jadwal"));
 app.use("/ujian", require("./controllers/Ujian"));
 app.use("/Mujian", require("./models/Mod_ujian"));
 
+app.use("/test", require("./controllers/Test"));
+app.use("/Mtest", require("./models/Mod_test"));
+
 app.listen(port, () => console.log(`System listening at http://localhost:${port}`))
