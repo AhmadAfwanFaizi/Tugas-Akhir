@@ -225,166 +225,165 @@
         // dataTable.init();
     });
 
-    // $(document).ready(function () {
-    //     $.ajax({
-    //         url: "/Mujian/getSoal",
-    //         type: "post",
-    //         dataType: "json",
-    //         success: function (res) {
-    //             if (res.code === 200) {
-    //                 var no = 1;
-    //                 var bag1 = '';
-    //                 bag1 += '<form id="post1">'
-    //                 bag1 += '<input type="hidden" name="v_sess" value="<%= idMhs %>">'
-    //                 bag1 += '<input type="hidden" name="v_row" value="' + res.data.length + '">'
-    //                 for (var i = 0, j = res.data.length; i < j; i++) {
-    //                     bag1 += '<strong>Soal No ' + no++ +
-    //                         '</strong><div class="post"><input type="hidden" name="v_id[]" value="' +
-    //                         res.data[i].idSoalUjian + '"><p style="color: black;">' + res.data[i]
-    //                         .pertanyaan +
-    //                         '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban[' +
-    //                         res.data[i].idSoalUjian +
-    //                         ']" value="A"><label class="form-check-label">' +
-    //                         res.data[i].pgA +
-    //                         '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban[' +
-    //                         res.data[i].idSoalUjian +
-    //                         ']" value="B"><label class="form-check-label">' +
-    //                         res.data[i].pgB +
-    //                         '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban[' +
-    //                         res.data[i].idSoalUjian +
-    //                         ']" value="C"><label class="form-check-label">' +
-    //                         res.data[i].pgC +
-    //                         '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban[' +
-    //                         res.data[i].idSoalUjian +
-    //                         ']" value="D"><label class="form-check-label">' +
-    //                         res.data[i].pgD +
-    //                         '</label></div></div></div></div>';
-    //                 }
-    //                 bag1 +=
-    //                     '<br><button class="btn btn-success" type="button" onclick="add1()" style="float: right;">Simpan</button>'
-    //                 bag1 += '</form>'
-    //                 $("#bagian1").html(bag1);
-    //                 $.ajax({
-    //                     url: "/Mujian/getSoal2",
-    //                     type: 'post',
-    //                     dataType: "json",
-    //                     success: function (ress) {
-    //                         if (ress.code == 200) {
-    //                             var noo = 1;
-    //                             var bag2 = ''
-    //                             bag2 += '<form id="post2">'
-    //                             bag2 +=
-    //                                 '<input type="hidden" name="v_sess2" value="<%= idMhs %>">'
-    //                             bag2 += '<input type="hidden" name="v_row2" value="' +
-    //                                 ress.data.length + '">'
-    //                             for (var r = 0, e = ress.data.length; r < e; r++) {
-    //                                 bag2 += '<strong>Soal No ' + noo++ +
-    //                                     '</strong><div class="post"><input type="hidden" name="v_id2[]" value="' +
-    //                                     ress.data[r].idSoalUjian +
-    //                                     '"><p style="color: black;">' + ress.data[r]
-    //                                     .pertanyaan +
-    //                                     '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
-    //                                     ress.data[r].idSoalUjian +
-    //                                     ']" value="A"><label class="form-check-label">' +
-    //                                     ress.data[r].pgA +
-    //                                     '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
-    //                                     ress.data[r].idSoalUjian +
-    //                                     ']" value="B"><label class="form-check-label">' +
-    //                                     ress.data[r].pgB +
-    //                                     '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
-    //                                     ress.data[r].idSoalUjian +
-    //                                     ']" value="C"><label class="form-check-label">' +
-    //                                     ress.data[r].pgC +
-    //                                     '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
-    //                                     ress.data[r].idSoalUjian +
-    //                                     ']" value="D"><label class="form-check-label">' +
-    //                                     ress.data[r].pgD +
-    //                                     '</label></div></div></div></div>';
-    //                             }
-    //                             bag2 +=
-    //                                 '<br><button class="btn btn-success" type="button" onclick="add2()" style="float: right;">Simpan</button>'
-    //                             bag2 += '</form>'
-    //                             $("#bagian2").html(bag2);
-    //                             $.ajax({
-    //                                 url: "/Mujian/getSoal3",
-    //                                 type: "post",
-    //                                 dataType: "json",
-    //                                 success: function (resss) {
-    //                                     if (resss.code == 200) {
-    //                                         var nooo = 1;
-    //                                         var bag3 = '';
-    //                                         bag3 += '<form id="post3">'
-    //                                         bag3 +=
-    //                                             '<input type="hidden" name="v_sess3" value="<%= idMhs %>">'
-    //                                         bag3 +=
-    //                                             '<input type="hidden" name="v_row3" value="' +
-    //                                             resss.data.length + '">'
-    //                                         for (var f = 0, g = resss
-    //                                                 .data.length; f <
-    //                                             g; f++) {
-    //                                             bag3 += '<strong>Soal No ' +
-    //                                                 nooo++ +
-    //                                                 '</strong><div class="post"><input type="hidden" name="v_id3[]" value="' +
-    //                                                 resss.data[f]
-    //                                                 .idSoalUjian +
-    //                                                 '"><p style="color: black;">' +
-    //                                                 resss.data[f]
-    //                                                 .pertanyaan +
-    //                                                 '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
-    //                                                 resss.data[f]
-    //                                                 .idSoalUjian +
-    //                                                 ']" value="A"><label class="form-check-label">' +
-    //                                                 resss.data[f].pgA +
-    //                                                 '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
-    //                                                 resss.data[f]
-    //                                                 .idSoalUjian +
-    //                                                 ']" value="B"><label class="form-check-label">' +
-    //                                                 resss.data[f].pgB +
-    //                                                 '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
-    //                                                 resss.data[f]
-    //                                                 .idSoalUjian +
-    //                                                 ']" value="C"><label class="form-check-label">' +
-    //                                                 resss.data[f].pgC +
-    //                                                 '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
-    //                                                 resss.data[f]
-    //                                                 .idSoalUjian +
-    //                                                 ']" value="D"><label class="form-check-label">' +
-    //                                                 resss.data[f].pgD +
-    //                                                 '</label></div></div></div></div>';
-    //                                         }
-    //                                         bag3 +=
-    //                                             '<br><button class="btn btn-success" type="button" onclick="add3()" style="float: right;">Simpan</button>'
-    //                                         bag2 += '</form>'
-    //                                         $("#bagian3").html(bag3);
-    //                                     }
-    //                                 }
-    //                             })
-    //                         }
-    //                     }
-    //                 })
-    //             }
-    //         }
-    //     })
-    // })
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Mtest/getSoal",
+            type: "post",
+            dataType: "json",
+            success: function (res) {
+                if (res.code === 200) {
+                    var no = 1;
+                    var bag1 = '';
+                    bag1 += '<form id="post1">'
+                    bag1 += '<input type="hidden" name="v_sess" value="<%= idMhs %>">'
+                    bag1 += '<input type="hidden" name="v_row" value="' + res.data.length + '">'
+                    for (var i = 0, j = res.data.length; i < j; i++) {
+                        bag1 += '<strong>Soal No ' + no++ +
+                            '</strong><div class="post"><input type="hidden" name="v_id[]" value="' +
+                            res.data[i].idSoalTes + '"><p style="color: black;">' + res.data[i]
+                            .pertanyaan +
+                            '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban[' +
+                            res.data[i].idSoalTes +
+                            ']" value="A"><label class="form-check-label">Sangat Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban[' +
+                            res.data[i].idSoalTes +
+                            ']" value="B"><label class="form-check-label">Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban[' +
+                            res.data[i].idSoalTes +
+                            ']" value="C"><label class="form-check-label">Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban[' +
+                            res.data[i].idSoalTes +
+                            ']" value="D"><label class="form-check-label">Sangat Setuju</label></div></div></div></div>';
+                    }
+                    bag1 +=
+                        '<br><button class="btn btn-success" type="button" onclick="add1()" style="float: right;">Simpan</button>'
+                    bag1 += '</form>'
+                    $("#bagian1").html(bag1);
+                    // $.ajax({
+                    //     url: "/Mujian/getSoal2",
+                    //     type: 'post',
+                    //     dataType: "json",
+                    //     success: function (ress) {
+                    //         if (ress.code == 200) {
+                    //             var noo = 1;
+                    //             var bag2 = ''
+                    //             bag2 += '<form id="post2">'
+                    //             bag2 +=
+                    //                 '<input type="hidden" name="v_sess2" value="<%= idMhs %>">'
+                    //             bag2 += '<input type="hidden" name="v_row2" value="' +
+                    //                 ress.data.length + '">'
+                    //             for (var r = 0, e = ress.data.length; r < e; r++) {
+                    //                 bag2 += '<strong>Soal No ' + noo++ +
+                    //                     '</strong><div class="post"><input type="hidden" name="v_id2[]" value="' +
+                    //                     ress.data[r].idSoalUjian +
+                    //                     '"><p style="color: black;">' + ress.data[r]
+                    //                     .pertanyaan +
+                    //                     '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
+                    //                     ress.data[r].idSoalUjian +
+                    //                     ']" value="A"><label class="form-check-label">' +
+                    //                     ress.data[r].pgA +
+                    //                     '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
+                    //                     ress.data[r].idSoalUjian +
+                    //                     ']" value="B"><label class="form-check-label">' +
+                    //                     ress.data[r].pgB +
+                    //                     '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
+                    //                     ress.data[r].idSoalUjian +
+                    //                     ']" value="C"><label class="form-check-label">' +
+                    //                     ress.data[r].pgC +
+                    //                     '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
+                    //                     ress.data[r].idSoalUjian +
+                    //                     ']" value="D"><label class="form-check-label">' +
+                    //                     ress.data[r].pgD +
+                    //                     '</label></div></div></div></div>';
+                    //             }
+                    //             bag2 +=
+                    //                 '<br><button class="btn btn-success" type="button" onclick="add2()" style="float: right;">Simpan</button>'
+                    //             bag2 += '</form>'
+                    //             $("#bagian2").html(bag2);
+                    //             $.ajax({
+                    //                 url: "/Mujian/getSoal3",
+                    //                 type: "post",
+                    //                 dataType: "json",
+                    //                 success: function (resss) {
+                    //                     if (resss.code == 200) {
+                    //                         var nooo = 1;
+                    //                         var bag3 = '';
+                    //                         bag3 += '<form id="post3">'
+                    //                         bag3 +=
+                    //                             '<input type="hidden" name="v_sess3" value="<%= idMhs %>">'
+                    //                         bag3 +=
+                    //                             '<input type="hidden" name="v_row3" value="' +
+                    //                             resss.data.length + '">'
+                    //                         for (var f = 0, g = resss
+                    //                                 .data.length; f <
+                    //                             g; f++) {
+                    //                             bag3 += '<strong>Soal No ' +
+                    //                                 nooo++ +
+                    //                                 '</strong><div class="post"><input type="hidden" name="v_id3[]" value="' +
+                    //                                 resss.data[f]
+                    //                                 .idSoalUjian +
+                    //                                 '"><p style="color: black;">' +
+                    //                                 resss.data[f]
+                    //                                 .pertanyaan +
+                    //                                 '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
+                    //                                 resss.data[f]
+                    //                                 .idSoalUjian +
+                    //                                 ']" value="A"><label class="form-check-label">' +
+                    //                                 resss.data[f].pgA +
+                    //                                 '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
+                    //                                 resss.data[f]
+                    //                                 .idSoalUjian +
+                    //                                 ']" value="B"><label class="form-check-label">' +
+                    //                                 resss.data[f].pgB +
+                    //                                 '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
+                    //                                 resss.data[f]
+                    //                                 .idSoalUjian +
+                    //                                 ']" value="C"><label class="form-check-label">' +
+                    //                                 resss.data[f].pgC +
+                    //                                 '</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
+                    //                                 resss.data[f]
+                    //                                 .idSoalUjian +
+                    //                                 ']" value="D"><label class="form-check-label">' +
+                    //                                 resss.data[f].pgD +
+                    //                                 '</label></div></div></div></div>';
+                    //                         }
+                    //                         bag3 +=
+                    //                             '<br><button class="btn btn-success" type="button" onclick="add3()" style="float: right;">Simpan</button>'
+                    //                         bag2 += '</form>'
+                    //                         $("#bagian3").html(bag3);
+                    //                     }
+                    //                 }
+                    //             })
+                    //         }
+                    //     }
+                    // })
+                }
+            }
+        })
+    })
 
-    // function add1() {
-    //     $.ajax({
-    //         url: "/Mujian/add1",
-    //         type: "post",
-    //         dataType: "json",
-    //         data: $("#post1").serialize(),
-    //         success: function (res) {
-    //             if (res.code === 200) {
-    //                 swal({
-    //                     title: "Success!",
-    //                     text: res.message,
-    //                     icon: "success",
-    //                     button: "Close!",
-    //                 })
-    //             }
-    //         }
-    //     })
-    // }
+    function add1() {
+        $.ajax({
+            url: "/Mtest/add",
+            type: "post",
+            dataType: "json",
+            data: $("#post1").serialize(),
+            success: function (res) {
+                if (res.code === 200) {
+                    swal({
+                        title: "Success!",
+                        text: res.message,
+                        icon: "success",
+                        button: "Close!",
+                    })
+                }  else {
+                    swal({
+                        title: "Error!!",
+                        text: res.message,
+                        icon: "error",
+                        button: "Close!",
+                    })
+                }
+            }
+        })
+    }
 
     // function add2() {
     //     $.ajax({
