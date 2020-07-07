@@ -66,15 +66,13 @@ router.post('/add', (req, res) => {
         } else if (jwb == 'C') {
             pg3++
         } else {
-            pg6++
+            pg4++
         }
     }
     console.log("JAWABAN 1 = " + pg1)
     console.log("JAWABAN 2 = " + pg2)
     console.log("JAWABAN 3 = " + pg3)
     console.log("JAWABAN 4 = " + pg4)
-    console.log("JAWABAN 5 = " + pg5)
-    console.log("JAWABAN 6 = " + pg6)
     res.json({
         code: 200,
         message: "Succes insert data!!"
