@@ -32,12 +32,7 @@
                     <tr>
                         <!-- <th>#</th> -->
                         <th>Pertanyaan</th>
-                        <th>Pilihan 1</th>
-                        <th>Pilihan 2</th>
-                        <th>Pilihan 3</th>
-                        <th>Pilihan 4</th>
-                        <th>Pilihan 5</th>
-                        <th>Pilihan 6</th>
+                        <th>Bagian</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -65,28 +60,17 @@
                     <textarea type="text" class="form-control" name="v_pertanyaan" id="v_pertanyaan" placeholder="Masukan pertanyaan..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan 1</label>
-                    <input type="text" class="form-control" name="v_pg1" id="v_pg1" placeholder="Masukan Pilihan 1..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan 2</label>
-                    <input type="text" class="form-control" name="v_pg2" id="v_pg2" placeholder="Masukan Pilihan 2..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan 3</label>
-                    <input type="text" class="form-control" name="v_pg3" id="v_pg3" placeholder="Masukan Pilihan 3..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan 4</label>
-                    <input type="text" class="form-control" name="v_pg4" id="v_pg4" placeholder="Masukan Pilihan 4..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan 5</label>
-                    <input type="text" class="form-control" name="v_pg5" id="v_pg5" placeholder="Masukan Pilihan 5..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan 6</label>
-                    <input type="text" class="form-control" name="v_pg6" id="v_pg6" placeholder="Masukan Pilihan 6..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Bagian</label>
+                    <select type="text" class="form-control" name="v_bagian" id="v_bagian">
+                        <option value="" hidden>--Pilih Bagian--</option>
+                        <option value="Linguistik">Linguistik</option>
+                        <option value="Logis-Matematis">Logis-Matematis</option>
+                        <option value="Musikal">Musikal</option>
+                        <option value="Fisik-Kinestetik">Fisik-Kinestetik</option>
+                        <option value="Spasial-Visual">Spasial-Visual</option>
+                        <option value="Interpersonal">Interpersonal</option>
+                        <option value="Intrapersonal">Intrapersonal</option>
+                    </select>
                 </div>
             </div>
             <div class="modal-footer">
@@ -116,28 +100,17 @@
                     <textarea type="text" class="form-control" name="ve_pertanyaan" id="ve_pertanyaan" placeholder="Masukan pertanyaan..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan 1</label>
-                    <input type="text" class="form-control" name="ve_pg1" id="ve_pg1" placeholder="Masukan Pilihan 1..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan 2</label>
-                    <input type="text" class="form-control" name="ve_pg2" id="ve_pg2" placeholder="Masukan Pilihan 2..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan 3</label>
-                    <input type="text" class="form-control" name="ve_pg3" id="ve_pg3" placeholder="Masukan Pilihan 3..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan 4</label>
-                    <input type="text" class="form-control" name="ve_pg4" id="ve_pg4" placeholder="Masukan Pilihan 4..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan 5</label>
-                    <input type="text" class="form-control" name="ve_pg5" id="ve_pg5" placeholder="Masukan Pilihan 5..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Pilihan 6</label>
-                    <input type="text" class="form-control" name="ve_pg6" id="ve_pg6" placeholder="Masukan Pilihan 6..." required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Bagian</label>
+                    <select type="text" class="form-control" name="ve_bagian" id="ve_bagian">
+                        <option value="" hidden>--Pilih Bagian--</option>
+                        <option value="Linguistik">Linguistik</option>
+                        <option value="Logis-Matematis">Logis-Matematis</option>
+                        <option value="Musikal">Musikal</option>
+                        <option value="Fisik-Kinestetik">Fisik-Kinestetik</option>
+                        <option value="Spasial-Visual">Spasial-Visual</option>
+                        <option value="Interpersonal">Interpersonal</option>
+                        <option value="Intrapersonal">Intrapersonal</option>
+                    </select>
                 </div>
             </div>
             <div class="modal-footer">
@@ -177,12 +150,7 @@ var dataTables = {
                 columns: [
                     // {data: "idMahasiswa"},
                     {data: "pertanyaan", width: '200px'},
-                    {data: "pg1", width: '100px'},
-                    {data: "pg2", width: '100px'},
-                    {data: "pg3", width: '100px'},
-                    {data: "pg4", width: '100px'},
-                    {data: "pg5", width: '100px'},
-                    {data: "pg6", width: '100px'},
+                    {data: "bagian", width: '100px'},
                     {data: "idSoalTes", render: function (id) {
                         var but = '<button type="button" class="btn btn-success" data-toggle="modal" data-target="#edit_modal" onclick="edit('+ id +')">Edit</button> <button type="button" class="btn btn-danger" onclick="delte('+ id +')">Delete</button>';
                         return but; 
@@ -282,12 +250,7 @@ function edit(id) {
                 for (var i = 0; i < res.data.length; i++) {
                     $('#ve_id').val(res.data[i].idSoalTes);
                     $('#ve_pertanyaan').val(res.data[i].pertanyaan);
-                    $('#ve_pg1').val(res.data[i].pg1);
-                    $('#ve_pg2').val(res.data[i].pg2);
-                    $('#ve_pg3').val(res.data[i].pg3);
-                    $('#ve_pg4').val(res.data[i].pg4);
-                    $('#ve_pg5').val(res.data[i].pg5);
-                    $('#ve_pg6').val(res.data[i].pg6);
+                    $('#ve_bagian').val(res.data[i].bagian);
                 }
             } else {
                 console.log(res.data)

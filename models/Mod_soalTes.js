@@ -24,12 +24,7 @@ router.post('/', (req, res) => {
 router.post('/save', (req, res) => {
     var data = {
         pertanyaan: req.body.v_pertanyaan,
-        pg1: req.body.v_pg1,
-        pg2: req.body.v_pg2,
-        pg3: req.body.v_pg3,
-        pg4: req.body.v_pg4,
-        pg5: req.body.v_pg5,
-        pg6: req.body.v_pg6
+        bagian: req.body.v_bagian
     }
     var sql = "insert into soal_tes set ?"
     conn.query(sql, data, (err) => {
@@ -63,12 +58,7 @@ router.post('/update', (req, res) => {
     var key = {idSoalTes: req.body.ve_id};
     var data = {
         pertanyaan: req.body.ve_pertanyaan,
-        pg1: req.body.ve_pg1,
-        pg2: req.body.ve_pg2,
-        pg3: req.body.ve_pg3,
-        pg4: req.body.ve_pg4,
-        pg5: req.body.ve_pg5,
-        pg6: req.body.ve_pg6
+        bagian: req.body.ve_bagian
     }
     var sql = "UPDATE soal_tes set ? where ?";
     conn.query(sql, [data, key], (err) => {
