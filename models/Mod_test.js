@@ -1,6 +1,9 @@
 const express = require('express')
 const session = require('express-session')
 const bodyParser = require('body-parser');
+const {
+    setupMaster
+} = require('cluster');
 const router = express.Router()
 const conn = require("../config").pool;
 // const uuid = require('uuid')
@@ -69,10 +72,12 @@ router.post('/add', (req, res) => {
             pg4++
         }
     }
-    console.log("JAWABAN 1 = " + pg1)
-    console.log("JAWABAN 2 = " + pg2)
-    console.log("JAWABAN 3 = " + pg3)
-    console.log("JAWABAN 4 = " + pg4)
+    var gp1 = pg1 * 1
+    var gp2 = pg2 * 2
+    var gp3 = pg3 * 3
+    var gp4 = pg4 * 4
+    var hasil = gp1 + gp2 + gp3 + gp4
+    console.log("HASIL = " + hasil)
     res.json({
         code: 200,
         message: "Succes insert data!!"
