@@ -650,65 +650,115 @@ router.post('/add7', (req, res) => {
 })
 
 router.post('/done', (req, res) => {
-    var key = {
-        idCmhs: req.body.id
-    }
-    var sql = "select * from tes where ?"
+    var key = req.body.id
+    var sql = "select * from tes where idCmhs = ?"
     conn.query(sql, key, (err, result) => {
         if (err) {
             throw err;
         } else {
-            var array = []
-            // var Fisik_Kinesteti = ''
-            // var Interpersonal = ''
-            // var Intrapersonal = ''
-            // var Linguistik = ''
-            // var Logis_Matematis = ''
-            // var Musikal = ''
-            // var Spasial_Visual = ''
+            // var array = []
+            var Fisik_Kinesteti = ''
+            var Interpersonal = ''
+            var Intrapersonal = ''
+            var Linguistik = ''
+            var Logis_Matematis = ''
+            var Musikal = ''
+            var Spasial_Visual = ''
             result.forEach(acde => {
-                array = [
-                    {'Fisik_Kinesteti': acde.Fisik_Kinesteti},
-                    {'Interpersonal': acde.Interpersonal},
-                    {'Intrapersonal': acde.Intrapersonal},
-                    {'Linguistik': acde.Linguistik},
-                    {'Logis_Matematis': acde.Logis_Matematis},
-                    {'Musikal': acde.Musikal},
-                    {'Spasial_Visual': acde.Spasial_Visual}
-                ]
-                // Fisik_Kinesteti = acde.Fisik_Kinesteti
-                // Interpersonal = acde.Interpersonal
-                // Intrapersonal = acde.Intrapersonal
-                // Linguistik = acde.Linguistik
-                // Logis_Matematis = acde.Logis_Matematis
-                // Musikal = acde.Musikal
-                // Spasial_Visual = acde.Spasial_Visual
+                // array = [
+                //     {
+                //         'x': 'Fisik_Kinesteti', 
+                //         'y': acde.Fisik_Kinesteti
+                //     },
+                //     {
+                //         'x': 'Interpersonal', 
+                //         'y': acde.Interpersonal
+                //     },
+                //     {
+                //         'x': 'Intrapersonal', 
+                //         'y': acde.Intrapersonal
+                //     },
+                //     {
+                //         'x': 'Linguistik', 
+                //         'y': acde.Linguistik
+                //     },
+                //     {
+                //         'x': 'Logis_Matematis', 
+                //         'y': acde.Logis_Matematis
+                //     },
+                //     {
+                //         'x': 'Musikal', 
+                //         'y': acde.Musikal
+                //     },
+                //     {
+                //         'x': 'Spasial_Visual', 
+                //         'y': acde.Spasial_Visual
+                //     }
+                // ]
+                Fisik_Kinesteti = acde.Fisik_Kinesteti
+                Interpersonal = acde.Interpersonal
+                Intrapersonal = acde.Intrapersonal
+                Linguistik = acde.Linguistik
+                Logis_Matematis = acde.Logis_Matematis
+                Musikal = acde.Musikal
+                Spasial_Visual = acde.Spasial_Visual
             });
-            // console.log("Fisik_Kinesteti = " + Fisik_Kinesteti)
-            // console.log("Interpersonal = " + Interpersonal)
-            // console.log("Intrapersonal = " + Intrapersonal)
-            // console.log("Linguistik = " + Linguistik)
-            // console.log("Logis_Matematis = " + Logis_Matematis)
-            // console.log("Musikal = " + Musikal)
-            // console.log("Spasial_Visual = " + Spasial_Visual)
-            // console.log("----------------------")
-            // var jadi = array
-            // if (Fisik_Kinesteti > Interpersonal && Fisik_Kinesteti > Intrapersonal && Fisik_Kinesteti > Linguistik && Fisik_Kinesteti > Logis_Matematis && Fisik_Kinesteti > Musikal && Fisik_Kinesteti > Spasial_Visual) {
-            //     jadi = "Fisik_Kinesteti = " + Fisik_Kinesteti
-            // } else if (Interpersonal > Fisik_Kinesteti && Interpersonal > Intrapersonal && Interpersonal > Linguistik && Interpersonal > Logis_Matematis && Interpersonal > Musikal && Interpersonal > Spasial_Visual) {
-            //     jadi = "Interpersonal = " + Interpersonal
-            // } else if (Intrapersonal > Fisik_Kinesteti && Intrapersonal > Interpersonal && Intrapersonal > Linguistik && Intrapersonal > Logis_Matematis && Intrapersonal > Musikal && Intrapersonal > Spasial_Visual) {
-            //     jadi = "Intrapersonal = " + Intrapersonal
-            // } else if (Linguistik > Fisik_Kinesteti && Linguistik > Interpersonal && Linguistik > Intrapersonal && Linguistik > Logis_Matematis && Linguistik > Musikal && Linguistik > Spasial_Visual) {
-            //     jadi = "Linguistik = " + Linguistik
-            // } else if (Logis_Matematis > Fisik_Kinesteti && Logis_Matematis > Interpersonal && Logis_Matematis > Intrapersonal && Logis_Matematis > Linguistik && Logis_Matematis > Musikal && Logis_Matematis > Spasial_Visual) {
-            //     jadi = "Logis_Matematis = " + Logis_Matematis
-            // } else if (Musikal > Fisik_Kinesteti && Musikal > Interpersonal && Musikal > Intrapersonal && Musikal > Linguistik && Musikal > Logis_Matematis && Musikal > Spasial_Visual) {
-            //     jadi = "Musikal = " + Musikal
-            // } else if (Spasial_Visual > Fisik_Kinesteti && Spasial_Visual > Interpersonal && Spasial_Visual > Intrapersonal && Spasial_Visual > Linguistik && Spasial_Visual > Logis_Matematis && Spasial_Visual > Musikal) {
-            //     jadi = "Spasial_Visual = " + Spasial_Visual
-            // }
-            console.log(array)
+            var jadi = ''
+            if (Fisik_Kinesteti > Interpersonal && Fisik_Kinesteti > Intrapersonal && Fisik_Kinesteti > Linguistik && Fisik_Kinesteti > Logis_Matematis && Fisik_Kinesteti > Musikal && Fisik_Kinesteti > Spasial_Visual) {
+                jadi = "Fisik Kinesteti"
+            } else if (Interpersonal > Fisik_Kinesteti && Interpersonal > Intrapersonal && Interpersonal > Linguistik && Interpersonal > Logis_Matematis && Interpersonal > Musikal && Interpersonal > Spasial_Visual) {
+                jadi = "Interpersonal"
+            } else if (Intrapersonal > Fisik_Kinesteti && Intrapersonal > Interpersonal && Intrapersonal > Linguistik && Intrapersonal > Logis_Matematis && Intrapersonal > Musikal && Intrapersonal > Spasial_Visual) {
+                jadi = "Intrapersonal"
+            } else if (Linguistik > Fisik_Kinesteti && Linguistik > Interpersonal && Linguistik > Intrapersonal && Linguistik > Logis_Matematis && Linguistik > Musikal && Linguistik > Spasial_Visual) {
+                jadi = "Linguistik"
+            } else if (Logis_Matematis > Fisik_Kinesteti && Logis_Matematis > Interpersonal && Logis_Matematis > Intrapersonal && Logis_Matematis > Linguistik && Logis_Matematis > Musikal && Logis_Matematis > Spasial_Visual) {
+                jadi = "Logis Matematis"
+            } else if (Musikal > Fisik_Kinesteti && Musikal > Interpersonal && Musikal > Intrapersonal && Musikal > Linguistik && Musikal > Logis_Matematis && Musikal > Spasial_Visual) {
+                jadi = "Musikal"
+            } else if (Spasial_Visual > Fisik_Kinesteti && Spasial_Visual > Interpersonal && Spasial_Visual > Intrapersonal && Spasial_Visual > Linguistik && Spasial_Visual > Logis_Matematis && Spasial_Visual > Musikal) {
+                jadi = "Spasial Visual"
+            }
+            // var asdwe = Math.max.apply(Math, array.map(function(o) { return o.y; }))
+            var sqll = "update tes set hasil = '"+ jadi +"' where idCmhs = ?"
+            conn.query(sqll, key, (err) => {
+                if (err) {
+                    res.json({
+                        code: 500,
+                        message: "Failed insert data!!"
+                    })
+                } else {
+                    var sqql = "update c_mhs set status = 8 where idMahasiswa = ?"
+                    conn.query(sqql, key, (err) => {
+                        if (err) {
+                            res.json({
+                                code: 500,
+                                message: "Failed update data!!"
+                            })
+                        } else {
+                            res.json({
+                                code: 200,
+                                message: "Success update data!!"
+                            })
+                        }
+                    })
+                }
+            })
+        }
+    })
+})
+
+router.post('/getDataTest', (req, res) => {
+    var key = req.body.id
+    var sql = "select a.idTes, a.hasil, b.namaLengkap from tes as a join c_mhs as b on a.idCmhs=b.idMahasiswa where a.idCmhs = ?"
+    conn.query(sql, key, (err, result) => {
+        if (err) {
+            throw err;
+        } else {
+            res.json({
+                code: 200,
+                data: result
+            })
         }
     })
 })

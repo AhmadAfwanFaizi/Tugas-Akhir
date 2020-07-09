@@ -85,9 +85,8 @@
                                         <tr>
                                             <!-- <th>#</th> -->
                                             <th>Nama Mahasiswa</th>
-                                            <th>Tanggal Ujian</th>
-                                            <th>Nilai</th>
-                                            <th>status</th>
+                                            <th>Jenis Kecerdasan</th>
+                                            <th>Deskripsi</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -118,92 +117,49 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 <script>
-    // var dataTable = {
-    //     init: function () {
-    //         $.ajax({
-    //             url: "/Mujian/getStatusUjian",
-    //             type: "post",
-    //             dataType: "json",
-    //             data: {id: "<%= idMhs %>"},
-    //             success: function(res) {
-    //                 if (res.code == 200) {
-    //                     var sts = ''
-    //                     res.data.forEach(rslt => {
-    //                         sts = rslt.status
-    //                     });
-    //                     if (sts >= 1) {
-    //                         $(document).ready(function() {
-    //                             $("#datatables").DataTable({
-    //                                 processing: true,
-    //                                 ajax: {
-    //                                     url: "/Mujian/getDataUjian",
-    //                                     type: "post",
-    //                                     dataType: "json",
-    //                                     data: {id: "<%= idMhs %>"}
-    //                                 },
-    //                                 columns: [
-    //                                     {
-    //                                         data: "namaLengkap"
-    //                                     },
-    //                                     {
-    //                                         data: "tanggal"
-    //                                     },
-    //                                     {
-    //                                         data: "nilai"
-    //                                     },
-    //                                     {
-    //                                         data: "status",
-    //                                         render: function(sts) {
-    //                                             if (sts == 3) {
-    //                                                 return "Tidak Lulus"
-    //                                             } else {
-    //                                                 return "Lulus"
-    //                                             }
-    //                                         }
-    //                                     },
-
-    //                                 ]
-    //                             })
-    //                         })
-    //                     } else {
-    //                         $(document).ready(function() {
-    //                             $("#datatables").DataTable({
-    //                                 processing: true,
-    //                                 ajax: {
-    //                                     url: "/Mujian/getDataUjian",
-    //                                     type: "post",
-    //                                     dataType: "json",
-    //                                     data: {id: "<%= idMhs %>"}
-    //                                 },
-    //                                 columns: [
-    //                                     {
-    //                                         data: "namaLengkap"
-    //                                     },
-    //                                     {
-    //                                         data: "tanggal"
-    //                                     },
-    //                                     {
-    //                                         data: "nilai",
-    //                                         render: function(nl) {
-    //                                             return "--"
-    //                                         }
-    //                                     },
-    //                                     {
-    //                                         data: "status",
-    //                                         render: function(sts) {
-    //                                             return "Menunggu"
-    //                                         }
-    //                                     },
-
-    //                                 ]
-    //                             })
-    //                         })
-    //                     }
-    //                 }
-    //             }
-    //         })
-    //     }
-    // }
+    var dataTable = {
+        init: function () {
+            $(document).ready(function() {
+                $("#datatables").DataTable({
+                    processing: true,
+                    ajax: {
+                        url: "/Mtest/getDataTest",
+                        type: "post",
+                        dataType: "json",
+                        data: {id: "<%= idMhs %>"}
+                    },
+                    columns: [
+                        {
+                            data: "namaLengkap"
+                        },
+                        {
+                            data: "hasil"
+                        },
+                        {
+                            data: "idTes",
+                            render: function(id, display, row) {
+                                if (row.hasil == 'Fisik Kinesteti') {
+                                    return "TEKNIK ALAT BERAT, TEKNIK OTOMOTIF, TEKNIK ELEKTRONIKA, TEKNIK INDUSTRI, BUSINESS ADMINISTRATION, SECERTARY, OFFICE MANAGEMENT, TOUR & TRAVEL, HOTEL"
+                                } else if (row.hasil == 'Interpersonal') {
+                                    return "PUBLIC RELATIONS, MARKETING BUSINESS COMM, BUSINESS ADMINISTRATION, SECERTARY, OFFICE MANAGEMENT, TOUR & TRAVEL, HOTEL"
+                                } else if (row.hasil == 'Intrapersonal') {
+                                    return "PUBLIC RELATIONS, MARKETING BUSINESS COMM, BUSINESS ADMINISTRATION, SECERTARY, OFFICE MANAGEMENT, TOUR & TRAVEL, HOTEL"
+                                } else if (row.hasil == 'Linguistik') {
+                                    return "PUBLIC RELATIONS, MARKETING BUSINESS COMM, BUSINESS ADMINISTRATION, SECERTARY, OFFICE MANAGEMENT, TOUR & TRAVEL, HOTEL"
+                                } else if (row.hasil == 'Logis Matematis') {
+                                    return "COMPUTERIZED, ACCOUNTING, COMPUTER INFORMATICS, INFORMATION TECHNOLOGI, KOMPUTER ADMINISTRASI, TEKNIK SOFTWARE PROGRAMMING, TEKNIK ELEKTRONIKA, TEKNIK INDUSTRI, FINANCE SYARIAH BANKING, BUSINESS ADMINISTRATION, SECERTARY, OFFICE MANAGEMENT, TOUR & TRAVEL, HOTEL"
+                                } else if (row.hasil == 'Musikal') {
+                                    return "BUSINESS ADMINISTRATION, SECERTARY, OFFICE MANAGEMENT, TOUR & TRAVEL, HOTEL"
+                                } else {
+                                    return "COMPUTER DESIGN MULTIMEDIA, BUSINESS ADMINISTRATION, SECERTARY, OFFICE MANAGEMENT, TOUR & TRAVEL, HOTEL"
+                                }
+                            }
+                        }
+                    ]
+                })
+            })
+        }
+    }
 
     var content = {
         init: function () {
@@ -235,7 +191,7 @@
 
     jQuery(document).ready(function () {
         content.init();
-        // dataTable.init();
+        dataTable.init();
     });
 
     $(document).ready(function () {
