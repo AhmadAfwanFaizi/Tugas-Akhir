@@ -68,4 +68,7 @@ app.use("/Mujian", require("./models/Mod_ujian"));
 app.use("/test", require("./controllers/Test"));
 app.use("/Mtest", require("./models/Mod_test"));
 
+// Pdfkit
+app.use("/pdf", require("./controllers/pdf/Pdf"));
+
 app.listen(port, () => console.log(`System listening at http://localhost:${port}`))
