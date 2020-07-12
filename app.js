@@ -71,4 +71,7 @@ app.use("/Mtest", require("./models/Mod_test"));
 // Pdfkit
 app.use("/pdf", require("./controllers/pdf/Pdf"));
 
+//report
+app.use("/laporan", require("./controllers/admin/Laporan"));
+
 app.listen(port, () => console.log(`System listening at http://localhost:${port}`))

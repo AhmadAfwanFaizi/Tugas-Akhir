@@ -102,7 +102,8 @@ router.post('/save', (req, res) => {
     var data = {
         idMahasiswa: req.body.v_mahasiswa,
         jumlah: 350000,
-        bukti: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate() + '-' + req.body.v_namaGbr
+        bukti: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate() + '-' + req.body.v_namaGbr,
+        tanggal: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate()
     }
     var sql = "insert into pembayaran set ?"
     conn.query(sql, data, (err) => {
@@ -112,8 +113,12 @@ router.post('/save', (req, res) => {
                 message: "Gagal menambahkan data!!"
             })
         } else {
-            var dat = {status: 2}
-            var key = {idMahasiswa: req.body.v_mahasiswa}
+            var dat = {
+                status: 2
+            }
+            var key = {
+                idMahasiswa: req.body.v_mahasiswa
+            }
             var sqll = "UPDATE c_mhs set ? where ?"
             conn.query(sqll, [dat, key], (err) => {
                 if (err) {
