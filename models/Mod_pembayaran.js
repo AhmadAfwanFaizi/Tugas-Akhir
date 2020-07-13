@@ -14,7 +14,8 @@ const storage = multer.diskStorage({
         cb(null, 'assets/admin/dist/img/uploads/buktipembayaran/')
     },
     filename: function (req, file, cb) {
-        cb(null, new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate() + '-' + file.originalname)
+        var month = new Date().getMonth() + 1
+        cb(null, new Date().getFullYear() + '-' + month + '-' + new Date().getDate() + '-' + file.originalname)
     }
 })
 
@@ -99,11 +100,12 @@ router.post('/saveImg', upload.single("v_fileGbr"), (req, res) => {
 });
 
 router.post('/save', (req, res) => {
+    var month = new Date().getMonth() + 1
     var data = {
         idMahasiswa: req.body.v_mahasiswa,
         jumlah: 350000,
-        bukti: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate() + '-' + req.body.v_namaGbr,
-        tanggal: new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate()
+        bukti: new Date().getFullYear() + '-' + month + '-' + new Date().getDate() + '-' + req.body.v_namaGbr,
+        tanggal: new Date().getFullYear() + '-' + month + '-' + new Date().getDate()
     }
     var sql = "insert into pembayaran set ?"
     conn.query(sql, data, (err) => {

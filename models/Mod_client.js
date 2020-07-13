@@ -19,6 +19,7 @@ router.use(bodyParser.urlencoded({
 // });
 
 router.post('/', (req, res) => {
+    var month = new Date().getMonth() + 1
     var data = {
         idMahasiswa: req.body.v_kode,
         namaLengkap: req.body.v_nama,
@@ -35,6 +36,7 @@ router.post('/', (req, res) => {
         namaOrangTua: req.body.v_namaortu,
         teleponOrangTua: req.body.v_teleponorangtua,
         pekerjaan: req.body.v_pekerjaan,
+        tanggal: new Date().getFullYear() + '-' + month + '-' + new Date().getDate(),
         status: 1
     }
     var pas = req.body.v_tgllahir
