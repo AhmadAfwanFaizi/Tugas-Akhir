@@ -200,8 +200,13 @@ router.post('/add', (req, res) => {
                     }
                 })
             } else {
+                var day = new Date().getDate()
+                var month = new Date().getMonth() + 1
+                var year = new Date().getFullYear()
+                var tgl = year + '-' + month + '-' + day
                 var data = {
                     idCmhs: sess,
+                    tanggal: tgl,
                     Fisik_Kinesteti: hasil
                 } 
                 var sqqll = "insert into tes set ?"
@@ -271,8 +276,13 @@ router.post('/add2', (req, res) => {
                     }
                 })
             } else {
+                var day = new Date().getDate()
+                var month = new Date().getMonth() + 1
+                var year = new Date().getFullYear()
+                var tgl = year + '-' + month + '-' + day
                 var data = {
                     idCmhs: sess,
+                    tanggal: tgl,
                     Interpersonal: hasil
                 } 
                 var sqqll = "insert into tes set ?"
@@ -342,8 +352,13 @@ router.post('/add3', (req, res) => {
                     }
                 })
             } else {
+                var day = new Date().getDate()
+                var month = new Date().getMonth() + 1
+                var year = new Date().getFullYear()
+                var tgl = year + '-' + month + '-' + day
                 var data = {
                     idCmhs: sess,
+                    tanggal: tgl,
                     Intrapersonal: hasil
                 } 
                 var sqqll = "insert into tes set ?"
@@ -413,8 +428,13 @@ router.post('/add4', (req, res) => {
                     }
                 })
             } else {
+                var day = new Date().getDate()
+                var month = new Date().getMonth() + 1
+                var year = new Date().getFullYear()
+                var tgl = year + '-' + month + '-' + day
                 var data = {
                     idCmhs: sess,
+                    tanggal: tgl,
                     Linguistik: hasil
                 } 
                 var sqqll = "insert into tes set ?"
@@ -484,8 +504,13 @@ router.post('/add5', (req, res) => {
                     }
                 })
             } else {
+                var day = new Date().getDate()
+                var month = new Date().getMonth() + 1
+                var year = new Date().getFullYear()
+                var tgl = year + '-' + month + '-' + day
                 var data = {
                     idCmhs: sess,
+                    tanggal: tgl,
                     Logis_Matematis: hasil
                 } 
                 var sqqll = "insert into tes set ?"
@@ -555,8 +580,13 @@ router.post('/add6', (req, res) => {
                     }
                 })
             } else {
+                var day = new Date().getDate()
+                var month = new Date().getMonth() + 1
+                var year = new Date().getFullYear()
+                var tgl = year + '-' + month + '-' + day
                 var data = {
                     idCmhs: sess,
+                    tanggal: tgl,
                     Musikal: hasil
                 } 
                 var sqqll = "insert into tes set ?"
@@ -626,8 +656,13 @@ router.post('/add7', (req, res) => {
                     }
                 })
             } else {
+                var day = new Date().getDate()
+                var month = new Date().getMonth() + 1
+                var year = new Date().getFullYear()
+                var tgl = year + '-' + month + '-' + day
                 var data = {
                     idCmhs: sess,
+                    tanggal: tgl,
                     Spasial_Visual: hasil
                 } 
                 var sqqll = "insert into tes set ?"

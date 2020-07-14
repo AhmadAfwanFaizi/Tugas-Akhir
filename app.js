@@ -55,6 +55,9 @@ app.use("/Mjadwal", require("./models/Mod_jadwal"));
 app.use("/hasilUjian", require("./controllers/admin/HasilUjian"));
 app.use("/MhasilUjian", require("./models/Mod_hasil_ujian"));
 
+app.use("/hasilTest", require("./controllers/admin/HasilTest"));
+app.use("/MhasilTest", require("./models/Mod_hasil_test"));
+
 app.use("/keputusan", require("./controllers/admin/Keputusan"));
 app.use("/Mkeputusan", require("./models/Mod_keputusan"));
 
@@ -74,5 +77,7 @@ app.use("/pdf", require("./controllers/pdf/Pdf"));
 //report
 app.use("/laporan", require("./controllers/admin/Laporan"));
 app.use("/Mlaporan", require("./controllers/admin/LaporanMahasiswa"));
+app.use("/Ulaporan", require("./controllers/admin/LaporanUjian"));
+app.use("/Tlaporan", require("./controllers/admin/LaporanTest"));
 
 app.listen(port, () => console.log(`System listening at http://localhost:${port}`))
