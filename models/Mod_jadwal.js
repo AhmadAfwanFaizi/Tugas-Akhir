@@ -11,7 +11,7 @@ router.use(bodyParser.urlencoded({
 }))
 
 router.post('/', (req, res) => {
-    var data = "SELECT * from jadwal as a join c_mhs as b on a.idMahasiswa=b.idMahasiswa join penguji as c on a.idPenguji=c.idPenguji order by b.status asc"
+    var data = "SELECT a.*, b.namaLengkap, c.namaPenguji from jadwal as a join c_mhs as b on a.idMahasiswa=b.idMahasiswa join penguji as c on a.idPenguji=c.idPenguji order by b.status asc"
     conn.query(data, (err, result) => {
         if (err) {
             res.json({

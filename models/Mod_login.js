@@ -31,6 +31,8 @@ router.post('/', (req, res) => {
                 req.session.nama  = row[0].nama;
                 req.session.idMhs = row[0].idMahasiswa;
                 req.session.level = row[0].level;
+                req.session.cookie.expires = false;
+                req.session.cookie.maxAge = 5 * 60 * 1000;
                 res.json({
                     code: 200,
                     message: "Selamat anda berhasil Masuk!",

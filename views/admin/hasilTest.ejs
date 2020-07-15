@@ -73,7 +73,16 @@
                             data: "namaLengkap"
                         },
                         {
-                            data: "tanggal"
+                            data: "tanggal",
+                            render: function(tg) {
+                                var date = new Date(tg);
+                                var yr  = date.getFullYear();
+                                var mt = date.getMonth() + 1
+                                var month   = mt < 10 ? '0' + mt : mt;
+                                var day     = date.getDate()  < 10 ? '0' + date.getDate()  : date.getDate();
+                                var newDate = day + '-' + month + '-' + yr;
+                                return newDate;
+                            }
                         },
                         {
                             data: "hasil"

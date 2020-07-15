@@ -99,7 +99,16 @@
                         },
                         {
                             data: "tanggal",
-                            width: '100px'
+                            width: '100px',
+                            render: function(tg) {
+                                var date = new Date(tg);
+                                var yr  = date.getFullYear();
+                                var mt = date.getMonth() + 1
+                                var month   = mt < 10 ? '0' + mt : mt;
+                                var day     = date.getDate()  < 10 ? '0' + date.getDate()  : date.getDate();
+                                var newDate = day + '-' + month + '-' + yr;
+                                return newDate;
+                            }
                         },
                         {
                             data: "jam"

@@ -11,7 +11,7 @@ router.use(bodyParser.urlencoded({
 }))
 
 router.post('/', (req, res) => {
-    var data = "select namaLengkap, tanggal, nilai, a.status, idUjianH from ujianh as a join c_mhs as b on a.idCmhs=b.idMahasiswa order by a.status desc"
+    var data = "select namaLengkap, a.tanggal, nilai, a.status, idUjianH from ujianh as a join c_mhs as b on a.idCmhs=b.idMahasiswa order by a.status desc"
     conn.query(data, (err, result) => {
         if (err) {
             throw err;
