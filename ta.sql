@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 06, 2020 at 11:44 AM
+-- Generation Time: Jul 15, 2020 at 11:21 AM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -45,6 +45,7 @@ CREATE TABLE `c_mhs` (
   `namaOrangTua` varchar(30) NOT NULL,
   `teleponOrangTua` varchar(15) NOT NULL,
   `pekerjaan` varchar(50) NOT NULL,
+  `tanggal` date NOT NULL,
   `status` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -52,18 +53,18 @@ CREATE TABLE `c_mhs` (
 -- Dumping data for table `c_mhs`
 --
 
-INSERT INTO `c_mhs` (`id`, `idMahasiswa`, `namaLengkap`, `jenisKelamin`, `agama`, `tempatLahir`, `tanggalLahir`, `alamat`, `telepon`, `email`, `pendidikanTerakhir`, `jurusan`, `namaSekolah`, `namaOrangTua`, `teleponOrangTua`, `pekerjaan`, `status`) VALUES
-(1, 'MHS001', 'Barley Indra Malik akbar', 'Laki-Laki', 'Islam', 'Baturaja', '1996-10-06', 'Jl. arwana 3 blok S no. 10 baturaja permai, ogan komering ulu, sumatera selatan', '081315127362', 'barley.barley@gmail.com', 'SMA/SMK', 'TKJ', 'SMK YADIKA Baturaja', 'Juanah', '082135628760', 'Wiraswasta', 7),
-(2, 'MHS002', 'Erwin Pradita', 'Laki-Laki', 'Islam', 'Tangerang', '1994-03-02', 'Alam Sutera', '082154686523', 'erwin@gmail.com', 'Sarjana', 'MI', 'Sekolah Alam Sutera', 'Pradita', '08265485321', 'IT', 1),
-(3, 'MHS003', 'rafli fadilah', 'Laki-Laki', 'Islam', 'Curug', '1996-11-12', 'PLP Curug Tangerang Banten', '0987654321', 'rapli@email.com', 'SMA/SMK', 'TKJ', 'SMK 1 Tangerang', 'Om Boy', '1234567890', 'Wirausaha', 4),
-(4, 'MHS004', 'M. Fajar Fadillah', 'Laki-Laki', 'Islam', 'Kota Bumi', '1998-06-16', 'Kota Bumi Pasar Kemis Tangerang', '1234567890', 'fadil@gmail.com', 'SMA/SMK', 'Multimedia', 'SMK 5 Tangerang', 'jarwo', '0987654321', 'pebisnis tangguh', 1),
-(5, 'MHS005', 'adeline pujiarty', 'Perempuan', 'Islam', 'Baturaja', '1990-10-26', 'Gading Serpong tangerang selatan', '1234567890', 'adel@gmail.com', 'Diploma', 'AP', 'Politeknik LP3I Jakarta Kampus Cimone', 'juanah', '1234567890', 'wiraswasta', 3),
-(6, 'MHS006', 'Nofi Cahyono', 'Laki-Laki', 'Islam', 'Tangerang', '2020-03-11', 'Cimone', '0987654321', 'cahyo@gmail.com', 'SMA/SMK', 'TKJ', 'SMK 1 Tangernag', 'gatau', '1234567890', 'PNS', 7),
-(7, 'MHS007', 'Yusuf', 'Laki-Laki', 'Islam', 'Kartamulia', '1995-07-13', 'Plaju', '1234567890123', 'yusuf@gmail.com', 'SMA/SMK', 'IPS', 'SMA 1 PLG', 'Firman', '12345676543', 'PNS', 6),
-(8, 'MHS008', 'Janet', 'Laki-Laki', 'Islam', 'Prabu', '1998-06-15', 'Plaju', '1234567890123', 'janet@gmail.com', 'SMA/SMK', 'APS', 'SMA 1 PRABU', 'juhai', '12345687654', 'PNS', 2),
-(9, 'MHS009', 'Intang Citra Amanda', 'Perempuan', 'Islam', 'Tangerang', '1999-06-15', 'Jl. Gatot Subroto KM. 2.5 No. 1-2, Cimone, Karawaci, RT.002/RW.002, Kota Tangerang, Banten 15114', '0215648523', 'intang@gmail.com', 'SMA/SMK', 'IPA', 'Sma Keren Kali', 'Intang', '021564897', 'Mother of The home stairs', 6),
-(10, 'MHS010', 'Dedi Umaedi', 'Laki-Laki', 'Islam', 'Tangerang', '1991-01-29', 'Pasir Bolang', '02135484984', 'umaedi@gmail.com', 'Sarjana', 'Ekonomi', 'Poltek Bekasi', 'Umaedi', '021564897', 'Kabid Akd', 1),
-(12, 'MHS012', 'M. Sapei', 'Laki-Laki', 'Islam', 'Tangerang', '2000-01-31', 'Bugel', '0813455874562', 'pei@gmail.com', 'SMA/SMK', 'TKJ', 'SMK Bugel Indah', 'Asep', '081254685471', 'PNS', 1);
+INSERT INTO `c_mhs` (`id`, `idMahasiswa`, `namaLengkap`, `jenisKelamin`, `agama`, `tempatLahir`, `tanggalLahir`, `alamat`, `telepon`, `email`, `pendidikanTerakhir`, `jurusan`, `namaSekolah`, `namaOrangTua`, `teleponOrangTua`, `pekerjaan`, `tanggal`, `status`) VALUES
+(1, 'MHS001', 'Barley Indra Malik akbar', 'Laki-Laki', 'Islam', 'Baturaja', '1996-10-06', 'Jl. arwana 3 blok S no. 10 baturaja permai, ogan komering ulu, sumatera selatan', '081315127362', 'barley.barley@gmail.com', 'SMA/SMK', 'TKJ', 'SMK YADIKA Baturaja', 'Juanah', '082135628760', 'Wiraswasta', '2020-03-11', 8),
+(2, 'MHS002', 'Erwin Pradita', 'Laki-Laki', 'Islam', 'Tangerang', '1994-03-02', 'Alam Sutera', '082154686523', 'erwin@gmail.com', 'Sarjana', 'MI', 'Sekolah Alam Sutera', 'Pradita', '08265485321', 'IT', '2020-03-11', 1),
+(3, 'MHS003', 'rafli fadilah', 'Laki-Laki', 'Islam', 'Curug', '1996-11-12', 'PLP Curug Tangerang Banten', '0987654321', 'rapli@email.com', 'SMA/SMK', 'TKJ', 'SMK 1 Tangerang', 'Om Boy', '1234567890', 'Wirausaha', '2020-03-11', 4),
+(4, 'MHS004', 'M. Fajar Fadillah', 'Laki-Laki', 'Islam', 'Kota Bumi', '1998-06-16', 'Kota Bumi Pasar Kemis Tangerang', '1234567890', 'fadil@gmail.com', 'SMA/SMK', 'Multimedia', 'SMK 5 Tangerang', 'jarwo', '0987654321', 'pebisnis tangguh', '2020-03-11', 1),
+(5, 'MHS005', 'adeline pujiarty', 'Perempuan', 'Islam', 'Baturaja', '1990-10-26', 'Gading Serpong tangerang selatan', '1234567890', 'adel@gmail.com', 'Diploma', 'AP', 'Politeknik LP3I', 'juanah', '1234567890', 'wiraswasta', '2020-03-11', 3),
+(6, 'MHS006', 'Nofi Cahyono', 'Laki-Laki', 'Islam', 'Tangerang', '2020-03-11', 'Cimone', '0987654321', 'cahyo@gmail.com', 'SMA/SMK', 'TKJ', 'SMK 1 Tangernag', 'gatau', '1234567890', 'PNS', '2020-03-11', 7),
+(7, 'MHS007', 'Yusuf', 'Laki-Laki', 'Islam', 'Kartamulia', '1995-07-13', 'Plaju', '1234567890123', 'yusuf@gmail.com', 'SMA/SMK', 'IPS', 'SMA 1 PLG', 'Firman', '12345676543', 'PNS', '2020-03-11', 6),
+(8, 'MHS008', 'Janet', 'Laki-Laki', 'Islam', 'Prabu', '1998-06-15', 'Plaju', '1234567890123', 'janet@gmail.com', 'SMA/SMK', 'APS', 'SMA 1 PRABU', 'juhai', '12345687654', 'PNS', '2020-03-11', 2),
+(9, 'MHS009', 'Intang Citra Amanda', 'Perempuan', 'Islam', 'Tangerang', '1999-06-15', 'Jl. Gatot Subroto KM. 2.5 No. 1-2, Cimone, Karawaci, RT.002/RW.002, Kota Tangerang, Banten 15114', '0215648523', 'intang@gmail.com', 'SMA/SMK', 'IPA', 'Sma Keren Kali', 'Intang', '021564897', 'Mother of The home stairs', '2020-03-11', 6),
+(10, 'MHS010', 'Dedi Umaedi', 'Laki-Laki', 'Islam', 'Tangerang', '1991-01-29', 'Pasir Bolang', '02135484984', 'umaedi@gmail.com', 'Sarjana', 'Ekonomi', 'Poltek Bekasi', 'Umaedi', '021564897', 'Kabid Akd', '2020-03-11', 1),
+(12, 'MHS012', 'M. Sapei', 'Laki-Laki', 'Islam', 'Tangerang', '2000-01-31', 'Bugel', '0813455874562', 'pei@gmail.com', 'SMA/SMK', 'TKJ', 'SMK Bugel Indah', 'Asep', '081254685471', 'PNS', '2020-03-11', 1);
 
 -- --------------------------------------------------------
 
@@ -84,7 +85,7 @@ CREATE TABLE `jadwal` (
 --
 
 INSERT INTO `jadwal` (`idJadwal`, `idMahasiswa`, `idPenguji`, `tanggal`, `jam`) VALUES
-(6, 'MHS001', 1, '2020-03-06', '10:00:00'),
+(6, 'MHS001', 1, '2020-12-06', '10:00:00'),
 (7, 'MHS003', 3, '2020-03-06', '13:00:00'),
 (8, 'MHS006', 1, '2020-03-11', '11:00:00'),
 (9, 'MHS007', 2, '2020-04-04', '10:00:00'),
@@ -133,21 +134,22 @@ CREATE TABLE `pembayaran` (
   `idPembayaran` int(11) NOT NULL,
   `idMahasiswa` varchar(6) DEFAULT NULL,
   `jumlah` int(11) DEFAULT NULL,
-  `bukti` varchar(255) DEFAULT NULL
+  `bukti` varchar(255) DEFAULT NULL,
+  `tanggal` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pembayaran`
 --
 
-INSERT INTO `pembayaran` (`idPembayaran`, `idMahasiswa`, `jumlah`, `bukti`) VALUES
-(15, 'MHS001', 350000, 'MHS001buktiPembayaran.png'),
-(16, 'MHS003', 350000, 'MHS003buktiPembayaran.png'),
-(19, 'MHS005', 350000, 'MHS005buktiPembayaran.png'),
-(21, 'MHS006', 350000, 'MHS006buktiPembayaran.png'),
-(23, 'MHS007', 350000, 'MHS007buktiPembayaran.png'),
-(29, 'MHS008', 350000, '2020-5-25-bendera.png'),
-(31, 'MHS009', 350000, '2020-5-25-bendera.png');
+INSERT INTO `pembayaran` (`idPembayaran`, `idMahasiswa`, `jumlah`, `bukti`, `tanggal`) VALUES
+(15, 'MHS001', 350000, 'MHS001buktiPembayaran.png', '2020-07-12'),
+(16, 'MHS003', 350000, 'MHS003buktiPembayaran.png', '1998-06-16'),
+(19, 'MHS005', 350000, 'MHS005buktiPembayaran.png', '1998-06-16'),
+(21, 'MHS006', 350000, 'MHS006buktiPembayaran.png', '1998-06-16'),
+(23, 'MHS007', 350000, 'MHS007buktiPembayaran.png', '1998-06-16'),
+(31, 'MHS009', 350000, '2020-5-25-bendera.png', '1998-06-16'),
+(34, 'MHS008', 350000, '2020-7-13-paypal.png', '2020-07-13');
 
 -- --------------------------------------------------------
 
@@ -180,24 +182,37 @@ INSERT INTO `penguji` (`idPenguji`, `namaPenguji`, `jabatan`) VALUES
 CREATE TABLE `soal_tes` (
   `idSoalTes` int(11) NOT NULL,
   `pertanyaan` text,
-  `pg1` varchar(100) DEFAULT NULL,
-  `pg2` varchar(100) DEFAULT NULL,
-  `pg3` varchar(100) DEFAULT NULL,
-  `pg4` varchar(100) DEFAULT NULL,
-  `pg5` varchar(100) DEFAULT NULL,
-  `pg6` varchar(100) DEFAULT NULL
+  `bagian` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `soal_tes`
 --
 
-INSERT INTO `soal_tes` (`idSoalTes`, `pertanyaan`, `pg1`, `pg2`, `pg3`, `pg4`, `pg5`, `pg6`) VALUES
-(2, 'Apa yang akan kamu lakukan disaat bosan?', 'Membaca buku', 'Membaca komik', 'Membaca novel', 'Membaca berita', 'Membaca jurnal', 'Membaca pikiran orang'),
-(3, 'Apa yang akan kamu lakukan disaat stress?', 'Merokok', 'Olahraga', 'Mandi', 'Makan', 'Jalan', 'Tidur'),
-(4, 'Pilih olahraga kesukaan mu?', 'sepak bola', 'futsal', 'voli', 'tenis', 'bulu tangkis', 'renang'),
-(5, 'Pilih game kesukaan mu?', 'Mobile legend', 'PUBG', 'FF', 'CODT', 'Candy Crush saga', '8 ball'),
-(6, 'presiden terbaik menurut kamu?', 'Joko Widodo', 'Susilo Bambang Yudhoyono', 'Megawati', 'Abdurahman Wahid', 'Habibie', 'Soeharto');
+INSERT INTO `soal_tes` (`idSoalTes`, `pertanyaan`, `bagian`) VALUES
+(2, 'Saya senang belajar mengenal diri sendiri', 'Intrapersonal'),
+(3, 'Saya bisa memainkan alat musik', 'Musikal'),
+(4, 'Saya seringkali mendengar lagu atau musik dalam pikiran saya', 'Musikal'),
+(5, 'Menurut saya, menganggarkan dan mengatur keuangan sendiri itu mudah', 'Logis-Matematis'),
+(6, 'Saya paling mudah menyelesaikan masalah ketika melakukan sesuatu secara fisik', 'Fisik-Kinesteti'),
+(9, 'Saya mudah membuat cerita', 'Linguistik'),
+(10, 'Koordinasi fisik saya selalu bagus', 'Fisik-Kinesteti'),
+(11, 'Ketika bicara dengan orang, saya cenderungmendengarkan kata-kata yang mereka pergunakan, bukan hanya pada apa yang mereka maksud', 'Linguistik'),
+(12, 'Saya senang mengisi TTS dan bermain mencari kata atau permainan lain yang menggunakan kata', 'Linguistik'),
+(13, 'Saya tidak suka hal-hal yang rancu , saya menyukai segala hal yang jelas', 'Logis-Matematis'),
+(14, 'Saya menyukai teka-teki seperti \'Sudoku\'', 'Logis-Matematis'),
+(15, 'Saya senang bermeditasi', 'Intrapersonal'),
+(16, 'Musik sangat penting bagiku', 'Musikal'),
+(17, 'Saya jago berbohong', 'Linguistik'),
+(18, 'Saya senang berolahraga atau menari', 'Fisik-Kinesteti'),
+(19, 'Saya sangat tertarik dengan psikometri (uji kepribadian) dan tes IQ', 'Intrapersonal'),
+(20, 'Orang yang bertindak irasional mengesalkan saya', 'Logis-Matematis'),
+(21, 'Saya menyadari bahwa musik yang saya sukai seringkali memiliki basis yang sesuai dengan emosi saya', 'Musikal'),
+(22, 'Saya orang yang sangat ramah dan saya senangberkumpul dengan orang lain', 'Interpersonal'),
+(23, 'Saya senang bersikap sistematis dan teliti', 'Logis-Matematis'),
+(24, 'Saya menganggap grafik dan tabel mudah dimengerti', 'Spasial-Visual'),
+(25, 'Saya jago melempar dart, batu kerikil di atas air, frisbeem dsb', 'Fisik-Kinesteti'),
+(26, 'Saya mudah mengingat kutipan kalimat', 'Linguistik');
 
 -- --------------------------------------------------------
 
@@ -234,6 +249,83 @@ INSERT INTO `soal_ujian` (`idSoalUjian`, `bagian`, `pertanyaan`, `pgA`, `pgB`, `
 (14, 3, 'what?', 'no', 'yes', 'if', 'else', 'C'),
 (15, 3, 'when', 'no', 'yes', 'if', 'else', 'C'),
 (16, 3, 'who?', 'no', 'yes', 'if', 'else', 'C');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_bagian`
+--
+
+CREATE TABLE `tb_bagian` (
+  `id` int(11) NOT NULL,
+  `bagian` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_bagian`
+--
+
+INSERT INTO `tb_bagian` (`id`, `bagian`) VALUES
+(1, 'Fisik_Kinesteti'),
+(2, 'Interpersonal'),
+(3, 'Intrapersonal'),
+(4, 'Linguistik'),
+(5, 'Logis_Matematis'),
+(6, 'Musikal'),
+(7, 'Spasial_Visual');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_nilai`
+--
+
+CREATE TABLE `tb_nilai` (
+  `id` int(11) NOT NULL,
+  `id_mhs` varchar(10) DEFAULT NULL,
+  `id_bg` int(11) DEFAULT NULL,
+  `hasil` int(11) DEFAULT NULL COMMENT '									'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_nilai`
+--
+
+INSERT INTO `tb_nilai` (`id`, `id_mhs`, `id_bg`, `hasil`) VALUES
+(1, 'MHS001', 1, 10),
+(2, 'MHS001', 2, 4),
+(3, 'MHS001', 3, 7),
+(4, 'MHS001', 4, 8),
+(5, 'MHS001', 5, 9),
+(6, 'MHS001', 6, 11),
+(7, 'MHS001', 7, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tes`
+--
+
+CREATE TABLE `tes` (
+  `idTes` int(11) NOT NULL,
+  `idCmhs` varchar(6) NOT NULL,
+  `tanggal` date DEFAULT NULL,
+  `Fisik_Kinesteti` int(11) DEFAULT NULL,
+  `Interpersonal` int(11) DEFAULT NULL,
+  `Intrapersonal` int(11) DEFAULT NULL,
+  `Linguistik` int(11) DEFAULT NULL,
+  `Logis_Matematis` int(11) DEFAULT NULL,
+  `Musikal` int(11) DEFAULT NULL,
+  `Spasial_Visual` int(11) DEFAULT NULL,
+  `hasil` varchar(25) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tes`
+--
+
+INSERT INTO `tes` (`idTes`, `idCmhs`, `tanggal`, `Fisik_Kinesteti`, `Interpersonal`, `Intrapersonal`, `Linguistik`, `Logis_Matematis`, `Musikal`, `Spasial_Visual`, `hasil`) VALUES
+(1, 'MHS001', '2020-07-02', 10, 4, 7, 8, 9, 11, 3, 'Musikal');
 
 -- --------------------------------------------------------
 
@@ -340,6 +432,24 @@ ALTER TABLE `soal_ujian`
   ADD PRIMARY KEY (`idSoalUjian`);
 
 --
+-- Indexes for table `tb_bagian`
+--
+ALTER TABLE `tb_bagian`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tb_nilai`
+--
+ALTER TABLE `tb_nilai`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tes`
+--
+ALTER TABLE `tes`
+  ADD PRIMARY KEY (`idTes`);
+
+--
 -- Indexes for table `ujiand`
 --
 ALTER TABLE `ujiand`
@@ -374,7 +484,7 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `idPembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `idPembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT for table `penguji`
 --
@@ -384,12 +494,27 @@ ALTER TABLE `penguji`
 -- AUTO_INCREMENT for table `soal_tes`
 --
 ALTER TABLE `soal_tes`
-  MODIFY `idSoalTes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idSoalTes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `soal_ujian`
 --
 ALTER TABLE `soal_ujian`
   MODIFY `idSoalUjian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT for table `tb_bagian`
+--
+ALTER TABLE `tb_bagian`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `tb_nilai`
+--
+ALTER TABLE `tb_nilai`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `tes`
+--
+ALTER TABLE `tes`
+  MODIFY `idTes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `ujiand`
 --
