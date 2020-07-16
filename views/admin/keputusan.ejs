@@ -116,7 +116,18 @@
                             width: '200px'
                         },
                         {
-                            data: "tanggal"
+                            data: "tanggal",
+                            render: function(tg) {
+                                var date = new Date(tg)
+                                    yr = date.getFullYear(),
+                                    mt = date.getMonth() + 1
+                                    month   = mt < 10 ? '0' + mt : mt;
+                                    dy = date.getDate()  < 10 ? '0' + date.getDate()  : date.getDate();;
+                                var tgl = (yr) +'-'+ (month) +'-'+ (dy);
+                                return tgl
+                            },
+                            width: '150px',
+                            align: 'center'
                         },
                         {
                             data: "nilai",

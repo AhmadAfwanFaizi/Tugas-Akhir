@@ -483,7 +483,6 @@
 
 
     function edit(id) {
-        console.log(id)
         var type = "POST";
         var url = "/Mmahasiswa/edit";
         var data = {
@@ -503,7 +502,14 @@
                         $('#ve_JK').val(res.data[i].jenisKelamin);
                         $('#ve_agama').val(res.data[i].agama);
                         $('#ve_tempatlahir').val(res.data[i].tempatLahir);
-                        $('#ve_tgllahir').val(res.data[i].tanggalLahir);
+                        var data = res.data[i].tanggalLahir;
+                        var date = new Date(data)
+                            yr = date.getFullYear(),
+                            mt = date.getMonth() + 1
+                            month   = mt < 10 ? '0' + mt : mt;
+                            dy = date.getDate()  < 10 ? '0' + date.getDate()  : date.getDate();;
+                        var tgl = (yr) +'-'+ (month) +'-'+ (dy);
+                        $('#ve_tgllahir').val(tgl);
                         $('#ve_alamat').val(res.data[i].alamat);
                         $('#ve_telepon').val(res.data[i].telepon);
                         $('#ve_email').val(res.data[i].email);
