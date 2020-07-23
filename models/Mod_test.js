@@ -753,6 +753,8 @@ router.post('/done', (req, res) => {
                 jadi = "Musikal"
             } else if (Spasial_Visual > Fisik_Kinesteti && Spasial_Visual > Interpersonal && Spasial_Visual > Intrapersonal && Spasial_Visual > Linguistik && Spasial_Visual > Logis_Matematis && Spasial_Visual > Musikal) {
                 jadi = "Spasial Visual"
+            } else {
+                jadi = "Umum"
             }
             // var asdwe = Math.max.apply(Math, array.map(function(o) { return o.y; }))
             var sqll = "update tes set hasil = '"+ jadi +"' where idCmhs = ?"

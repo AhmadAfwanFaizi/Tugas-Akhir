@@ -81,7 +81,7 @@ router.get('/', async function (req, res) {
       doc
         .fillColor("#444444")
         .fontSize(20)
-        .text("Pembayaran", 50, 160);
+        .text("Bukti Pembayaran", 50, 160);
 
       generateHr(doc, 185);
 

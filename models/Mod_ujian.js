@@ -410,6 +410,9 @@ router.post('/done', (req, res) => {
     var key = {
         idMahasiswa: req.body.id
     }
+    var dataL = {
+        status: 7
+    }
     var data = {
         status: 6
     }
@@ -442,7 +445,7 @@ router.post('/done', (req, res) => {
                                     });
                                 } else {
                                     var sssql = "update c_mhs set ? where ?"
-                                    conn.query(sssql, [data, key], (err) => {
+                                    conn.query(sssql, [dataL, key], (err) => {
                                         if (err) {
                                             res.json({
                                                 code: 500,

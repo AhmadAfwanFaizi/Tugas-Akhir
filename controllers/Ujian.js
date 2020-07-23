@@ -6,15 +6,6 @@ const {
 } = require('console')
 const router = express.Router()
 
-router.use(session({
-    secret: 'secret',
-    cookie: {
-        maxAge: 100000
-    },
-    resave: false,
-    saveUninitialized: false
-}))
-
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({
     extended: true

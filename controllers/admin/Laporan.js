@@ -6,6 +6,13 @@ const {
 } = require('console')
 const router = express.Router()
 
+// router.use(session({
+//     secret: 'secret',
+//     cookie: {
+//         maxAge: 6000
+//     }
+// }))
+
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({
     extended: true
@@ -16,9 +23,6 @@ router.get('/', (req, res) => {
     if (sess.user == null) {
         res.redirect('/login')
     } else {
-        var hour = 3600000
-        sess.cookie.expires = new Date(Date.now() + hour)
-        sess.cookie.maxAge = 100 * hour
         res.render('admin/template/default', {
             title: 'Laporan Pembayaran',
             content: '../report/pembayaran',

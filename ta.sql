@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2020 at 11:21 AM
+-- Generation Time: Jul 23, 2020 at 09:24 AM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -64,7 +64,8 @@ INSERT INTO `c_mhs` (`id`, `idMahasiswa`, `namaLengkap`, `jenisKelamin`, `agama`
 (8, 'MHS008', 'Janet', 'Laki-Laki', 'Islam', 'Prabu', '1998-06-15', 'Plaju', '1234567890123', 'janet@gmail.com', 'SMA/SMK', 'APS', 'SMA 1 PRABU', 'juhai', '12345687654', 'PNS', '2020-03-11', 2),
 (9, 'MHS009', 'Intang Citra Amanda', 'Perempuan', 'Islam', 'Tangerang', '1999-06-15', 'Jl. Gatot Subroto KM. 2.5 No. 1-2, Cimone, Karawaci, RT.002/RW.002, Kota Tangerang, Banten 15114', '0215648523', 'intang@gmail.com', 'SMA/SMK', 'IPA', 'Sma Keren Kali', 'Intang', '021564897', 'Mother of The home stairs', '2020-03-11', 6),
 (10, 'MHS010', 'Dedi Umaedi', 'Laki-Laki', 'Islam', 'Tangerang', '1991-01-29', 'Pasir Bolang', '02135484984', 'umaedi@gmail.com', 'Sarjana', 'Ekonomi', 'Poltek Bekasi', 'Umaedi', '021564897', 'Kabid Akd', '2020-03-11', 1),
-(12, 'MHS012', 'M. Sapei', 'Laki-Laki', 'Islam', 'Tangerang', '2000-01-31', 'Bugel', '0813455874562', 'pei@gmail.com', 'SMA/SMK', 'TKJ', 'SMK Bugel Indah', 'Asep', '081254685471', 'PNS', '2020-03-11', 1);
+(12, 'MHS012', 'M. Sapei', 'Laki-Laki', 'Islam', 'Tangerang', '2000-01-31', 'Bugel', '0813455874562', 'pei@gmail.com', 'SMA/SMK', 'TKJ', 'SMK Bugel Indah', 'Asep', '081254685471', 'PNS', '2020-03-11', 1),
+(13, 'asd', 'asd', 'Perempuan', 'Islam', 'asd', '2009-12-12', 'asd', 'asd', 'asd@asd.com', 'SMA/SMK', 'asd', 'asd', 'asd', '123', 'asd', '2020-07-23', 8);
 
 -- --------------------------------------------------------
 
@@ -89,7 +90,8 @@ INSERT INTO `jadwal` (`idJadwal`, `idMahasiswa`, `idPenguji`, `tanggal`, `jam`) 
 (7, 'MHS003', 3, '2020-03-06', '13:00:00'),
 (8, 'MHS006', 1, '2020-03-11', '11:00:00'),
 (9, 'MHS007', 2, '2020-04-04', '10:00:00'),
-(10, 'MHS009', 2, '2020-06-25', '17:29:00');
+(10, 'MHS009', 2, '2020-06-25', '17:29:00'),
+(11, 'asd', 1, '2020-07-23', '00:00:00');
 
 -- --------------------------------------------------------
 
@@ -122,7 +124,8 @@ INSERT INTO `login` (`idLogin`, `nama`, `email`, `password`, `level`, `idMahasis
 (18, 'Intang Citra Amanda', 'intang@gmail.com', '19990615', '2', 'MHS009'),
 (20, 'Dedi Umaedi', 'umaedi@gmail.com', '19910129', '2', 'MHS011'),
 (21, 'M. Sapei', 'pei@gmail.com', '20000131', '2', 'MHS012'),
-(22, 'Erwin Pradita', 'erwin@gmail.com', '19940302', '2', 'MHS002');
+(22, 'Erwin Pradita', 'erwin@gmail.com', '19940302', '2', 'MHS002'),
+(23, 'asd', 'asd@asd.com', '20091212', '2', 'asd');
 
 -- --------------------------------------------------------
 
@@ -149,7 +152,8 @@ INSERT INTO `pembayaran` (`idPembayaran`, `idMahasiswa`, `jumlah`, `bukti`, `tan
 (21, 'MHS006', 350000, 'MHS006buktiPembayaran.png', '1998-06-16'),
 (23, 'MHS007', 350000, 'MHS007buktiPembayaran.png', '1998-06-16'),
 (31, 'MHS009', 350000, '2020-5-25-bendera.png', '1998-06-16'),
-(34, 'MHS008', 350000, '2020-7-13-paypal.png', '2020-07-13');
+(34, 'MHS008', 350000, '2020-7-13-paypal.png', '2020-07-13'),
+(36, 'asd', 350000, '2020-7-23-bendera.png', '2020-07-23');
 
 -- --------------------------------------------------------
 
@@ -325,7 +329,8 @@ CREATE TABLE `tes` (
 --
 
 INSERT INTO `tes` (`idTes`, `idCmhs`, `tanggal`, `Fisik_Kinesteti`, `Interpersonal`, `Intrapersonal`, `Linguistik`, `Logis_Matematis`, `Musikal`, `Spasial_Visual`, `hasil`) VALUES
-(1, 'MHS001', '2020-07-02', 10, 4, 7, 8, 9, 11, 3, 'Musikal');
+(1, 'MHS001', '2020-07-02', 10, 4, 7, 8, 9, 11, 3, 'Musikal'),
+(3, 'asd', '2020-07-23', 4, 1, 3, 5, 5, 4, 1, 'Umum');
 
 -- --------------------------------------------------------
 
@@ -359,7 +364,10 @@ INSERT INTO `ujiand` (`idUjianD`, `idUjianH`, `soalBagian`, `jawabanBenar`, `jaw
 (10, '5', 3, 3, 0, 0, 100),
 (23, '12', 1, 3, 0, 2, 60),
 (24, '12', 2, 3, 0, 2, 60),
-(25, '12', 3, 0, 2, 1, 0);
+(25, '12', 3, 0, 2, 1, 0),
+(29, '14', 1, 5, 0, 0, 100),
+(30, '14', 2, 5, 0, 0, 100),
+(31, '14', 3, 3, 0, 0, 100);
 
 -- --------------------------------------------------------
 
@@ -383,7 +391,8 @@ INSERT INTO `ujianh` (`idUjianH`, `idCmhs`, `tanggal`, `nilai`, `status`) VALUES
 (3, 'MHS001', '2020-07-02', 56, 2),
 (4, 'MHS009', '2020-07-03', 24, 3),
 (5, 'MHS006', '2020-07-03', 100, 1),
-(12, 'MHS007', '2020-07-06', 40, 3);
+(12, 'MHS007', '2020-07-06', 40, 3),
+(14, 'asd', '2020-07-23', 100, 1);
 
 --
 -- Indexes for dumped tables
@@ -469,27 +478,27 @@ ALTER TABLE `ujianh`
 -- AUTO_INCREMENT for table `c_mhs`
 --
 ALTER TABLE `c_mhs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `jadwal`
 --
 ALTER TABLE `jadwal`
-  MODIFY `idJadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idJadwal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `idLogin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `idLogin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `idPembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `idPembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `penguji`
 --
 ALTER TABLE `penguji`
-  MODIFY `idPenguji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idPenguji` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `soal_tes`
 --
@@ -514,17 +523,17 @@ ALTER TABLE `tb_nilai`
 -- AUTO_INCREMENT for table `tes`
 --
 ALTER TABLE `tes`
-  MODIFY `idTes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idTes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `ujiand`
 --
 ALTER TABLE `ujiand`
-  MODIFY `idUjianD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `idUjianD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `ujianh`
 --
 ALTER TABLE `ujianh`
-  MODIFY `idUjianH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;COMMIT;
+  MODIFY `idUjianH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
