@@ -168,124 +168,135 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Kode</label>
-                            <input type="text" class="form-control" name="v_kode" id="v_kode"
-                                placeholder="Masukan Nama..." required
-                                oninvalid="this.setCustomValidity('data tidak boleh kosong')"
-                                oninput="setCustomValidity('')">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Kode</label>
+                                <input type="text" class="form-control" name="v_kode" id="v_kode"
+                                    placeholder="Masukan Nama..." required
+                                    oninvalid="this.setCustomValidity('data tidak boleh kosong')"
+                                    oninput="setCustomValidity('')">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Nama Lengkap</label>
+                                <input type="text" class="form-control" name="v_nama" id="v_nama"
+                                    placeholder="Masukan Nama..." required
+                                    oninvalid="this.setCustomValidity('data tidak boleh kosong')"
+                                    oninput="setCustomValidity('')">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Nama Lengkap</label>
-                            <input type="text" class="form-control" name="v_nama" id="v_nama"
-                                placeholder="Masukan Nama..." required
-                                oninvalid="this.setCustomValidity('data tidak boleh kosong')"
-                                oninput="setCustomValidity('')">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Jenis Kelamin</label>
+                                <select class="form-control" name="v_JK" id="v_JK" required
+                                    oninvalid="this.setCustomValidity('data tidak boleh kosong')"
+                                    oninput="setCustomValidity('')">
+                                    <option value="" hidden>--Pilih--</option>
+                                    <option value="Laki-Laki">Laki-Laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Agama</label>
+                                <select type="text" class="form-control" name="v_agama" id="v_agama" required
+                                    oninvalid="this.setCustomValidity('data tidak boleh kosong')"
+                                    oninput="setCustomValidity('')">
+                                    <option value="" hidden>--Pilih--</option>
+                                    <option value="Islam">Islam</option>
+                                    <option value="Kristen">Kristen</option>
+                                    <option value="Katolik">Katolik</option>
+                                    <option value="Hindu">Hindu</option>
+                                    <option value="Budha">Budha</option>
+                                    <option value="Kong Hu Cu">Kong Hu Cu</option>
+                                    <option value="Other">other</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Jenis Kelamin</label>
-                            <select class="form-control" name="v_JK" id="v_JK" required
-                                oninvalid="this.setCustomValidity('data tidak boleh kosong')"
-                                oninput="setCustomValidity('')">
-                                <option value="" hidden>--Pilih--</option>
-                                <option value="Laki-Laki">Laki-Laki</option>
-                                <option value="Perempuan">Perempuan</option>
-                            </select>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Tempat Lahir</label>
+                                <input type="text" class="form-control" name="v_tempatlahir" id="v_tempatlahir"
+                                    placeholder="Masukan Tempat Lahir" required
+                                    oninvalid="this.setCustomValidity('data tidak boleh kosong')"
+                                    oninput="setCustomValidity('')">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Tanggal Lahir</label>
+                                <input type="date" class="form-control" name="v_tgllahir" id="v_tgllahir" required
+                                    oninvalid="this.setCustomValidity('data tidak boleh kosong')"
+                                    oninput="setCustomValidity('')">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Agama</label>
-                            <select type="text" class="form-control" name="v_agama" id="v_agama" required
-                                oninvalid="this.setCustomValidity('data tidak boleh kosong')"
-                                oninput="setCustomValidity('')">
-                                <option value="" hidden>--Pilih--</option>
-                                <option value="Islam">Islam</option>
-                                <option value="Kristen">Kristen</option>
-                                <option value="Katolik">Katolik</option>
-                                <option value="Hindu">Hindu</option>
-                                <option value="Budha">Budha</option>
-                                <option value="Kong Hu Cu">Kong Hu Cu</option>
-                                <option value="Other">other</option>
-                            </select>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="exampleInputEmail1">Alamat</label>
+                                <textarea type="text" class="form-control" name="v_alamat" id="v_alamat"
+                                    placeholder="Masukan Alamat..." required
+                                    oninvalid="this.setCustomValidity('data tidak boleh kosong')"
+                                    oninput="setCustomValidity('')"></textarea>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Tempat Lahir</label>
-                            <input type="text" class="form-control" name="v_tempatlahir" id="v_tempatlahir"
-                                placeholder="Masukan Tempat Lahir" required
-                                oninvalid="this.setCustomValidity('data tidak boleh kosong')"
-                                oninput="setCustomValidity('')">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Telepon</label>
+                                <input type="text" class="form-control" name="v_telepon" id="v_telepon"
+                                    placeholder="Masukan Telepon..." required
+                                    oninvalid="this.setCustomValidity('data tidak boleh kosong')"
+                                    oninput="setCustomValidity('')">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Email</label>
+                                <input type="email" class="form-control" name="v_email" id="v_email"
+                                    placeholder="Masukan Email" required
+                                    oninvalid="this.setCustomValidity('data tidak boleh kosong')"
+                                    oninput="setCustomValidity('')">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Tanggal Lahir</label>
-                            <input type="date" class="form-control" name="v_tgllahir" id="v_tgllahir" required
-                                oninvalid="this.setCustomValidity('data tidak boleh kosong')"
-                                oninput="setCustomValidity('')">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Pendidikan Terakhir</label>
+                                <input type="text" class="form-control" name="v_pendidikan" id="v_pendidikan" required
+                                    oninvalid="this.setCustomValidity('data tidak boleh kosong')"
+                                    oninput="setCustomValidity('')" placeholder="Masukan Pendidikan (SMA / SMK)">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Jurusan</label>
+                                <input type="text" class="form-control" name="v_jurusan" id="v_jurusan"
+                                    placeholder="Masukan Jurusan..." required
+                                    oninvalid="this.setCustomValidity('data tidak boleh kosong')"
+                                    oninput="setCustomValidity('')">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Alamat</label>
-                            <textarea type="text" class="form-control" name="v_alamat" id="v_alamat"
-                                placeholder="Masukan Alamat..." required
-                                oninvalid="this.setCustomValidity('data tidak boleh kosong')"
-                                oninput="setCustomValidity('')"></textarea>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Nama Sekolah</label>
+                                <input type="text" class="form-control" name="v_namasekolah" id="v_namasekolah"
+                                    placeholder="Masukan Nama Sekolah..." required
+                                    oninvalid="this.setCustomValidity('data tidak boleh kosong')"
+                                    oninput="setCustomValidity('')">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Nama Orang Tua/Wali</label>
+                                <input type="text" class="form-control" name="v_namaortu" id="v_namaortu"
+                                    placeholder="Masukan Nama..." required
+                                    oninvalid="this.setCustomValidity('data tidak boleh kosong')"
+                                    oninput="setCustomValidity('')">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Telepon</label>
-                            <input type="text" class="form-control" name="v_telepon" id="v_telepon"
-                                placeholder="Masukan Telepon..." required
-                                oninvalid="this.setCustomValidity('data tidak boleh kosong')"
-                                oninput="setCustomValidity('')">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Email</label>
-                            <input type="email" class="form-control" name="v_email" id="v_email"
-                                placeholder="Masukan Email" required
-                                oninvalid="this.setCustomValidity('data tidak boleh kosong')"
-                                oninput="setCustomValidity('')">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Pendidikan Terakhir</label>
-                            <select type="text" class="form-control" name="v_pendidikan" id="v_pendidikan" required
-                                oninvalid="this.setCustomValidity('data tidak boleh kosong')"
-                                oninput="setCustomValidity('')">
-                                <option value="" hidden>--Pilih--</option>
-                                <option value="SMA/SMK">SMA/SMK</option>
-                                <option value="Diploma">Diploma</option>
-                                <option value="Sarjana">Sarjana</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Jurusan</label>
-                            <input type="text" class="form-control" name="v_jurusan" id="v_jurusan"
-                                placeholder="Masukan Jurusan..." required
-                                oninvalid="this.setCustomValidity('data tidak boleh kosong')"
-                                oninput="setCustomValidity('')">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Nama Sekolah</label>
-                            <input type="text" class="form-control" name="v_namasekolah" id="v_namasekolah"
-                                placeholder="Masukan Nama Sekolah..." required
-                                oninvalid="this.setCustomValidity('data tidak boleh kosong')"
-                                oninput="setCustomValidity('')">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Nama Orang Tua/Wali</label>
-                            <input type="text" class="form-control" name="v_namaortu" id="v_namaortu"
-                                placeholder="Masukan Nama..." required
-                                oninvalid="this.setCustomValidity('data tidak boleh kosong')"
-                                oninput="setCustomValidity('')">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Telepon Orang Tua/Wali</label>
-                            <input type="text" class="form-control" name="v_teleponorangtua" id="v_teleponorangtua"
-                                placeholder="Masukan Telepon..." required
-                                oninvalid="this.setCustomValidity('data tidak boleh kosong')"
-                                oninput="setCustomValidity('')">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Pekerjaan</label>
-                            <input type="text" class="form-control" name="v_pekerjaan" id="v_pekerjaan"
-                                placeholder="Masukan Pekerjaan" required
-                                oninvalid="this.setCustomValidity('data tidak boleh kosong')"
-                                oninput="setCustomValidity('')">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Telepon Orang Tua/Wali</label>
+                                <input type="text" class="form-control" name="v_teleponorangtua" id="v_teleponorangtua"
+                                    placeholder="Masukan Telepon..." required
+                                    oninvalid="this.setCustomValidity('data tidak boleh kosong')"
+                                    oninput="setCustomValidity('')">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Pekerjaan</label>
+                                <input type="text" class="form-control" name="v_pekerjaan" id="v_pekerjaan"
+                                    placeholder="Masukan Pekerjaan" required
+                                    oninvalid="this.setCustomValidity('data tidak boleh kosong')"
+                                    oninput="setCustomValidity('')">
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
