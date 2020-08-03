@@ -9,14 +9,18 @@ router.use(bodyParser.urlencoded({
     extended: true
 }))
 
-// router.post('/getAutoNumber', (req, res) => {
-//     var data = "SELECT idMahasiswa from c_mhs";
-//     conn.query(data, (err, result) => {
-//         res.json({
-//             data: result
-//         })
-//     })
-// });
+router.post('/getAutoNumber', (req, res) => {
+    var data = "SELECT idMahasiswa from c_mhs";
+    conn.query(data, (err, result) => {
+        if (err) {
+            throw err
+        } else {
+            res.json({
+                data: result
+            })
+        }
+    })
+});
 
 router.post('/', (req, res) => {
     var month = new Date().getMonth() + 1

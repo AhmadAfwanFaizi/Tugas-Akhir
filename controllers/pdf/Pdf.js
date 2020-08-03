@@ -214,6 +214,137 @@ router.get('/', async function (req, res) {
   }
 });
 
+router.get('/kelulusan', (req, res) => {
+  var id = req.query.id
+
+  conn.query("Select a.namaLengkap, a.jurusan, (case when (b.status = 3) then 'Gagal' else 'LULUS' end) as keterangan from c_mhs as a join ujianh as b on a.idMahasiswa=b.idCmhs where a.idMahasiswa = '" + id + "'", function (err, result) {
+    if (err)
+      throw err;
+    else
+      //console.log(result[0].idPembayaran)
+      var data = result[0]
+
+    queryData(data)
+  });
+
+  function queryData(data) {
+    const invoice = {
+      nama: data.namaLengkap,
+      jurusan: data.jurusan,
+      keterangan: data.keterangan
+    };
+  
+    function generateCustomerInformation(doc, invoice) {
+      doc
+        .fillColor("#444444")
+        .fontSize(20)
+        .text("Hasil Ujian Seleksi", 50, 160);
+  
+      generateHr(doc, 185);
+  
+      const customerInformationTop = 200;
+  
+      doc
+        .fontSize(12)
+        .font("Helvetica-Bold")
+        .text("Tanggal:", 50, customerInformationTop)
+        .text("Kepada Yth:", 50, customerInformationTop + 15)
+        .text("Perihal:", 50, customerInformationTop + 30)
+  
+        .font("Helvetica-Bold")
+        .text(formatDate(new Date()), 300, customerInformationTop)
+        .font("Helvetica")
+        .text(invoice.nama, 300, customerInformationTop + 15)
+        .text("Pengumuman Hasil Ujian Seleksi", 300, customerInformationTop + 30)
+        .moveDown();
+  
+      generateHr(doc, 252);
+    }
+
+    function generateText(doc, invoice) {
+      const textTop = 270
+
+      doc
+        .fontSize(12)
+        .font("Helvetica-Bold")
+        .text("Dengan Hormat", 50, textTop + 15)
+
+      doc
+        .fontSize(12)
+        .font("Helvetica")
+        .text("Salam sejahtera kami sampaikan, semoga keselamatan dan kesuksesan selalu menyertai Adik beserta keluarga Aamiin.", 50, textTop + 60, {align: "justify"})
+
+      doc
+        .fontSize(12)
+        .font("Helvetica")
+        .text("Sehubungan dengan pelaksanaan tes seleksi masuk Politeknik LP3I Jakarta di Kampus Cimone yang telah berlangsung, maka dengan ini Panita PMB 2020/2021 menyatakan bahwa:", 50, textTop + 100, {align: "justify"})
+
+      doc
+        .fontSize(12)
+        .font("Helvetica-Bold")
+        .text("Nama", 130, textTop + 150)
+        .text("Prodi", 130, textTop + 170)
+        .text("Dinyatakan", 130, textTop + 190)
+
+      doc
+        .fontSize(12)
+        .font("Helvetica-Bold")
+        .text(": " + invoice.nama, 300, textTop + 150)
+        .text(": " + invoice.jurusan, 300, textTop + 170)
+        .text(": " + invoice.keterangan, 300, textTop + 190)
+
+      doc
+        .fontSize(12)
+        .font("Helvetica")
+        .text("Kami ucapkan SELAMAT bergabung di Kampus yang mendidik Generasi Muda untuk berani mandiri sejak dini. Selanjutnya untuk penentuan kelas, kami harapkan agar segera melakukan registrasi ulang Pembayaran Uang Pangkal yang bisa dilakukan dengan pembayaran langsung di Kampus LP3I Cimone atau melalui transfer ke No Rekening Kampus LP3I Cimone. Pembayaran ditunggu paling lambat Satu minggu setelah pengumuman.", 50, textTop + 220, {align: "justify"})
+
+      doc
+        .fontSize(12)
+        .font("Helvetica")
+        .text("Demikian informasi ini kami sampaikan. Mohon segera melengkapi dan mengembalikan formulir pendaftaran yang telah diisi. Atas perhatian dan kepercayaannya kami ucapkan terima kasih.", 50, textTop + 315, {align: "justify"})
+
+      doc
+        .fontSize(12)
+        .font("Helvetica")
+        .text("Hormat Kami,", 50, textTop + 370, {align: "justify"})
+
+      doc
+        .fontSize(12)
+        .font("Helvetica-Bold")
+        .text("Siti Hamidah, SE", 50, textTop + 450, {align: "justify"})
+
+      doc
+        .fontSize(12)
+        .font("Helvetica")
+        .text("Kabid, Pemasaran,", 50, textTop + 470, {align: "justify"})
+        
+    }
+  
+    var doc = new PDFDocument({
+      size: "A4",
+      margin: 50
+    });
+    let buffers = [];
+    doc.on('data', buffers.push.bind(buffers));
+    doc.on('end', () => {
+      let pdfData = Buffer.concat(buffers);
+      res.writeHead(200, {
+          'Content-Length': Buffer.byteLength(pdfData),
+          'Content-Type': 'application/pdf',
+          'Content-disposition': 'attachment;filename=Surat Kelulusan.pdf',
+        })
+        .end(pdfData);
+    });
+  
+    generateHeader(doc);
+    generateCustomerInformation(doc, invoice);
+    generateText(doc, invoice);
+    generateFooter(doc);
+  
+    doc.end();
+  }
+})
+
 router.get('/pembayaran', (req, res) => {
   var awal = req.query.tglAwal
   var akhir = req.query.tglAkhir

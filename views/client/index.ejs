@@ -141,7 +141,7 @@
                             Politeknik LP3I melupakan salah satu pelopor pendidikan yang menjamin mahasiswa untuk
                             bekerja dengan relasi perushaan-perusahaan yang dimiliki.
                         </p>
-                        <button class="secondary-button" data-toggle="modal" data-target="#modalPendaftaran">
+                        <button class="secondary-button" data-toggle="modal" data-target="#modalPendaftaran" onclick="autoNumber()">
                             DAFTAR
                         </button>
                     </div>
@@ -172,7 +172,7 @@
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1">Kode</label>
                                 <input type="text" class="form-control" name="v_kode" id="v_kode"
-                                    placeholder="Masukan Nama..." required
+                                    placeholder="Masukan Nama..." readonly
                                     oninvalid="this.setCustomValidity('data tidak boleh kosong')"
                                     oninput="setCustomValidity('')">
                             </div>
@@ -1160,37 +1160,36 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script type="text/javascript">
-        // function autoNumber() {
-        //     var type = "POST";
-        //     var url = "/client/getAutoNumber";
-        //     $.ajax({
-        //         type: type,
-        //         url: url,
-        //         dataType: "json",
-        //         success: function (res) {
-        //             var a = res.data
-        //             a.forEach(hasil => {
-        //                 var w = [hasil.idMahasiswa]
-        //                 // var int = w.substr(3, 6);
-        //                 console.log(Math.max.apply(null, w))
-        //             });
-
-        //             // for (var i = 0; i < res.data.length; i++) {
-        //             //     var j = res.data[i].idMahasiswa;
-        //             //     var k = res.data[i].namaLengkap;
-        //             // }
-        //             // console.log(j)
-        //             // console.log(k)
-
-
-
-        //             // var data = "MHS2019001"
-        //             // var tahun = new Date().getFullYear().toString();
-        //             // var int = data.substr(3, 8);
-        //             // console.log(int)
-        //         }
-        //     })
-        // }
+        function autoNumber() {
+            var type = "POST";
+            var url = "/client/getAutoNumber";
+            $.ajax({
+                type: type,
+                url: url,
+                dataType: "json",
+                success: function (res) {
+                    var string = "MHS"
+                    var array = []
+                    res.data.forEach(id => {
+                        var kode = id.idMahasiswa.substr(3, 6)
+                        array.push(kode)
+                    });
+                    var maxx = Math.max.apply(null, array);
+                    var mmax = maxx + 1
+                    var newid = "";
+                    if (mmax >= 10 && mmax < 100) {
+                        var neew = '' + mmax;
+                        newid = string + "0" + neew
+                    } else if (mmax < 10) {
+                        var neew = '' + mmax;
+                        newid = string + "00" + neew
+                    } else {
+                        newid = string + mmax;
+                    }
+                    $("#v_kode").val(newid)
+                }
+            })
+        }
 
         function daftar() {
             var type = "POST";
