@@ -1,7 +1,6 @@
 <!-- DataTables -->
-<link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" type="text/css" href="./assets/client/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="./assets/client/css/dataTables.bootstrap4.min.css">
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -74,10 +73,10 @@
 <!-- AdminLTE App -->
 <script src="assets/admin/dist/js/adminlte.js"></script>
 <!-- Sweet Alert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>\
+<script src="./assets/client/js/sweetalert.min.js"></script>
 <!-- DataTables -->
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="./assets/client/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="./assets/client/js/dataTables.bootstrap4.min.js"></script>
 <script>
     var dataTables = {
         init: function () {
@@ -105,12 +104,13 @@
                         {
                             data: "tanggal",
                             width: '100px',
-                            render: function(tg) {
+                            render: function (tg) {
                                 var date = new Date(tg);
-                                var yr  = date.getFullYear();
+                                var yr = date.getFullYear();
                                 var mt = date.getMonth() + 1
-                                var month   = mt < 10 ? '0' + mt : mt;
-                                var day     = date.getDate()  < 10 ? '0' + date.getDate()  : date.getDate();
+                                var month = mt < 10 ? '0' + mt : mt;
+                                var day = date.getDate() < 10 ? '0' + date.getDate() :
+                                    date.getDate();
                                 var newDate = day + '-' + month + '-' + yr;
                                 return newDate;
                             }

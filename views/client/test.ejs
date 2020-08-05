@@ -1,7 +1,6 @@
 <!-- DataTables -->
-<link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" type="text/css" href="./assets/client/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="./assets/client/css/dataTables.bootstrap4.min.css">
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -112,24 +111,25 @@
 <!-- AdminLTE App -->
 <script src="assets/admin/dist/js/adminlte.js"></script>
 <!-- Sweet Alert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>\
+<script src="./assets/client/js/sweetalert.min.js"></script>
 <!-- DataTables -->
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="./assets/client/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="./assets/client/js/dataTables.bootstrap4.min.js"></script>
 <script>
     var dataTable = {
         init: function () {
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $("#datatables").DataTable({
                     processing: true,
                     ajax: {
                         url: "/Mtest/getDataTest",
                         type: "post",
                         dataType: "json",
-                        data: {id: "<%= idMhs %>"}
+                        data: {
+                            id: "<%= idMhs %>"
+                        }
                     },
-                    columns: [
-                        {
+                    columns: [{
                             data: "namaLengkap"
                         },
                         {
@@ -137,7 +137,7 @@
                         },
                         {
                             data: "idTes",
-                            render: function(id, display, row) {
+                            render: function (id, display, row) {
                                 if (row.hasil == 'Fisik Kinesteti') {
                                     return "TEKNIK ALAT BERAT, TEKNIK OTOMOTIF, TEKNIK ELEKTRONIKA, TEKNIK INDUSTRI, BUSINESS ADMINISTRATION, SECERTARY, OFFICE MANAGEMENT, TOUR & TRAVEL, HOTEL"
                                 } else if (row.hasil == 'Interpersonal') {
@@ -242,18 +242,19 @@
                                     ress.data.length + '">'
                                 for (var r = 0, e = ress.data.length; r < e; r++) {
                                     bag2 += '<strong>Soal No ' + noo++ +
-                                    '</strong><div class="post"><input type="hidden" name="v_id2[]" value="' +
-                                    ress.data[r].idSoalTes + '"><p style="color: black;">' + ress.data[r]
-                                    .pertanyaan +
-                                    '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
-                                    ress.data[r].idSoalTes +
-                                    ']" value="A"><label class="form-check-label">Sangat Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
-                                    ress.data[r].idSoalTes +
-                                    ']" value="B"><label class="form-check-label">Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
-                                    ress.data[r].idSoalTes +
-                                    ']" value="C"><label class="form-check-label">Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
-                                    ress.data[r].idSoalTes +
-                                    ']" value="D"><label class="form-check-label">Sangat Setuju</label></div></div></div></div>';
+                                        '</strong><div class="post"><input type="hidden" name="v_id2[]" value="' +
+                                        ress.data[r].idSoalTes +
+                                        '"><p style="color: black;">' + ress.data[r]
+                                        .pertanyaan +
+                                        '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
+                                        ress.data[r].idSoalTes +
+                                        ']" value="A"><label class="form-check-label">Sangat Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
+                                        ress.data[r].idSoalTes +
+                                        ']" value="B"><label class="form-check-label">Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
+                                        ress.data[r].idSoalTes +
+                                        ']" value="C"><label class="form-check-label">Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban2[' +
+                                        ress.data[r].idSoalTes +
+                                        ']" value="D"><label class="form-check-label">Sangat Setuju</label></div></div></div></div>';
                                 }
                                 bag2 +=
                                     '<br><button class="btn btn-success" type="button" onclick="add2()" style="float: right;">Simpan</button>'
@@ -273,21 +274,30 @@
                                             bag3 +=
                                                 '<input type="hidden" name="v_row3" value="' +
                                                 resss.data.length + '">'
-                                            for (var f = 0, g = resss.data.length; f <
+                                            for (var f = 0, g = resss.data
+                                                    .length; f <
                                                 g; f++) {
-                                                bag3 += '<strong>Soal No ' + nooo++ +
-                                                '</strong><div class="post"><input type="hidden" name="v_id3[]" value="' +
-                                                    resss.data[f].idSoalTes + '"><p style="color: black;">' + resss.data[f]
-                                                .pertanyaan +
-                                                '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
-                                                    resss.data[f].idSoalTes +
-                                                ']" value="A"><label class="form-check-label">Sangat Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
-                                                    resss.data[f].idSoalTes +
-                                                ']" value="B"><label class="form-check-label">Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
-                                                    resss.data[f].idSoalTes +
-                                                ']" value="C"><label class="form-check-label">Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
-                                                    resss.data[f].idSoalTes +
-                                                ']" value="D"><label class="form-check-label">Sangat Setuju</label></div></div></div></div>';
+                                                bag3 += '<strong>Soal No ' +
+                                                    nooo++ +
+                                                    '</strong><div class="post"><input type="hidden" name="v_id3[]" value="' +
+                                                    resss.data[f]
+                                                    .idSoalTes +
+                                                    '"><p style="color: black;">' +
+                                                    resss.data[f]
+                                                    .pertanyaan +
+                                                    '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
+                                                    resss.data[f]
+                                                    .idSoalTes +
+                                                    ']" value="A"><label class="form-check-label">Sangat Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
+                                                    resss.data[f]
+                                                    .idSoalTes +
+                                                    ']" value="B"><label class="form-check-label">Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
+                                                    resss.data[f]
+                                                    .idSoalTes +
+                                                    ']" value="C"><label class="form-check-label">Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban3[' +
+                                                    resss.data[f]
+                                                    .idSoalTes +
+                                                    ']" value="D"><label class="form-check-label">Sangat Setuju</label></div></div></div></div>';
                                             }
                                             bag3 +=
                                                 '<br><button class="btn btn-success" type="button" onclick="add3()" style="float: right;">Simpan</button>'
@@ -297,138 +307,335 @@
                                                 url: "/Mtest/getSoal4",
                                                 type: "post",
                                                 dataType: "json",
-                                                success: function (ressss) {
-                                                    if (resss.code == 200) {
-                                                        var noooo = 1;
-                                                        var bag4 = '';
-                                                        bag4 += '<form id="post4">'
+                                                success: function (
+                                                    ressss) {
+                                                    if (resss
+                                                        .code ==
+                                                        200) {
+                                                        var noooo =
+                                                            1;
+                                                        var bag4 =
+                                                            '';
+                                                        bag4 +=
+                                                            '<form id="post4">'
                                                         bag4 +=
                                                             '<input type="hidden" name="v_sess4" value="<%= idMhs %>">'
                                                         bag4 +=
                                                             '<input type="hidden" name="v_row4" value="' +
-                                                            ressss.data.length + '">'
-                                                        for (var k = 0, l = ressss.data.length; k <
-                                                            l; k++) {
-                                                            bag4 += '<strong>Soal No ' + noooo++ +
-                                                            '</strong><div class="post"><input type="hidden" name="v_id4[]" value="' +
-                                                                ressss.data[k].idSoalTes + '"><p style="color: black;">' + ressss.data[k]
-                                                            .pertanyaan +
-                                                            '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban4[' +
-                                                                ressss.data[k].idSoalTes +
-                                                            ']" value="A"><label class="form-check-label">Sangat Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban4[' +
-                                                                ressss.data[k].idSoalTes +
-                                                            ']" value="B"><label class="form-check-label">Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban4[' +
-                                                                ressss.data[k].idSoalTes +
-                                                            ']" value="C"><label class="form-check-label">Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban4[' +
-                                                                ressss.data[k].idSoalTes +
-                                                            ']" value="D"><label class="form-check-label">Sangat Setuju</label></div></div></div></div>';
+                                                            ressss
+                                                            .data
+                                                            .length +
+                                                            '">'
+                                                        for (var k =
+                                                                0,
+                                                                l =
+                                                                ressss
+                                                                .data
+                                                                .length; k <
+                                                            l; k++
+                                                        ) {
+                                                            bag4 +=
+                                                                '<strong>Soal No ' +
+                                                                noooo++
+                                                                +
+                                                                '</strong><div class="post"><input type="hidden" name="v_id4[]" value="' +
+                                                                ressss
+                                                                .data[
+                                                                    k
+                                                                ]
+                                                                .idSoalTes +
+                                                                '"><p style="color: black;">' +
+                                                                ressss
+                                                                .data[
+                                                                    k
+                                                                ]
+                                                                .pertanyaan +
+                                                                '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban4[' +
+                                                                ressss
+                                                                .data[
+                                                                    k
+                                                                ]
+                                                                .idSoalTes +
+                                                                ']" value="A"><label class="form-check-label">Sangat Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban4[' +
+                                                                ressss
+                                                                .data[
+                                                                    k
+                                                                ]
+                                                                .idSoalTes +
+                                                                ']" value="B"><label class="form-check-label">Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban4[' +
+                                                                ressss
+                                                                .data[
+                                                                    k
+                                                                ]
+                                                                .idSoalTes +
+                                                                ']" value="C"><label class="form-check-label">Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban4[' +
+                                                                ressss
+                                                                .data[
+                                                                    k
+                                                                ]
+                                                                .idSoalTes +
+                                                                ']" value="D"><label class="form-check-label">Sangat Setuju</label></div></div></div></div>';
                                                         }
                                                         bag4 +=
                                                             '<br><button class="btn btn-success" type="button" onclick="add4()" style="float: right;">Simpan</button>'
-                                                        bag4 += '</form>'
-                                                        $("#bagian4").html(bag4);
+                                                        bag4 +=
+                                                            '</form>'
+                                                        $("#bagian4")
+                                                            .html(
+                                                                bag4
+                                                            );
                                                         $.ajax({
                                                             url: "/Mtest/getSoal5",
                                                             type: "post",
                                                             dataType: "json",
-                                                            success: function (rees) {
-                                                                if (rees.code == 200) {
-                                                                    var nno = 1;
-                                                                    var bag5 = '';
-                                                                    bag5 += '<form id="post5">'
+                                                            success: function (
+                                                                rees
+                                                            ) {
+                                                                if (rees
+                                                                    .code ==
+                                                                    200
+                                                                ) {
+                                                                    var nno =
+                                                                        1;
+                                                                    var bag5 =
+                                                                        '';
+                                                                    bag5 +=
+                                                                        '<form id="post5">'
                                                                     bag5 +=
                                                                         '<input type="hidden" name="v_sess5" value="<%= idMhs %>">'
                                                                     bag5 +=
                                                                         '<input type="hidden" name="v_row5" value="' +
-                                                                        rees.data.length + '">'
-                                                                    for (var j = 0, u = rees.data.length; j <
-                                                                        u; j++) {
-                                                                        bag5 += '<strong>Soal No ' + nno++ +
-                                                                        '</strong><div class="post"><input type="hidden" name="v_id5[]" value="' +
-                                                                            rees.data[j].idSoalTes + '"><p style="color: black;">' + rees.data[j]
-                                                                        .pertanyaan +
-                                                                        '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban5[' +
-                                                                            rees.data[j].idSoalTes +
-                                                                        ']" value="A"><label class="form-check-label">Sangat Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban5[' +
-                                                                            rees.data[j].idSoalTes +
-                                                                        ']" value="B"><label class="form-check-label">Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban5[' +
-                                                                            rees.data[j].idSoalTes +
-                                                                        ']" value="C"><label class="form-check-label">Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban5[' +
-                                                                            rees.data[j].idSoalTes +
-                                                                        ']" value="D"><label class="form-check-label">Sangat Setuju</label></div></div></div></div>';
+                                                                        rees
+                                                                        .data
+                                                                        .length +
+                                                                        '">'
+                                                                    for (
+                                                                        var j =
+                                                                            0,
+                                                                            u =
+                                                                            rees
+                                                                            .data
+                                                                            .length; j <
+                                                                        u; j++
+                                                                    ) {
+                                                                        bag5 +=
+                                                                            '<strong>Soal No ' +
+                                                                            nno++
+                                                                            +
+                                                                            '</strong><div class="post"><input type="hidden" name="v_id5[]" value="' +
+                                                                            rees
+                                                                            .data[
+                                                                                j
+                                                                            ]
+                                                                            .idSoalTes +
+                                                                            '"><p style="color: black;">' +
+                                                                            rees
+                                                                            .data[
+                                                                                j
+                                                                            ]
+                                                                            .pertanyaan +
+                                                                            '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban5[' +
+                                                                            rees
+                                                                            .data[
+                                                                                j
+                                                                            ]
+                                                                            .idSoalTes +
+                                                                            ']" value="A"><label class="form-check-label">Sangat Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban5[' +
+                                                                            rees
+                                                                            .data[
+                                                                                j
+                                                                            ]
+                                                                            .idSoalTes +
+                                                                            ']" value="B"><label class="form-check-label">Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban5[' +
+                                                                            rees
+                                                                            .data[
+                                                                                j
+                                                                            ]
+                                                                            .idSoalTes +
+                                                                            ']" value="C"><label class="form-check-label">Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban5[' +
+                                                                            rees
+                                                                            .data[
+                                                                                j
+                                                                            ]
+                                                                            .idSoalTes +
+                                                                            ']" value="D"><label class="form-check-label">Sangat Setuju</label></div></div></div></div>';
                                                                     }
                                                                     bag5 +=
                                                                         '<br><button class="btn btn-success" type="button" onclick="add5()" style="float: right;">Simpan</button>'
-                                                                    bag5 += '</form>'
-                                                                    $("#bagian5").html(bag5);
+                                                                    bag5 +=
+                                                                        '</form>'
+                                                                    $("#bagian5")
+                                                                        .html(
+                                                                            bag5
+                                                                        );
                                                                     $.ajax({
                                                                         url: "/Mtest/getSoal6",
                                                                         type: "post",
                                                                         dataType: "json",
-                                                                        success: function (reess) {
-                                                                            if (reess.code == 200) {
-                                                                                var nnno = 1;
-                                                                                var bag6 = '';
-                                                                                bag6 += '<form id="post6">'
+                                                                        success: function (
+                                                                            reess
+                                                                        ) {
+                                                                            if (reess
+                                                                                .code ==
+                                                                                200
+                                                                            ) {
+                                                                                var nnno =
+                                                                                    1;
+                                                                                var bag6 =
+                                                                                    '';
+                                                                                bag6 +=
+                                                                                    '<form id="post6">'
                                                                                 bag6 +=
                                                                                     '<input type="hidden" name="v_sess6" value="<%= idMhs %>">'
                                                                                 bag6 +=
                                                                                     '<input type="hidden" name="v_row6" value="' +
-                                                                                    reess.data.length + '">'
-                                                                                for (var t = 0, h = reess.data.length; t <
-                                                                                    h; t++) {
-                                                                                    bag6 += '<strong>Soal No ' + nnno++ +
-                                                                                    '</strong><div class="post"><input type="hidden" name="v_id6[]" value="' +
-                                                                                        reess.data[t].idSoalTes + '"><p style="color: black;">' + reess.data[t]
-                                                                                    .pertanyaan +
-                                                                                    '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban6[' +
-                                                                                        reess.data[t].idSoalTes +
-                                                                                    ']" value="A"><label class="form-check-label">Sangat Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban6[' +
-                                                                                        reess.data[t].idSoalTes +
-                                                                                    ']" value="B"><label class="form-check-label">Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban6[' +
-                                                                                        reess.data[t].idSoalTes +
-                                                                                    ']" value="C"><label class="form-check-label">Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban6[' +
-                                                                                        reess.data[t].idSoalTes +
-                                                                                    ']" value="D"><label class="form-check-label">Sangat Setuju</label></div></div></div></div>';
+                                                                                    reess
+                                                                                    .data
+                                                                                    .length +
+                                                                                    '">'
+                                                                                for (
+                                                                                    var t =
+                                                                                        0,
+                                                                                        h =
+                                                                                        reess
+                                                                                        .data
+                                                                                        .length; t <
+                                                                                    h; t++
+                                                                                ) {
+                                                                                    bag6 +=
+                                                                                        '<strong>Soal No ' +
+                                                                                        nnno++
+                                                                                        +
+                                                                                        '</strong><div class="post"><input type="hidden" name="v_id6[]" value="' +
+                                                                                        reess
+                                                                                        .data[
+                                                                                            t
+                                                                                        ]
+                                                                                        .idSoalTes +
+                                                                                        '"><p style="color: black;">' +
+                                                                                        reess
+                                                                                        .data[
+                                                                                            t
+                                                                                        ]
+                                                                                        .pertanyaan +
+                                                                                        '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban6[' +
+                                                                                        reess
+                                                                                        .data[
+                                                                                            t
+                                                                                        ]
+                                                                                        .idSoalTes +
+                                                                                        ']" value="A"><label class="form-check-label">Sangat Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban6[' +
+                                                                                        reess
+                                                                                        .data[
+                                                                                            t
+                                                                                        ]
+                                                                                        .idSoalTes +
+                                                                                        ']" value="B"><label class="form-check-label">Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban6[' +
+                                                                                        reess
+                                                                                        .data[
+                                                                                            t
+                                                                                        ]
+                                                                                        .idSoalTes +
+                                                                                        ']" value="C"><label class="form-check-label">Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban6[' +
+                                                                                        reess
+                                                                                        .data[
+                                                                                            t
+                                                                                        ]
+                                                                                        .idSoalTes +
+                                                                                        ']" value="D"><label class="form-check-label">Sangat Setuju</label></div></div></div></div>';
                                                                                 }
                                                                                 bag6 +=
                                                                                     '<br><button class="btn btn-success" type="button" onclick="add6()" style="float: right;">Simpan</button>'
-                                                                                bag6 += '</form>'
-                                                                                $("#bagian6").html(bag6);
+                                                                                bag6 +=
+                                                                                    '</form>'
+                                                                                $("#bagian6")
+                                                                                    .html(
+                                                                                        bag6
+                                                                                    );
                                                                                 $.ajax({
                                                                                     url: "/Mtest/getSoal7",
                                                                                     type: "post",
                                                                                     dataType: "json",
-                                                                                    success: function (rreess) {
-                                                                                        if (rees.code == 200) {
-                                                                                            var nnnoo = 1;
-                                                                                            var bag7 = '';
-                                                                                            bag7 += '<form id="post7">'
+                                                                                    success: function (
+                                                                                        rreess
+                                                                                    ) {
+                                                                                        if (rees
+                                                                                            .code ==
+                                                                                            200
+                                                                                        ) {
+                                                                                            var nnnoo =
+                                                                                                1;
+                                                                                            var bag7 =
+                                                                                                '';
+                                                                                            bag7 +=
+                                                                                                '<form id="post7">'
                                                                                             bag7 +=
                                                                                                 '<input type="hidden" name="v_sess7" value="<%= idMhs %>">'
                                                                                             bag7 +=
                                                                                                 '<input type="hidden" name="v_row7" value="' +
-                                                                                                rreess.data.length + '">'
-                                                                                            for (var z = 0, x = rreess.data.length; z <
-                                                                                                x; z++) {
-                                                                                                bag7 += '<strong>Soal No ' + nnnoo++ +
-                                                                                                '</strong><div class="post"><input type="hidden" name="v_id7[]" value="' +
-                                                                                                    rreess.data[z].idSoalTes + '"><p style="color: black;">' + rreess.data[z]
-                                                                                                .pertanyaan +
-                                                                                                '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban7[' +
-                                                                                                    rreess.data[z].idSoalTes +
-                                                                                                ']" value="A"><label class="form-check-label">Sangat Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban7[' +
-                                                                                                    rreess.data[z].idSoalTes +
-                                                                                                ']" value="B"><label class="form-check-label">Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban7[' +
-                                                                                                    rreess.data[z].idSoalTes +
-                                                                                                ']" value="C"><label class="form-check-label">Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban7[' +
-                                                                                                    rreess.data[z].idSoalTes +
-                                                                                                ']" value="D"><label class="form-check-label">Sangat Setuju</label></div></div></div></div>';
+                                                                                                rreess
+                                                                                                .data
+                                                                                                .length +
+                                                                                                '">'
+                                                                                            for (
+                                                                                                var z =
+                                                                                                    0,
+                                                                                                    x =
+                                                                                                    rreess
+                                                                                                    .data
+                                                                                                    .length; z <
+                                                                                                x; z++
+                                                                                            ) {
+                                                                                                bag7 +=
+                                                                                                    '<strong>Soal No ' +
+                                                                                                    nnnoo++
+                                                                                                    +
+                                                                                                    '</strong><div class="post"><input type="hidden" name="v_id7[]" value="' +
+                                                                                                    rreess
+                                                                                                    .data[
+                                                                                                        z
+                                                                                                    ]
+                                                                                                    .idSoalTes +
+                                                                                                    '"><p style="color: black;">' +
+                                                                                                    rreess
+                                                                                                    .data[
+                                                                                                        z
+                                                                                                    ]
+                                                                                                    .pertanyaan +
+                                                                                                    '</p><div class="row col-12" style="width: 100%;"><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban7[' +
+                                                                                                    rreess
+                                                                                                    .data[
+                                                                                                        z
+                                                                                                    ]
+                                                                                                    .idSoalTes +
+                                                                                                    ']" value="A"><label class="form-check-label">Sangat Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban7[' +
+                                                                                                    rreess
+                                                                                                    .data[
+                                                                                                        z
+                                                                                                    ]
+                                                                                                    .idSoalTes +
+                                                                                                    ']" value="B"><label class="form-check-label">Tidak Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban7[' +
+                                                                                                    rreess
+                                                                                                    .data[
+                                                                                                        z
+                                                                                                    ]
+                                                                                                    .idSoalTes +
+                                                                                                    ']" value="C"><label class="form-check-label">Setuju</label></div></div><div class="col-3"><div class="form-check"><input class="form-check-input" type="radio" name="v_jawaban7[' +
+                                                                                                    rreess
+                                                                                                    .data[
+                                                                                                        z
+                                                                                                    ]
+                                                                                                    .idSoalTes +
+                                                                                                    ']" value="D"><label class="form-check-label">Sangat Setuju</label></div></div></div></div>';
                                                                                             }
                                                                                             bag7 +=
                                                                                                 '<br><button class="btn btn-success" type="button" onclick="add7()" style="float: right;">Simpan</button>'
-                                                                                            bag7 += '</form>'
-                                                                                            $("#bagian7").html(bag7);
+                                                                                            bag7 +=
+                                                                                                '</form>'
+                                                                                            $("#bagian7")
+                                                                                                .html(
+                                                                                                    bag7
+                                                                                                );
                                                                                         }
                                                                                     }
                                                                                 })

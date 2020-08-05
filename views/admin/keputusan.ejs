@@ -93,7 +93,7 @@
 <!-- AdminLTE App -->
 <script src="assets/admin/dist/js/adminlte.js"></script>
 <!-- Sweet Alert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>\
+<script src="./assets/admin/dist/js/sweetalert.min.js"></script>
 <!-- DataTables -->
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
@@ -117,13 +117,14 @@
                         },
                         {
                             data: "tanggal",
-                            render: function(tg) {
+                            render: function (tg) {
                                 var date = new Date(tg)
-                                    yr = date.getFullYear(),
+                                yr = date.getFullYear(),
                                     mt = date.getMonth() + 1
-                                    month   = mt < 10 ? '0' + mt : mt;
-                                    dy = date.getDate()  < 10 ? '0' + date.getDate()  : date.getDate();;
-                                var tgl = (yr) +'-'+ (month) +'-'+ (dy);
+                                month = mt < 10 ? '0' + mt : mt;
+                                dy = date.getDate() < 10 ? '0' + date.getDate() : date
+                                    .getDate();;
+                                var tgl = (yr) + '-' + (month) + '-' + (dy);
                                 return tgl
                             },
                             width: '150px',
@@ -165,7 +166,9 @@
                                 var but = '';
                                 if (data.status == 0) {
                                     but =
-                                        '<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_lulus" onclick="getData(\'' + id + '\')">Lulus</button> | <button type="button" class="btn btn-danger" onclick="gagal(' +
+                                        '<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_lulus" onclick="getData(\'' +
+                                        id +
+                                        '\')">Lulus</button> | <button type="button" class="btn btn-danger" onclick="gagal(' +
                                         id + ')">Gagal</button>';
                                 } else {
                                     but = '';
@@ -184,13 +187,15 @@
         dataTables.init();
     });
 
-    function getData(id){
+    function getData(id) {
         $.ajax({
             url: "/Mkeputusan/getData",
             type: "post",
             dataType: "json",
-            data: {id: id},
-            success: function(res) {
+            data: {
+                id: id
+            },
+            success: function (res) {
                 if (res.code == 200) {
                     for (var i = 0, j = res.data.length; i < j; i++) {
                         $("#v_id").val(res.data[i].idUjianH)
@@ -203,33 +208,33 @@
         })
     }
 
-    $(document).ready(function() {
-        $("#add_button").click(function() {
+    $(document).ready(function () {
+        $("#add_button").click(function () {
             swal({
                 title: "Are you sure?",
                 text: "",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
-            }).then(function(e) {
+            }).then(function (e) {
                 if (e) {
                     $.ajax({
                         url: "/Mkeputusan/lulus",
                         type: "post",
                         dataType: "json",
                         data: $("#lulus_form").serialize(),
-                        success: function(res) {
+                        success: function (res) {
                             if (res.code == 200) {
                                 swal({
                                     title: "Success!!",
                                     text: res.message,
                                     icon: "success",
                                     button: "Close"
-                                }).then(function() {
+                                }).then(function () {
                                     $('#lulus_form')[0].reset();
                                     $("#modal_lulus").modal('hide');
                                     $('#datatables').DataTable()
-                                    .ajax.reload();
+                                        .ajax.reload();
                                 })
                             } else {
                                 swal({
@@ -246,7 +251,7 @@
         })
     })
 
-    function gagal(id){
+    function gagal(id) {
         swal({
             title: "Are you sure?",
             text: "",
@@ -259,17 +264,19 @@
                     type: "POST",
                     dataType: "json",
                     url: "/Mkeputusan/gagal",
-                    data: {id: id},
-                    success: function(res) {
+                    data: {
+                        id: id
+                    },
+                    success: function (res) {
                         if (res.code == 200) {
                             swal({
                                 title: "Success!",
                                 text: res.message,
                                 icon: "success",
                                 button: "Close!",
-                            }).then(function() {
+                            }).then(function () {
                                 $('#datatables').DataTable()
-                                .ajax.reload();
+                                    .ajax.reload();
                             })
                         } else {
                             swal({
