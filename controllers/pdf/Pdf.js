@@ -50,7 +50,7 @@ function generateFooter(doc) {
 
 router.get('/', async function (req, res) {
   var id = req.query.id
-  conn.query("select b.namaLengkap, b.telepon, b.email, a.idPembayaran, a.jumlah from pembayaran as a join c_mhs as b on a.idMahasiswa=b.idMahasiswa where a.idMahasiswa = '" + id + "'", function (err, result) {
+  conn.query("select b.namaLengkap, b.prodi, b.telepon, b.email, a.idPembayaran, a.jumlah from pembayaran as a join c_mhs as b on a.idMahasiswa=b.idMahasiswa where a.idMahasiswa = '" + id + "'", function (err, result) {
     if (err)
       throw err;
     else
@@ -69,6 +69,7 @@ router.get('/', async function (req, res) {
       },
       items: [{
         nama: data.namaLengkap,
+        prodi: data.prodi,
         jumlah: data.jumlah,
         total: data.jumlah
       }],
@@ -124,6 +125,7 @@ router.get('/', async function (req, res) {
         doc,
         invoiceTableTop,
         "Nama",
+        "Prodi",
         "Jumlah",
         "Total"
       );
@@ -137,6 +139,7 @@ router.get('/', async function (req, res) {
           doc,
           position,
           item.nama,
+          item.prodi,
           "Rp. " + item.jumlah,
           "Rp. " + item.total
         );
@@ -149,6 +152,7 @@ router.get('/', async function (req, res) {
         doc,
         subtotalPosition,
         "",
+        "",
         "Subtotal",
         "Rp. " + invoice.subtotal
       );
@@ -157,6 +161,7 @@ router.get('/', async function (req, res) {
       generateTableRow(
         doc,
         paidToDatePosition,
+        "",
         "",
         "Keterangan",
         invoice.keterangan
@@ -168,16 +173,18 @@ router.get('/', async function (req, res) {
         doc,
         duePosition,
         "",
+        "",
         "Total Yang Dibayarkan",
         "Rp. " + invoice.subtotal
       );
       doc.font("Helvetica");
     }
 
-    function generateTableRow(doc, y, nama, jumlah, total) {
+    function generateTableRow(doc, y, nama, prodi, jumlah, total) {
       doc
         .fontSize(10)
         .text(nama, 50, y)
+        .text(prodi, 220, y)
         //   .text(description, 150, y)
         .text(jumlah, 280, y, {
           width: 90,
@@ -217,7 +224,7 @@ router.get('/', async function (req, res) {
 router.get('/kelulusan', (req, res) => {
   var id = req.query.id
 
-  conn.query("Select a.namaLengkap, a.jurusan, (case when (b.status = 3) then 'Gagal' else 'LULUS' end) as keterangan from c_mhs as a join ujianh as b on a.idMahasiswa=b.idCmhs where a.idMahasiswa = '" + id + "'", function (err, result) {
+  conn.query("Select a.namaLengkap, a.prodi, a.jurusan, (case when (b.status = 3) then 'Gagal' else 'LULUS' end) as keterangan from c_mhs as a join ujianh as b on a.idMahasiswa=b.idCmhs where a.idMahasiswa = '" + id + "'", function (err, result) {
     if (err)
       throw err;
     else
@@ -230,34 +237,34 @@ router.get('/kelulusan', (req, res) => {
   function queryData(data) {
     const invoice = {
       nama: data.namaLengkap,
-      jurusan: data.jurusan,
+      jurusan: data.prodi,
       keterangan: data.keterangan
     };
-  
+
     function generateCustomerInformation(doc, invoice) {
       doc
         .fillColor("#444444")
         .fontSize(20)
         .text("Hasil Ujian Seleksi", 50, 160);
-  
+
       generateHr(doc, 185);
-  
+
       const customerInformationTop = 200;
-  
+
       doc
         .fontSize(12)
         .font("Helvetica-Bold")
         .text("Tanggal:", 50, customerInformationTop)
         .text("Kepada Yth:", 50, customerInformationTop + 15)
         .text("Perihal:", 50, customerInformationTop + 30)
-  
+
         .font("Helvetica-Bold")
         .text(formatDate(new Date()), 300, customerInformationTop)
         .font("Helvetica")
         .text(invoice.nama, 300, customerInformationTop + 15)
         .text("Pengumuman Hasil Ujian Seleksi", 300, customerInformationTop + 30)
         .moveDown();
-  
+
       generateHr(doc, 252);
     }
 
@@ -272,12 +279,16 @@ router.get('/kelulusan', (req, res) => {
       doc
         .fontSize(12)
         .font("Helvetica")
-        .text("Salam sejahtera kami sampaikan, semoga keselamatan dan kesuksesan selalu menyertai Adik beserta keluarga Aamiin.", 50, textTop + 60, {align: "justify"})
+        .text("Salam sejahtera kami sampaikan, semoga keselamatan dan kesuksesan selalu menyertai Adik beserta keluarga Aamiin.", 50, textTop + 60, {
+          align: "justify"
+        })
 
       doc
         .fontSize(12)
         .font("Helvetica")
-        .text("Sehubungan dengan pelaksanaan tes seleksi masuk Politeknik LP3I Jakarta di Kampus Cimone yang telah berlangsung, maka dengan ini Panita PMB 2020/2021 menyatakan bahwa:", 50, textTop + 100, {align: "justify"})
+        .text("Sehubungan dengan pelaksanaan tes seleksi masuk Politeknik LP3I Jakarta di Kampus Cimone yang telah berlangsung, maka dengan ini Panita PMB 2020/2021 menyatakan bahwa:", 50, textTop + 100, {
+          align: "justify"
+        })
 
       doc
         .fontSize(12)
@@ -296,30 +307,40 @@ router.get('/kelulusan', (req, res) => {
       doc
         .fontSize(12)
         .font("Helvetica")
-        .text("Kami ucapkan SELAMAT bergabung di Kampus yang mendidik Generasi Muda untuk berani mandiri sejak dini. Selanjutnya untuk penentuan kelas, kami harapkan agar segera melakukan registrasi ulang Pembayaran Uang Pangkal yang bisa dilakukan dengan pembayaran langsung di Kampus LP3I Cimone atau melalui transfer ke No Rekening Kampus LP3I Cimone. Pembayaran ditunggu paling lambat Satu minggu setelah pengumuman.", 50, textTop + 220, {align: "justify"})
+        .text("Kami ucapkan SELAMAT bergabung di Kampus yang mendidik Generasi Muda untuk berani mandiri sejak dini. Selanjutnya untuk penentuan kelas, kami harapkan agar segera melakukan registrasi ulang Pembayaran Uang Pangkal yang bisa dilakukan dengan pembayaran langsung di Kampus LP3I Cimone atau melalui transfer ke No Rekening Kampus LP3I Cimone. Pembayaran ditunggu paling lambat Satu minggu setelah pengumuman.", 50, textTop + 220, {
+          align: "justify"
+        })
 
       doc
         .fontSize(12)
         .font("Helvetica")
-        .text("Demikian informasi ini kami sampaikan. Mohon segera melengkapi dan mengembalikan formulir pendaftaran yang telah diisi. Atas perhatian dan kepercayaannya kami ucapkan terima kasih.", 50, textTop + 315, {align: "justify"})
+        .text("Demikian informasi ini kami sampaikan. Mohon segera melengkapi dan mengembalikan formulir pendaftaran yang telah diisi. Atas perhatian dan kepercayaannya kami ucapkan terima kasih.", 50, textTop + 315, {
+          align: "justify"
+        })
 
       doc
         .fontSize(12)
         .font("Helvetica")
-        .text("Hormat Kami,", 50, textTop + 370, {align: "justify"})
+        .text("Hormat Kami,", 50, textTop + 370, {
+          align: "justify"
+        })
 
       doc
         .fontSize(12)
         .font("Helvetica-Bold")
-        .text("Siti Hamidah, SE", 50, textTop + 450, {align: "justify"})
+        .text("Siti Hamidah, SE", 50, textTop + 450, {
+          align: "justify"
+        })
 
       doc
         .fontSize(12)
         .font("Helvetica")
-        .text("Kabid, Pemasaran,", 50, textTop + 470, {align: "justify"})
-        
+        .text("Kabid, Pemasaran,", 50, textTop + 470, {
+          align: "justify"
+        })
+
     }
-  
+
     var doc = new PDFDocument({
       size: "A4",
       margin: 50
@@ -335,12 +356,12 @@ router.get('/kelulusan', (req, res) => {
         })
         .end(pdfData);
     });
-  
+
     generateHeader(doc);
     generateCustomerInformation(doc, invoice);
     generateText(doc, invoice);
     generateFooter(doc);
-  
+
     doc.end();
   }
 })
@@ -353,12 +374,12 @@ router.get('/pembayaran', (req, res) => {
     sql = "select b.namaLengkap, a.tanggal, a.jumlah from pembayaran as a join c_mhs as b on a.idMahasiswa=b.idMahasiswa where b.status >= 3"
   } else {
     if (awal && akhir == 0) {
-      sql = "select b.namaLengkap, a.tanggal, a.jumlah from pembayaran as a join c_mhs as b on a.idMahasiswa=b.idMahasiswa where tanggal >= '"+ awal +"' and b.status >= 3"
+      sql = "select b.namaLengkap, a.tanggal, a.jumlah from pembayaran as a join c_mhs as b on a.idMahasiswa=b.idMahasiswa where tanggal >= '" + awal + "' and b.status >= 3"
     } else {
       if (akhir && awal == 0) {
-        sql = "select b.namaLengkap, a.tanggal, a.jumlah from pembayaran as a join c_mhs as b on a.idMahasiswa=b.idMahasiswa where tanggal <= '"+ akhir +"' and b.status >= 3"
+        sql = "select b.namaLengkap, a.tanggal, a.jumlah from pembayaran as a join c_mhs as b on a.idMahasiswa=b.idMahasiswa where tanggal <= '" + akhir + "' and b.status >= 3"
       } else {
-        sql = "select b.namaLengkap, a.tanggal, a.jumlah from pembayaran as a join c_mhs as b on a.idMahasiswa=b.idMahasiswa where a.tanggal between '"+ awal +"' and '"+ akhir +"' and b.status >= 3"
+        sql = "select b.namaLengkap, a.tanggal, a.jumlah from pembayaran as a join c_mhs as b on a.idMahasiswa=b.idMahasiswa where a.tanggal between '" + awal + "' and '" + akhir + "' and b.status >= 3"
       }
     }
   }
@@ -392,11 +413,11 @@ router.get('/pembayaran', (req, res) => {
         .fillColor("#444444")
         .fontSize(20)
         .text("Laporan Pembayaran", 50, 160);
-  
+
       generateHr(doc, 185);
-  
+
       const customerInformationTop = 200;
-  
+
       doc
         .fontSize(10)
         .text("Tanggal:", 50, customerInformationTop)
@@ -404,7 +425,7 @@ router.get('/pembayaran', (req, res) => {
         .text("Jumlah Data:", 50, customerInformationTop + 15)
         .text(data.row, 150, customerInformationTop + 15)
         .moveDown();
-  
+
       generateHr(doc, 237);
     }
 
@@ -460,12 +481,15 @@ router.get('/pembayaran', (req, res) => {
           width: 90,
           align: "right"
         })
-        .text(status, 370, y, { width: 90, align: "right" })
+        .text(status, 370, y, {
+          width: 90,
+          align: "right"
+        })
         .text(jumlah, 0, y, {
           align: "right"
         });
     }
-  
+
     var doc = new PDFDocument({
       size: "A4",
       margin: 50
@@ -481,12 +505,12 @@ router.get('/pembayaran', (req, res) => {
         })
         .end(pdfData);
     });
-  
+
     generateHeader(doc);
     generateUserInformation(doc, data);
     generatePembayaranTable(doc, data);
     generateFooter(doc);
-  
+
     doc.end();
   }
 })
@@ -499,12 +523,12 @@ router.get('/mahasiswa', (req, res) => {
     sql = "select namaLengkap, jenisKelamin, telepon, namaSekolah, jurusan, status from c_mhs"
   } else {
     if (awal && akhir == 0) {
-      sql = "select namaLengkap, jenisKelamin, telepon, namaSekolah, jurusan, status from c_mhs where tanggal >= '"+ awal +"'"
+      sql = "select namaLengkap, jenisKelamin, telepon, namaSekolah, jurusan, status from c_mhs where tanggal >= '" + awal + "'"
     } else {
       if (akhir && awal == 0) {
-        sql = "select namaLengkap, jenisKelamin, telepon, namaSekolah, jurusan, status from c_mhs where tanggal <= '"+ akhir +"'"
+        sql = "select namaLengkap, jenisKelamin, telepon, namaSekolah, jurusan, status from c_mhs where tanggal <= '" + akhir + "'"
       } else {
-        sql = "select namaLengkap, jenisKelamin, telepon, namaSekolah, jurusan, status from c_mhs where tanggal between '"+ awal +"' and '"+ akhir +"'"
+        sql = "select namaLengkap, jenisKelamin, telepon, namaSekolah, jurusan, status from c_mhs where tanggal between '" + awal + "' and '" + akhir + "'"
       }
     }
   }
@@ -518,7 +542,7 @@ router.get('/mahasiswa', (req, res) => {
     }
   })
 
-  function generateData(results){
+  function generateData(results) {
     var arr = []
     results.forEach(asd => {
       var obj = {
@@ -542,11 +566,11 @@ router.get('/mahasiswa', (req, res) => {
         .fillColor("#444444")
         .fontSize(20)
         .text("Laporan Calon Mahasiswa", 50, 160);
-  
+
       generateHr(doc, 185);
-  
+
       const customerInformationTop = 200;
-  
+
       doc
         .fontSize(10)
         .text("Tanggal:", 50, customerInformationTop)
@@ -554,7 +578,7 @@ router.get('/mahasiswa', (req, res) => {
         .text("Jumlah Data:", 50, customerInformationTop + 15)
         .text(data.row, 150, customerInformationTop + 15)
         .moveDown();
-  
+
       generateHr(doc, 237);
     }
 
@@ -596,10 +620,20 @@ router.get('/mahasiswa', (req, res) => {
       doc
         .fontSize(10)
         .text(nama, 50, y)
-        .text(jk, 150, y, {width: 90, align: "center"})
-        .text(telepon, 250, y, { width: 90, align: "center" })
-        .text(sekolah, 260, y, {align: "center"})
-        .text(jurusan, 480, y, {align: "center"})
+        .text(jk, 150, y, {
+          width: 90,
+          align: "center"
+        })
+        .text(telepon, 250, y, {
+          width: 90,
+          align: "center"
+        })
+        .text(sekolah, 260, y, {
+          align: "center"
+        })
+        .text(jurusan, 480, y, {
+          align: "center"
+        })
     }
 
     var doc = new PDFDocument({
@@ -617,12 +651,12 @@ router.get('/mahasiswa', (req, res) => {
         })
         .end(pdfData);
     });
-  
+
     generateHeader(doc);
     generateUserInformation(doc, data);
     generateMahasiswaTable(doc, data);
     generateFooter(doc);
-  
+
     doc.end();
   }
 })
@@ -635,12 +669,12 @@ router.get('/ujian', (req, res) => {
     sql = "select m1.namaLengkap, a1.tanggal, a1.nilai as total, t1.nilai as bag1, t2.nilai as bag2, t3.nilai as bag3, (case when a1.status = 1 then 'Lulus' when a1.status = 2 then 'Diluluskan' when a1.status = 3 then 'Gagal' end) as status from ujianh as a1 left join (select d1.idUjianH, d1.nilai from ujiand as d1 where d1.soalBagian = 1) t1 on t1.idUjianH=a1.idUjianH left join (select d2.idUjianH, d2.nilai from ujiand as d2 where d2.soalBagian = 2) t2 on t2.idUjianH=a1.idUjianH left join (select d3.idUjianH, d3.nilai from ujiand as d3 where d3.soalBagian = 3) t3 on t3.idUjianH=a1.idUjianH join c_mhs as m1 on m1.idMahasiswa=a1.idCmhs where a1.status > 0"
   } else {
     if (awal && akhir == 0) {
-      sql = "select m1.namaLengkap, a1.tanggal, a1.nilai as total, t1.nilai as bag1, t2.nilai as bag2, t3.nilai as bag3, (case when a1.status = 1 then 'Lulus' when a1.status = 2 then 'Diluluskan' when a1.status = 3 then 'Gagal' end) as status from ujianh as a1 left join (select d1.idUjianH, d1.nilai from ujiand as d1 where d1.soalBagian = 1) t1 on t1.idUjianH=a1.idUjianH left join (select d2.idUjianH, d2.nilai from ujiand as d2 where d2.soalBagian = 2) t2 on t2.idUjianH=a1.idUjianH left join (select d3.idUjianH, d3.nilai from ujiand as d3 where d3.soalBagian = 3) t3 on t3.idUjianH=a1.idUjianH join c_mhs as m1 on m1.idMahasiswa=a1.idCmhs where a1.tanggal >= '"+ awal +"' and a1.status > 0"
+      sql = "select m1.namaLengkap, a1.tanggal, a1.nilai as total, t1.nilai as bag1, t2.nilai as bag2, t3.nilai as bag3, (case when a1.status = 1 then 'Lulus' when a1.status = 2 then 'Diluluskan' when a1.status = 3 then 'Gagal' end) as status from ujianh as a1 left join (select d1.idUjianH, d1.nilai from ujiand as d1 where d1.soalBagian = 1) t1 on t1.idUjianH=a1.idUjianH left join (select d2.idUjianH, d2.nilai from ujiand as d2 where d2.soalBagian = 2) t2 on t2.idUjianH=a1.idUjianH left join (select d3.idUjianH, d3.nilai from ujiand as d3 where d3.soalBagian = 3) t3 on t3.idUjianH=a1.idUjianH join c_mhs as m1 on m1.idMahasiswa=a1.idCmhs where a1.tanggal >= '" + awal + "' and a1.status > 0"
     } else {
       if (akhir && awal == 0) {
-        sql = "select m1.namaLengkap, a1.tanggal, a1.nilai as total, t1.nilai as bag1, t2.nilai as bag2, t3.nilai as bag3, (case when a1.status = 1 then 'Lulus' when a1.status = 2 then 'Diluluskan' when a1.status = 3 then 'Gagal' end) as status from ujianh as a1 left join (select d1.idUjianH, d1.nilai from ujiand as d1 where d1.soalBagian = 1) t1 on t1.idUjianH=a1.idUjianH left join (select d2.idUjianH, d2.nilai from ujiand as d2 where d2.soalBagian = 2) t2 on t2.idUjianH=a1.idUjianH left join (select d3.idUjianH, d3.nilai from ujiand as d3 where d3.soalBagian = 3) t3 on t3.idUjianH=a1.idUjianH join c_mhs as m1 on m1.idMahasiswa=a1.idCmhs where a1.tanggal <= '"+ akhir +"' and a1.status > 0"
+        sql = "select m1.namaLengkap, a1.tanggal, a1.nilai as total, t1.nilai as bag1, t2.nilai as bag2, t3.nilai as bag3, (case when a1.status = 1 then 'Lulus' when a1.status = 2 then 'Diluluskan' when a1.status = 3 then 'Gagal' end) as status from ujianh as a1 left join (select d1.idUjianH, d1.nilai from ujiand as d1 where d1.soalBagian = 1) t1 on t1.idUjianH=a1.idUjianH left join (select d2.idUjianH, d2.nilai from ujiand as d2 where d2.soalBagian = 2) t2 on t2.idUjianH=a1.idUjianH left join (select d3.idUjianH, d3.nilai from ujiand as d3 where d3.soalBagian = 3) t3 on t3.idUjianH=a1.idUjianH join c_mhs as m1 on m1.idMahasiswa=a1.idCmhs where a1.tanggal <= '" + akhir + "' and a1.status > 0"
       } else {
-        sql = "select m1.namaLengkap, a1.tanggal, a1.nilai as total, t1.nilai as bag1, t2.nilai as bag2, t3.nilai as bag3, (case when a1.status = 1 then 'Lulus' when a1.status = 2 then 'Diluluskan' when a1.status = 3 then 'Gagal' end) as status from ujianh as a1 left join (select d1.idUjianH, d1.nilai from ujiand as d1 where d1.soalBagian = 1) t1 on t1.idUjianH=a1.idUjianH left join (select d2.idUjianH, d2.nilai from ujiand as d2 where d2.soalBagian = 2) t2 on t2.idUjianH=a1.idUjianH left join (select d3.idUjianH, d3.nilai from ujiand as d3 where d3.soalBagian = 3) t3 on t3.idUjianH=a1.idUjianH join c_mhs as m1 on m1.idMahasiswa=a1.idCmhs where a1.tanggal between '"+ awal +"' and '"+ akhir +"' and a1.status > 0"
+        sql = "select m1.namaLengkap, a1.tanggal, a1.nilai as total, t1.nilai as bag1, t2.nilai as bag2, t3.nilai as bag3, (case when a1.status = 1 then 'Lulus' when a1.status = 2 then 'Diluluskan' when a1.status = 3 then 'Gagal' end) as status from ujianh as a1 left join (select d1.idUjianH, d1.nilai from ujiand as d1 where d1.soalBagian = 1) t1 on t1.idUjianH=a1.idUjianH left join (select d2.idUjianH, d2.nilai from ujiand as d2 where d2.soalBagian = 2) t2 on t2.idUjianH=a1.idUjianH left join (select d3.idUjianH, d3.nilai from ujiand as d3 where d3.soalBagian = 3) t3 on t3.idUjianH=a1.idUjianH join c_mhs as m1 on m1.idMahasiswa=a1.idCmhs where a1.tanggal between '" + awal + "' and '" + akhir + "' and a1.status > 0"
       }
     }
   }
@@ -664,7 +698,7 @@ router.get('/ujian', (req, res) => {
         "bag1": abc.bag1,
         "bag2": abc.bag2,
         "bag3": abc.bag3,
-        "status": abc.status, 
+        "status": abc.status,
       }
       arr.push(obj)
     })
@@ -678,11 +712,11 @@ router.get('/ujian', (req, res) => {
         .fillColor("#444444")
         .fontSize(20)
         .text("Laporan Hasil Ujian", 50, 160);
-  
+
       generateHr(doc, 185);
-  
+
       const customerInformationTop = 200;
-  
+
       doc
         .fontSize(10)
         .text("Tanggal:", 50, customerInformationTop)
@@ -690,7 +724,7 @@ router.get('/ujian', (req, res) => {
         .text("Jumlah Data:", 50, customerInformationTop + 15)
         .text(data.row, 150, customerInformationTop + 15)
         .moveDown();
-  
+
       generateHr(doc, 237);
     }
 
@@ -736,12 +770,26 @@ router.get('/ujian', (req, res) => {
       doc
         .fontSize(10)
         .text(nama, 50, y)
-        .text(tanggal, 150, y, {width: 90, align: "center"})
-        .text(nilai, 205, y, { width: 90, align: "center" })
-        .text(bag1, 70, y, {align: "center"})
-        .text(bag2, 200, y, {align: "center"})
-        .text(bag3, 320, y, {align: "center"})
-        .text(status, 480, y, {align: "left"})
+        .text(tanggal, 150, y, {
+          width: 90,
+          align: "center"
+        })
+        .text(nilai, 205, y, {
+          width: 90,
+          align: "center"
+        })
+        .text(bag1, 70, y, {
+          align: "center"
+        })
+        .text(bag2, 200, y, {
+          align: "center"
+        })
+        .text(bag3, 320, y, {
+          align: "center"
+        })
+        .text(status, 480, y, {
+          align: "left"
+        })
     }
 
     var doc = new PDFDocument({
@@ -759,12 +807,12 @@ router.get('/ujian', (req, res) => {
         })
         .end(pdfData);
     });
-  
+
     generateHeader(doc);
     generateUserInformation(doc, data);
     generateUjianTable(doc, data);
     generateFooter(doc);
-  
+
     doc.end();
   }
 })
@@ -777,12 +825,12 @@ router.get('/test', (req, res) => {
     sql = "select a1.namaLengkap, b1.tanggal, b1.hasil from tes as b1 join c_mhs as a1 on b1.idCmhs=a1.idMahasiswa"
   } else {
     if (awal && akhir == 0) {
-      sql = "select a1.namaLengkap, b1.tanggal, b1.hasil from tes as b1 join c_mhs as a1 on b1.idCmhs=a1.idMahasiswa where b1.tanggal >= '"+ awal +"'"
+      sql = "select a1.namaLengkap, b1.tanggal, b1.hasil from tes as b1 join c_mhs as a1 on b1.idCmhs=a1.idMahasiswa where b1.tanggal >= '" + awal + "'"
     } else {
       if (akhir && awal == 0) {
-        sql = "select a1.namaLengkap, b1.tanggal, b1.hasil from tes as b1 join c_mhs as a1 on b1.idCmhs=a1.idMahasiswa where b1.tanggal <= '"+ akhir +"'"
+        sql = "select a1.namaLengkap, b1.tanggal, b1.hasil from tes as b1 join c_mhs as a1 on b1.idCmhs=a1.idMahasiswa where b1.tanggal <= '" + akhir + "'"
       } else {
-        sql = "select a1.namaLengkap, b1.tanggal, b1.hasil from tes as b1 join c_mhs as a1 on b1.idCmhs=a1.idMahasiswa where b1.tanggal between '"+ awal +"' and '"+ akhir +"'"
+        sql = "select a1.namaLengkap, b1.tanggal, b1.hasil from tes as b1 join c_mhs as a1 on b1.idCmhs=a1.idMahasiswa where b1.tanggal between '" + awal + "' and '" + akhir + "'"
       }
     }
   }
@@ -811,16 +859,17 @@ router.get('/test', (req, res) => {
       row: results.length,
       loop: arr
     }
+
     function generateUserInformation(doc, data) {
       doc
         .fillColor("#444444")
         .fontSize(20)
         .text("Laporan Hasil Tes", 50, 160);
-  
+
       generateHr(doc, 185);
-  
+
       const customerInformationTop = 200;
-  
+
       doc
         .fontSize(10)
         .text("Tanggal:", 50, customerInformationTop)
@@ -828,7 +877,7 @@ router.get('/test', (req, res) => {
         .text("Jumlah Data:", 50, customerInformationTop + 15)
         .text(data.row, 150, customerInformationTop + 15)
         .moveDown();
-  
+
       generateHr(doc, 237);
     }
 
@@ -866,8 +915,13 @@ router.get('/test', (req, res) => {
       doc
         .fontSize(10)
         .text(nama, 50, y)
-        .text(tanggal, 300, y, {width: 90, align: "center"})
-        .text(hasil, 500, y, {align: "left"})
+        .text(tanggal, 300, y, {
+          width: 90,
+          align: "center"
+        })
+        .text(hasil, 500, y, {
+          align: "left"
+        })
     }
 
     var doc = new PDFDocument({
@@ -885,12 +939,12 @@ router.get('/test', (req, res) => {
         })
         .end(pdfData);
     });
-  
+
     generateHeader(doc);
     generateUserInformation(doc, data);
     generateTestTable(doc, data);
     generateFooter(doc);
-  
+
     doc.end();
   }
 })

@@ -78,7 +78,7 @@
                   <thead>
                     <tr>
                       <th>Nama</th>
-                      <th>Asal Sekolah</th>
+                      <th>Prodi</th>
                       <th>Nama Orang Tua</th>
                       <th>Status</th>
                     </tr>
@@ -246,7 +246,18 @@
               data: "namaLengkap"
             },
             {
-              data: "namaSekolah"
+              data: "prodi",
+              render: function (p) {
+                if (p == "IK") {
+                  return "Management Informatika"
+                } else if (p == "KA") {
+                  return "Komputerisasi Akuntansi"
+                } else if (p == "AP") {
+                  return "Administrasi Bisnis"
+                } else {
+                  return "Administrasi Bisnis Internasional"
+                }
+              }
             },
             {
               data: "namaOrangTua"

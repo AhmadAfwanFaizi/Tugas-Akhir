@@ -64,8 +64,9 @@
 
 
                     <div class="invoice p-3 mb-3" style="display: none;">
-                        <a href="/pdf/kelulusan?id=<%= idMhs %>"><button class="btn btn-primary" id="generate"><i
-                                    class="fa fa-print"></i> Generate PDF</button></a> <br>
+                        <a href="/pdf/kelulusan?id=<%= idMhs %>" id="bttnn" style="display: none;"><button
+                                class="btn btn-primary" id="generate"><i class="fa fa-print"></i> Generate
+                                PDF</button></a> <br>
                         <p></p>
                         <div class="row">
                             <div class="col-12 table-responsive">
@@ -107,6 +108,28 @@
 <script type="text/javascript" src="./assets/client/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="./assets/client/js/dataTables.bootstrap4.min.js"></script>
 <script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Mpembayaran/getMhsCl",
+            dataType: "json",
+            type: "POST",
+            data: {
+                id: "<%= idMhs %>"
+            },
+            success: function (res) {
+                if (res.code === 200) {
+                    for (var i = 0; i < res.data.length; i++) {
+                        if (res.data[i].status >= 7) {
+                            $("#bttnn").show()
+                        }
+                    };
+                } else {
+                    console.log(res.data)
+                }
+            }
+        })
+    })
+
     var dataTable = {
         init: function () {
             $.ajax({
@@ -186,7 +209,21 @@
                                             data: "namaLengkap"
                                         },
                                         {
-                                            data: "tanggal"
+                                            data: "tanggal",
+                                            render: function (tg) {
+                                                var date = new Date(tg);
+                                                var yr = date.getFullYear();
+                                                var mt = date.getMonth() + 1
+                                                var month = mt < 10 ? '0' +
+                                                    mt : mt;
+                                                var day = date.getDate() <
+                                                    10 ? '0' + date
+                                                    .getDate() : date
+                                                    .getDate();
+                                                var newDate = day + '-' +
+                                                    month + '-' + yr;
+                                                return newDate;
+                                            }
                                         },
                                         {
                                             data: "nilai",
@@ -397,7 +434,8 @@
                         title: "Success!",
                         text: res.message,
                         icon: "success",
-                        button: "Close!",
+                        button: false,
+                        timer: 1500
                     })
                 } else {
                     swal({
@@ -423,7 +461,8 @@
                         title: "Success!",
                         text: res.message,
                         icon: "success",
-                        button: "Close!",
+                        button: false,
+                        timer: 1500
                     })
                 } else {
                     swal({
@@ -449,7 +488,8 @@
                         title: "Success!",
                         text: res.message,
                         icon: "success",
-                        button: "Close!",
+                        button: false,
+                        timer: 1500
                     })
                 } else {
                     swal({

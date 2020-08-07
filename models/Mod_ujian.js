@@ -121,33 +121,65 @@ router.post('/add1', (req, res) => {
 
     nilai = benar / baris * 100;
     var sql = "select * from ujianh where idCmhs = ?"
-    conn.query(sql, sess, (err, ress) => {
+    conn.query(sql, sess, (err, rees) => {
         if (err) {
             throw err;
         } else {
-            if (ress.length) {
-                var key
-                ress.forEach(a => {
-                    key = a.idUjianH
-                });
-                var data = {
-                    jawabanBenar: benar,
-                    jawabanSalah: salah,
-                    jawabanKosong: kosong,
-                    nilai: nilai
-                }
-                var sqll = "update ujiand set ? where idUjianH = '" + key + "' and soalBagian = 1"
-                conn.query(sqll, data, (err) => {
+            if (rees.length) {
+                var idHead
+                rees.forEach(ae => {
+                    idHead = ae.idUjianH
+                })
+                var sqql = "select * from ujiand where idUjianH = ? and soalBagian = 1"
+                conn.query(sqql, idHead, (err, reees) => {
                     if (err) {
-                        res.json({
-                            code: 500,
-                            message: "Failed update data ujian!!"
-                        });
+                        throw err;
                     } else {
-                        res.json({
-                            code: 200,
-                            message: "Success mengupdate data!!"
-                        });
+                        if (reees.length) {
+                            var data = {
+                                jawabanBenar: benar,
+                                jawabanSalah: salah,
+                                jawabanKosong: kosong,
+                                nilai: nilai
+                            }
+                            var sqqql = "update ujiand set ? where idUjianH = '" + idHead + "' and soalBagian = 1"
+                            conn.query(sqqql, data, (err) => {
+                                if (err) {
+                                    res.json({
+                                        code: 500,
+                                        message: "Failed update data ujian!!"
+                                    });
+                                } else {
+                                    res.json({
+                                        code: 200,
+                                        message: "Success mengupdate data!!"
+                                    });
+                                }
+                            })
+                        } else {
+                            var daata = {
+                                idUjianH: idHead,
+                                soalBagian: 1,
+                                jawabanBenar: benar,
+                                jawabanSalah: salah,
+                                jawabanKosong: kosong,
+                                nilai: nilai
+                            }
+                            var sqqqql = "insert into ujiand set ?"
+                            conn.query(sqqqql, daata, (err) => {
+                                if (err) {
+                                    res.json({
+                                        code: 500,
+                                        message: "Failed insert data ujian!!"
+                                    });
+                                } else {
+                                    res.json({
+                                        code: 200,
+                                        message: "Success menyimpan data!!"
+                                    });
+                                }
+                            })
+                        }
                     }
                 })
             } else {
@@ -241,51 +273,95 @@ router.post('/add2', (req, res) => {
         if (err) {
             throw err;
         } else {
-            var idHead
-            rees.forEach(ae => {
-                idHead = ae.idUjianH
-            })
-            var sqql = "select * from ujiand where idUjianH = ? and soalBagian = 2"
-            conn.query(sqql, idHead, (err, reees) => {
-                if (err) {
-                    throw err;
-                } else {
-                    if (reees.length) {
-                        var data = {
-                            jawabanBenar: benar,
-                            jawabanSalah: salah,
-                            jawabanKosong: kosong,
-                            nilai: nilai
-                        }
-                        var sqqql = "update ujiand set ? where idUjianH = '" + idHead + "' and soalBagian = 2"
-                        conn.query(sqqql, data, (err) => {
-                            if (err) {
-                                res.json({
-                                    code: 500,
-                                    message: "Failed update data ujian!!"
-                                });
-                            } else {
-                                res.json({
-                                    code: 200,
-                                    message: "Success mengupdate data!!"
-                                });
-                            }
-                        })
+            if (rees.length) {
+                var idHead
+                rees.forEach(ae => {
+                    idHead = ae.idUjianH
+                })
+                var sqql = "select * from ujiand where idUjianH = ? and soalBagian = 2"
+                conn.query(sqql, idHead, (err, reees) => {
+                    if (err) {
+                        throw err;
                     } else {
-                        var daata = {
-                            idUjianH: idHead,
+                        if (reees.length) {
+                            var data = {
+                                jawabanBenar: benar,
+                                jawabanSalah: salah,
+                                jawabanKosong: kosong,
+                                nilai: nilai
+                            }
+                            var sqqql = "update ujiand set ? where idUjianH = '" + idHead + "' and soalBagian = 2"
+                            conn.query(sqqql, data, (err) => {
+                                if (err) {
+                                    res.json({
+                                        code: 500,
+                                        message: "Failed update data ujian!!"
+                                    });
+                                } else {
+                                    res.json({
+                                        code: 200,
+                                        message: "Success mengupdate data!!"
+                                    });
+                                }
+                            })
+                        } else {
+                            var daata = {
+                                idUjianH: idHead,
+                                soalBagian: 2,
+                                jawabanBenar: benar,
+                                jawabanSalah: salah,
+                                jawabanKosong: kosong,
+                                nilai: nilai
+                            }
+                            var sqqqql = "insert into ujiand set ?"
+                            conn.query(sqqqql, daata, (err) => {
+                                if (err) {
+                                    res.json({
+                                        code: 500,
+                                        message: "Failed insert data ujian!!"
+                                    });
+                                } else {
+                                    res.json({
+                                        code: 200,
+                                        message: "Success menyimpan data!!"
+                                    });
+                                }
+                            })
+                        }
+                    }
+                })
+            } else {
+                var day = new Date().getDate()
+                var month = new Date().getMonth() + 1
+                var year = new Date().getFullYear()
+                var tgl = year + '-' + month + '-' + day
+                var dataa = {
+                    idCmhs: sess,
+                    tanggal: tgl
+                }
+                var sqlll = "insert into ujianh set ?"
+                conn.query(sqlll, dataa, (err, resss) => {
+                    if (err) {
+                        res.json({
+                            code: 500,
+                            message: "Failed insert data ujian!!"
+                        });
+                    } else {
+                        var headId = resss.insertId
+                        var dataaa = {
+                            idUjianH: headId,
                             soalBagian: 2,
                             jawabanBenar: benar,
                             jawabanSalah: salah,
                             jawabanKosong: kosong,
                             nilai: nilai
                         }
-                        var sqqqql = "insert into ujiand set ?"
-                        conn.query(sqqqql, daata, (err) => {
+                        var sqllll = "insert into ujiand set ?"
+                        conn.query(sqllll, dataaa, (err) => {
                             if (err) {
                                 res.json({
                                     code: 500,
-                                    message: "Failed insert data ujian!!"
+                                    message: "Failed insert data ujian detail!!"
                                 });
                             } else {
                                 res.json({
@@ -295,8 +371,8 @@ router.post('/add2', (req, res) => {
                             }
                         })
                     }
-                }
-            })
+                })
+            }
         }
     })
 })
@@ -345,51 +421,95 @@ router.post('/add3', (req, res) => {
         if (err) {
             throw err;
         } else {
-            var idHead
-            rees.forEach(ae => {
-                idHead = ae.idUjianH
-            })
-            var sqql = "select * from ujiand where idUjianH = ? and soalBagian = 3"
-            conn.query(sqql, idHead, (err, reees) => {
-                if (err) {
-                    throw err;
-                } else {
-                    if (reees.length) {
-                        var data = {
-                            jawabanBenar: benar,
-                            jawabanSalah: salah,
-                            jawabanKosong: kosong,
-                            nilai: nilai
-                        }
-                        var sqqql = "update ujiand set ? where idUjianH = '" + idHead + "' and soalBagian = 3"
-                        conn.query(sqqql, data, (err) => {
-                            if (err) {
-                                res.json({
-                                    code: 500,
-                                    message: "Failed update data ujian!!"
-                                });
-                            } else {
-                                res.json({
-                                    code: 200,
-                                    message: "Success mengupdate data!!"
-                                });
-                            }
-                        })
+            if (rees.length) {
+                var idHead
+                rees.forEach(ae => {
+                    idHead = ae.idUjianH
+                })
+                var sqql = "select * from ujiand where idUjianH = ? and soalBagian = 3"
+                conn.query(sqql, idHead, (err, reees) => {
+                    if (err) {
+                        throw err;
                     } else {
-                        var daata = {
-                            idUjianH: idHead,
+                        if (reees.length) {
+                            var data = {
+                                jawabanBenar: benar,
+                                jawabanSalah: salah,
+                                jawabanKosong: kosong,
+                                nilai: nilai
+                            }
+                            var sqqql = "update ujiand set ? where idUjianH = '" + idHead + "' and soalBagian = 3"
+                            conn.query(sqqql, data, (err) => {
+                                if (err) {
+                                    res.json({
+                                        code: 500,
+                                        message: "Failed update data ujian!!"
+                                    });
+                                } else {
+                                    res.json({
+                                        code: 200,
+                                        message: "Success mengupdate data!!"
+                                    });
+                                }
+                            })
+                        } else {
+                            var daata = {
+                                idUjianH: idHead,
+                                soalBagian: 3,
+                                jawabanBenar: benar,
+                                jawabanSalah: salah,
+                                jawabanKosong: kosong,
+                                nilai: nilai
+                            }
+                            var sqqqql = "insert into ujiand set ?"
+                            conn.query(sqqqql, daata, (err) => {
+                                if (err) {
+                                    res.json({
+                                        code: 500,
+                                        message: "Failed insert data ujian!!"
+                                    });
+                                } else {
+                                    res.json({
+                                        code: 200,
+                                        message: "Success menyimpan data!!"
+                                    });
+                                }
+                            })
+                        }
+                    }
+                })
+            } else {
+                var day = new Date().getDate()
+                var month = new Date().getMonth() + 1
+                var year = new Date().getFullYear()
+                var tgl = year + '-' + month + '-' + day
+                var dataa = {
+                    idCmhs: sess,
+                    tanggal: tgl
+                }
+                var sqlll = "insert into ujianh set ?"
+                conn.query(sqlll, dataa, (err, resss) => {
+                    if (err) {
+                        res.json({
+                            code: 500,
+                            message: "Failed insert data ujian!!"
+                        });
+                    } else {
+                        var headId = resss.insertId
+                        var dataaa = {
+                            idUjianH: headId,
                             soalBagian: 3,
                             jawabanBenar: benar,
                             jawabanSalah: salah,
                             jawabanKosong: kosong,
                             nilai: nilai
                         }
-                        var sqqqql = "insert into ujiand set ?"
-                        conn.query(sqqqql, daata, (err) => {
+                        var sqllll = "insert into ujiand set ?"
+                        conn.query(sqllll, dataaa, (err) => {
                             if (err) {
                                 res.json({
                                     code: 500,
-                                    message: "Failed insert data ujian!!"
+                                    message: "Failed insert data ujian detail!!"
                                 });
                             } else {
                                 res.json({
@@ -399,8 +519,8 @@ router.post('/add3', (req, res) => {
                             }
                         })
                     }
-                }
-            })
+                })
+            }
         }
     })
 })
@@ -431,61 +551,34 @@ router.post('/done', (req, res) => {
                     if (err) {
                         throw err;
                     } else {
-                        var hasil =''
+                        var hasil = ''
                         resss.forEach(ra => {
                             hasil = ra.total / 3
                         })
-                        if (hasil >= 60){
-                            var ssql = "update ujianh set nilai = '"+ hasil +"', status = 1 where idCmhs = '"+ id +"'"
-                            conn.query(ssql, (err) => {
-                                if (err) {
-                                    res.json({
-                                        code: 500,
-                                        message: "Failed update data ujian!!"
-                                    });
-                                } else {
-                                    var sssql = "update c_mhs set ? where ?"
-                                    conn.query(sssql, [dataL, key], (err) => {
-                                        if (err) {
-                                            res.json({
-                                                code: 500,
-                                                message: "Failed update data mahasiswa!!"
-                                            });
-                                        } else {
-                                            res.json({
-                                                code: 200,
-                                                message: "Data saved!!"
-                                            });
-                                        }
-                                    })
-                                }
-                            })
-                        } else {
-                            var sqqql = "update ujianh set nilai = '"+ hasil +"' where idCmhs = '"+ id +"'"
-                            conn.query(sqqql, (err) => {
-                                if (err) {
-                                    res.json({
-                                        code: 500,
-                                        message: "Failed update data ujian!!"
-                                    });
-                                } else {
-                                    var sqll = "update c_mhs set ? where ?"
-                                    conn.query(sqll, [data, key], (err) => {
-                                        if (err) {
-                                            res.json({
-                                                code: 500,
-                                                message: "Failed update data mahasiswa!!"
-                                            });
-                                        } else {
-                                            res.json({
-                                                code: 200,
-                                                message: "Data saved!!"
-                                            });
-                                        }
-                                    })
-                                }
-                            })
-                        }
+                        var sqqql = "update ujianh set nilai = '" + hasil + "' where idCmhs = '" + id + "'"
+                        conn.query(sqqql, (err) => {
+                            if (err) {
+                                res.json({
+                                    code: 500,
+                                    message: "Failed update data ujian!!"
+                                });
+                            } else {
+                                var sqll = "update c_mhs set ? where ?"
+                                conn.query(sqll, [data, key], (err) => {
+                                    if (err) {
+                                        res.json({
+                                            code: 500,
+                                            message: "Failed update data mahasiswa!!"
+                                        });
+                                    } else {
+                                        res.json({
+                                            code: 200,
+                                            message: "Data saved!!"
+                                        });
+                                    }
+                                })
+                            }
+                        })
                     }
                 })
             } else {

@@ -1,7 +1,7 @@
-const express    = require('express')
+const express = require('express')
 const bodyParser = require('body-parser')
-const router     = express.Router()
-const conn       = require("../config").pool;
+const router = express.Router()
+const conn = require("../config").pool;
 // const uuid = require('uuid')
 
 router.use(bodyParser.json())
@@ -41,12 +41,20 @@ router.post('/', (req, res) => {
         teleponOrangTua: req.body.v_teleponorangtua,
         pekerjaan: req.body.v_pekerjaan,
         tanggal: new Date().getFullYear() + '-' + month + '-' + new Date().getDate(),
+        prodi: req.body.v_prodi,
+        kelas: req.body.v_kls,
         status: 1
     }
     var pas = req.body.v_tgllahir
-    var pass = pas.replace('-', ''); 
+    var pass = pas.replace('-', '');
     var password = pass.replace('-', '');
-    var dataLogin = {nama: req.body.v_nama, email: req.body.v_email, password: password, level: 2, idMahasiswa: req.body.v_kode}
+    var dataLogin = {
+        nama: req.body.v_nama,
+        email: req.body.v_email,
+        password: password,
+        level: 2,
+        idMahasiswa: req.body.v_kode
+    }
     var sql = "insert into c_mhs set ?"
     var sqlLogin = "insert into login set ?"
     conn.query(sqlLogin, dataLogin, () => {})

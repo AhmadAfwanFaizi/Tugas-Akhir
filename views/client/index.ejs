@@ -299,6 +299,31 @@
                                     oninput="setCustomValidity('')">
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Prodi Pilihan</label>
+                                <select class="form-control" name="v_prodi" id="v_prodi" required
+                                    oninvalid="this.setCustomValidity('data tidak boleh kosong')"
+                                    oninput="setCustomValidity('')">
+                                    <option value="" hidden>--Pilih--</option>
+                                    <option value="IK">Management Informatika</option>
+                                    <option value="KA">Komputerisasi Akuntansi</option>
+                                    <option value="AP">Administrasi Bisnis</option>
+                                    <option value="ABI">Administrasi Bisnis Internasional</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Kelas Pilihan</label>
+                                <select class="form-control" name="v_kls" id="v_kls" required
+                                    oninvalid="this.setCustomValidity('data tidak boleh kosong')"
+                                    oninput="setCustomValidity('')">
+                                    <option value="" hidden>--Pilih--</option>
+                                    <option value="pagi">Regular Pagi</option>
+                                    <option value="malam">Regular Malam</option>
+                                    <option value="shift">Shift</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -1175,23 +1200,27 @@
                 url: url,
                 dataType: "json",
                 success: function (res) {
-                    var string = "MHS"
-                    var array = []
-                    res.data.forEach(id => {
-                        var kode = id.idMahasiswa.substr(3, 6)
-                        array.push(kode)
-                    });
-                    var maxx = Math.max.apply(null, array);
-                    var mmax = maxx + 1
                     var newid = "";
-                    if (mmax >= 10 && mmax < 100) {
-                        var neew = '' + mmax;
-                        newid = string + "0" + neew
-                    } else if (mmax < 10) {
-                        var neew = '' + mmax;
-                        newid = string + "00" + neew
+                    if (res.data.length == 0) {
+                        newid = "MHS001"
                     } else {
-                        newid = string + mmax;
+                        var string = "MHS"
+                        var array = []
+                        res.data.forEach(id => {
+                            var kode = id.idMahasiswa.substr(3, 6)
+                            array.push(kode)
+                        });
+                        var maxx = Math.max.apply(null, array);
+                        var mmax = maxx + 1
+                        if (mmax >= 10 && mmax < 100) {
+                            var neew = '' + mmax;
+                            newid = string + "0" + neew
+                        } else if (mmax < 10) {
+                            var neew = '' + mmax;
+                            newid = string + "00" + neew
+                        } else {
+                            newid = string + mmax;
+                        }
                     }
                     $("#v_kode").val(newid)
                 }
